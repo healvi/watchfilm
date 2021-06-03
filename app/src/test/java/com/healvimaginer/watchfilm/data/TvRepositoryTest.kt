@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import com.healvimaginer.watchfilm.data.source.local.LocalDataSourceTv
+import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteTvEntity
 import com.healvimaginer.watchfilm.data.source.local.entity.TvEntity
 import com.healvimaginer.watchfilm.data.source.remote.RemoteDataSource
 import com.healvimaginer.watchfilm.domain.utils.AppExecutors
@@ -29,6 +30,7 @@ class TvRepositoryTest {
 
     private val tvResponses = DataDummy.generateDummyTv()
     private val tvId = tvResponses[0].contentId
+    private val dummyFavTv = DataDummy.generateFavDummyTv()[0]
 
     @Test
     fun getAllTv() {
@@ -36,7 +38,6 @@ class TvRepositoryTest {
         Mockito.`when`(local.getAllTv()).thenReturn(dummytv)
         tvRepository.getAllTv()
         val tvEntities = Resource.success(PageListUtil.mockPagedList(DataDummy.generateDummyTv()))
-//        verify(remote).getAllTv()
         Assert.assertNotNull(tvEntities)
         assertEquals(tvResponses.size.toLong(), tvEntities.data?.size?.toLong())
     }
@@ -48,10 +49,45 @@ class TvRepositoryTest {
         dummytv.value = DataDummy.generateDummyTv()[0]
         Mockito.`when`(local.getTv(tvId)).thenReturn(dummytv)
         val tvEntities = Resource.success(LiveDataTestUtil.getValue(tvRepository.getTv(tvId)))
-
-//        verify(remote).getTv(tvId)
         Assert.assertNotNull(tvEntities)
         Assert.assertNotNull(tvEntities.data?.data?.title)
         assertEquals(tvResponses[0].title, tvEntities.data?.data?.title)
+    }
+
+    @Test
+    fun getAllTvPagging() {
+        val datasourceFactory = Mockito.mock(DataSource.Factory::class.java) as DataSource.Factory<Int, FavoriteTvEntity>
+        Mockito.`when`(local.getAllTvFavoritePagging()).thenReturn(datasourceFactory)
+        tvRepository.getAllTvPagging()
+        val filmEntities = Resource.success(PageListUtil.mockPagedList(DataDummy.generateDummyFilm()))
+        Assert.assertNotNull(filmEntities)
+        assertEquals(tvResponses.size.toLong(), filmEntities.data?.size?.toLong())
+    }
+
+    @Test
+    fun insert() {
+        val dummytv = MutableLiveData<FavoriteTvEntity>()
+        dummytv.value = dummyFavTv
+        val tv = dummyFavTv
+        tvRepository.insert(tv)
+    }
+
+    @Test
+    fun findFilm() {
+        val dummytv = MutableLiveData<FavoriteTvEntity>()
+        dummytv.value = dummyFavTv
+        Mockito.`when`(local.findTvFavorite(tvId)).thenReturn(dummytv)
+        val tvEntities = Resource.success(LiveDataTestUtil.getValue(tvRepository.findTv(tvId)))
+        Assert.assertNotNull(tvEntities)
+        Assert.assertNotNull(tvEntities.data?.title)
+        assertEquals(tvResponses[0].kreator, tvEntities.data?.kreator)
+    }
+
+    @Test
+    fun delete() {
+        val dummytv = MutableLiveData<FavoriteTvEntity>()
+        dummytv.value = dummyFavTv
+        val tv = dummyFavTv
+        tvRepository.insert(tv)
     }
 }

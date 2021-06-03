@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.healvimaginer.watchfilm.R
-import com.healvimaginer.watchfilm.presentation.favorite.filmtvfavorite.FavoriteFilmFragment
-import com.healvimaginer.watchfilm.presentation.favorite.filmtvfavorite.FavoriteTvFragment
+import com.healvimaginer.watchfilm.presentation.favorite.filmtvfavorite.film.FavoriteFilmFragment
+import com.healvimaginer.watchfilm.presentation.favorite.filmtvfavorite.tv.FavoriteTvFragment
 
 class FavoriteSectionAdapter(private val mContext : Context, fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
     companion object {

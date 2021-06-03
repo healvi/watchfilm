@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.healvimaginer.watchfilm.domain.viewModelFactory.ViewModelFactory
 import com.healvimaginer.watchfilm.databinding.FragmentFilmBinding
 import com.healvimaginer.watchfilm.domain.vo.Status

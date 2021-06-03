@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import com.healvimaginer.watchfilm.data.source.local.LocalDataSourceFilm
+import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteFilmEntity
 import com.healvimaginer.watchfilm.data.source.local.entity.FilmsEntity
 import com.healvimaginer.watchfilm.data.source.remote.RemoteDataSource
 import com.healvimaginer.watchfilm.domain.utils.AppExecutors
@@ -31,6 +32,8 @@ class FilmRepositoryTest {
 
     private val filmResponses = DataDummy.generateDummyFilm()
     private val filmId = filmResponses[0].contentId
+    private val dummyFilm = DataDummy.generateDummyFilm()[6]
+    private val dummyFavFilm = DataDummy.generateFavDummyFilm()[0]
 
     @Test
     fun getAllFilm() {
@@ -38,7 +41,6 @@ class FilmRepositoryTest {
         `when`(local.getAllFilm()).thenReturn(dummyfilm)
         filmRepository.getAllFilm()
         val filmEntities = Resource.success(PageListUtil.mockPagedList(DataDummy.generateDummyFilm()))
-//        verify(remote).getAllFilm()
         Assert.assertNotNull(filmEntities)
         assertEquals(filmResponses.size.toLong(), filmEntities.data?.size?.toLong())
     }
@@ -50,9 +52,45 @@ class FilmRepositoryTest {
         dummyfilm.value = DataDummy.generateDummyFilm()[0]
         `when`(local.getFilm(filmId)).thenReturn(dummyfilm)
         val filmEntities = Resource.success(LiveDataTestUtil.getValue(filmRepository.getFilm(filmId)))
-//        verify(remote).getAllFilm()
         Assert.assertNotNull(filmEntities)
         Assert.assertNotNull(filmEntities.data?.data?.title)
         assertEquals(filmResponses[0].title, filmEntities.data?.data?.title)
+    }
+
+    @Test
+    fun getAllFilmPagging() {
+        val datasourceFactory = mock(DataSource.Factory::class.java) as DataSource.Factory<Int, FavoriteFilmEntity>
+        `when`(local.getAllFilmFavoritePagging()).thenReturn(datasourceFactory)
+        filmRepository.getAllFilmPagging()
+        val filmEntities = Resource.success(PageListUtil.mockPagedList(DataDummy.generateDummyFilm()))
+        Assert.assertNotNull(filmEntities)
+        assertEquals(filmResponses.size.toLong(), filmEntities.data?.size?.toLong())
+    }
+
+    @Test
+    fun insert() {
+        val dummyfilm = MutableLiveData<FavoriteFilmEntity>()
+        dummyfilm.value = dummyFavFilm
+        val film = dummyFavFilm
+        filmRepository.insert(film)
+    }
+
+    @Test
+    fun findFilm() {
+        val dummyfilm = MutableLiveData<FavoriteFilmEntity>()
+        dummyfilm.value = dummyFavFilm
+        `when`(local.findFilmFavorite(filmId)).thenReturn(dummyfilm)
+        val filmEntities = Resource.success(LiveDataTestUtil.getValue(filmRepository.findFilm(filmId)))
+        Assert.assertNotNull(filmEntities)
+        Assert.assertNotNull(filmEntities.data?.title)
+        assertEquals(filmResponses[0].director, filmEntities.data?.director)
+    }
+
+    @Test
+    fun delete() {
+        val dummyfilm = MutableLiveData<FavoriteFilmEntity>()
+        dummyfilm.value = dummyFavFilm
+        val film = dummyFavFilm
+        filmRepository.delete(film)
     }
 }

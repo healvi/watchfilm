@@ -1,4 +1,4 @@
-package com.healvimaginer.watchfilm.presentation.tv
+package com.healvimaginer.watchfilm.presentation.favorite.filmtvfavorite.tv
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -10,25 +10,26 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.healvimaginer.watchfilm.R
-import com.healvimaginer.watchfilm.data.source.local.entity.TvEntity
+import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteTvEntity
 import com.healvimaginer.watchfilm.databinding.ItemListTvBinding
+import com.healvimaginer.watchfilm.presentation.tv.DetailsTvActivity
 
-class TvAdapter: PagedListAdapter<TvEntity, TvAdapter.ViewHolder>(DIFF_CALLBACK) {
+class TvAdapter: PagedListAdapter<FavoriteTvEntity, TvAdapter.ViewHolder>(DIFF_CALLBACK) {
     companion object {
-        private val DIFF_CALLBACK: DiffUtil.ItemCallback<TvEntity> = object : DiffUtil.ItemCallback<TvEntity>() {
-            override fun areItemsTheSame(oldNote: TvEntity, newNote: TvEntity): Boolean {
+        private val DIFF_CALLBACK: DiffUtil.ItemCallback<FavoriteTvEntity> = object : DiffUtil.ItemCallback<FavoriteTvEntity>() {
+            override fun areItemsTheSame(oldNote: FavoriteTvEntity, newNote: FavoriteTvEntity): Boolean {
                 return oldNote.title == newNote.title && oldNote.description == newNote.description && oldNote.rilis == newNote.rilis && oldNote.image == newNote.image
             }
 
             @SuppressLint("DiffUtilEquals")
-            override fun areContentsTheSame(oldNote: TvEntity, newNote: TvEntity): Boolean {
+            override fun areContentsTheSame(oldNote: FavoriteTvEntity, newNote: FavoriteTvEntity): Boolean {
                 return oldNote == newNote
             }
         }
     }
 
     class ViewHolder(private val binding: ItemListTvBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(tvlist: TvEntity) {
+        fun bind(tvlist: FavoriteTvEntity) {
             with(binding) {
                 tvItemTitle.text = tvlist.title
                 tvItemDate.text = tvlist.rilis
@@ -51,8 +52,8 @@ class TvAdapter: PagedListAdapter<TvEntity, TvAdapter.ViewHolder>(DIFF_CALLBACK)
         return ViewHolder(itemTv)
     }
 
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position) as TvEntity)
+        holder.bind(getItem(position) as FavoriteTvEntity)
     }
+
 }

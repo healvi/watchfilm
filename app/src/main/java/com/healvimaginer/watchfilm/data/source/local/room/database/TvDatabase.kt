@@ -9,7 +9,7 @@ import com.healvimaginer.watchfilm.data.source.local.room.dao.TvDao
 
 @Database(entities = [TvEntity::class], version = 1, exportSchema = false)
 abstract class TvDatabase : RoomDatabase() {
-    abstract fun favoriteTvDao(): TvDao
+    abstract fun TvDao(): TvDao
     companion object {
         @Volatile
         private var INSTANCE: TvDatabase? = null

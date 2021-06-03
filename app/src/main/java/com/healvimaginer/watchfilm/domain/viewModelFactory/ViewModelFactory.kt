@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.healvimaginer.watchfilm.data.FilmRepository
 import com.healvimaginer.watchfilm.domain.di.Injection
+import com.healvimaginer.watchfilm.presentation.favorite.filmtvfavorite.film.FavFilmViewModel
 import com.healvimaginer.watchfilm.presentation.film.DetailFilmViewModel
 import com.healvimaginer.watchfilm.presentation.film.FilmViewModel
 
@@ -28,8 +29,12 @@ class ViewModelFactory private constructor(private val mFilmRepository: FilmRepo
             modelClass.isAssignableFrom(FilmViewModel::class.java) -> {
                 FilmViewModel(mFilmRepository) as T
             }
-            modelClass.isAssignableFrom(DetailFilmViewModel::class.java) -> DetailFilmViewModel(mFilmRepository) as T
-
+            modelClass.isAssignableFrom(DetailFilmViewModel::class.java) -> {
+                DetailFilmViewModel(mFilmRepository) as T
+            }
+            modelClass.isAssignableFrom(FavFilmViewModel::class.java) -> {
+                FavFilmViewModel(mFilmRepository) as T
+            }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }
 

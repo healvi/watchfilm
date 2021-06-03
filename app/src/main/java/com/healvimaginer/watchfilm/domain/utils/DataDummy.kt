@@ -1,5 +1,7 @@
 package com.healvimaginer.watchfilm.domain.utils
 
+import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteFilmEntity
+import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteTvEntity
 import com.healvimaginer.watchfilm.data.source.local.entity.FilmsEntity
 import com.healvimaginer.watchfilm.data.source.local.entity.TvEntity
 import com.healvimaginer.watchfilm.data.source.remote.response.FilmResponse
@@ -137,6 +139,23 @@ object DataDummy {
         return film
     }
 
+    fun generateFavDummyFilm(): java.util.ArrayList<FavoriteFilmEntity> {
+
+        val film = java.util.ArrayList<FavoriteFilmEntity>()
+
+        film.add(
+            FavoriteFilmEntity("f1",
+            "Start Is Born",
+            "Film Ini berisi tentang bagaimana kita terlahir dan bagaimana kita mendapat ha kita sebagai manusia abadi",
+            "Bradley Cooper",
+            "31 Agustus 2018",
+            "https://image.tmdb.org/t/p/w500/7BsvSuDQuoqhWmU2fL7W2GOcZHU.jpg",
+            "36 Juta Dollar",
+            "436.2 Juta Dollar",)
+        )
+
+        return film
+    }
 
     fun generateRemoteDummyTv(): java.util.ArrayList<TvResponse> {
 
@@ -155,6 +174,22 @@ object DataDummy {
         return tv
     }
 
+    fun generateFavDummyTv(): java.util.ArrayList<FavoriteTvEntity> {
+
+        val tv = java.util.ArrayList<FavoriteTvEntity>()
+
+        tv.add(FavoriteTvEntity("t1",
+            "Marvel's Iron Fist",
+            "Danny Rand resurfaces 15 years after being presumed dead. Now, with the power of the Iron Fist, he seeks to reclaim his past and fulfill his destiny.",
+            "Scott Buck",
+            "2017",
+            "https://image.tmdb.org/t/p/w500/7BsvSuDQuoqhWmU2fL7W2GOcZHU.jpg",
+            "Dibatalkan",
+            "NETFLIX",
+        ))
+
+        return tv
+    }
 
     fun generateDummyTv() : List<TvEntity> {
         val tv = ArrayList<TvEntity>()

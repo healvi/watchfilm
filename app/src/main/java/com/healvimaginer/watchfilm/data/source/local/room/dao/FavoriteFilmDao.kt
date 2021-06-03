@@ -20,3 +20,4 @@ interface FavoriteFilmDao {
     @Delete
     fun deleteFilm(favorite: FavoriteFilmEntity)
 }
+

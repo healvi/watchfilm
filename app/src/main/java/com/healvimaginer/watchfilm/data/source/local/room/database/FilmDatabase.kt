@@ -9,7 +9,7 @@ import com.healvimaginer.watchfilm.data.source.local.room.dao.FilmDao
 
 @Database(entities = [FilmsEntity::class], version = 1, exportSchema = false)
 abstract class FilmDatabase : RoomDatabase() {
-    abstract fun favoriteFilmDao(): FilmDao
+    abstract fun FilmDao(): FilmDao
     companion object {
         @Volatile
         private var INSTANCE: FilmDatabase? = null

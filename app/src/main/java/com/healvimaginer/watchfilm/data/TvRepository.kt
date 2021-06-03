@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.healvimaginer.watchfilm.data.source.local.LocalDataSourceTv
+import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteTvEntity
 import com.healvimaginer.watchfilm.data.source.local.entity.TvEntity
 import com.healvimaginer.watchfilm.data.source.remote.ApiResponse
 import com.healvimaginer.watchfilm.data.source.remote.NetworkBoundResource
@@ -11,10 +12,11 @@ import com.healvimaginer.watchfilm.data.source.remote.RemoteDataSource
 import com.healvimaginer.watchfilm.data.source.remote.response.TvResponse
 import com.healvimaginer.watchfilm.domain.utils.AppExecutors
 import com.healvimaginer.watchfilm.domain.vo.Resource
+import java.util.concurrent.Executors
 
 class TvRepository private constructor(private val remoteDataSource: RemoteDataSource, private val localDataSourceTv: LocalDataSourceTv, private val appExecutors: AppExecutors) :
     TvDataSource {
-
+    val exe = Executors.newSingleThreadExecutor()
     companion object {
         @Volatile
         private var instance: TvRepository? = null
@@ -78,23 +80,40 @@ class TvRepository private constructor(private val remoteDataSource: RemoteDataS
                 return remoteDataSource.getTv(tvId)
             }
 
-            override fun saveCallResult(response: TvResponse) {
+            override fun saveCallResult(data: TvResponse) {
                 val tv = TvEntity(
-                    response.contentId,
-                    response.title,
-                    response.description,
-                    response.Kreator,
-                    response.rilis,
-                    response.image,
-                    response.status,
-                    response.network
+                    data.contentId,
+                    data.title,
+                    data.description,
+                    data.Kreator,
+                    data.rilis,
+                    data.image,
+                    data.status,
+                    data.network
                 )
                 localDataSourceTv.updateFilm(tv)
             }
         }.asLiveData()
     }
 
+    override fun getAllTvPagging(): LiveData<PagedList<FavoriteTvEntity>> {
+        val config = PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setInitialLoadSizeHint(4)
+            .setPageSize(2)
+            .build()
+        return LivePagedListBuilder(localDataSourceTv.getAllTvFavoritePagging(),config).build()
+    }
 
-
+    override fun insert(favoriteTvEntity: FavoriteTvEntity) {
+        return exe.execute {
+            localDataSourceTv.insertTvFavorite(favoriteTvEntity)
+        }
+    }
+    override fun delete(favoriteTvEntity: FavoriteTvEntity) {
+        return exe.execute {
+            localDataSourceTv.deleteTvFavorite(favoriteTvEntity)
+        }
+    }
+    override fun findTv(checklogin: String): LiveData<FavoriteTvEntity> = localDataSourceTv.findTvFavorite(checklogin)
 }
-

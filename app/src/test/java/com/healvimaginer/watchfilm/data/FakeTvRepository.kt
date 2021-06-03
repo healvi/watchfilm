@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.healvimaginer.watchfilm.data.source.local.LocalDataSourceTv
+import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteTvEntity
 import com.healvimaginer.watchfilm.data.source.local.entity.TvEntity
 import com.healvimaginer.watchfilm.data.source.remote.ApiResponse
 import com.healvimaginer.watchfilm.data.source.remote.NetworkBoundResource
@@ -12,9 +13,10 @@ import com.healvimaginer.watchfilm.data.source.remote.response.TvResponse
 import com.healvimaginer.watchfilm.domain.utils.AppExecutors
 import com.healvimaginer.watchfilm.domain.vo.Resource
 import java.util.*
+import java.util.concurrent.Executors
 
 class FakeTvRepository(private val remoteDataSource: RemoteDataSource, private val localDataSourceTv: LocalDataSourceTv, private val appExecutors: AppExecutors) : TvDataSource {
-
+    val exe = Executors.newSingleThreadExecutor()
     override fun getAllTv(): LiveData<Resource<PagedList<TvEntity>>> {
         return object : NetworkBoundResource<PagedList<TvEntity>, List<TvResponse>>(appExecutors) {
             override fun loadFromDB(): LiveData<PagedList<TvEntity>> {
@@ -83,6 +85,26 @@ class FakeTvRepository(private val remoteDataSource: RemoteDataSource, private v
             }
         }.asLiveData()
     }
+
+    override fun getAllTvPagging(): LiveData<PagedList<FavoriteTvEntity>> {
+        val config = PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setInitialLoadSizeHint(4)
+            .setPageSize(2)
+            .build()
+        return LivePagedListBuilder(localDataSourceTv.getAllTvFavoritePagging(),config).build()
+    }
+    override fun insert(favoriteTvEntity: FavoriteTvEntity) {
+        return exe.execute {
+            localDataSourceTv.insertTvFavorite(favoriteTvEntity)
+        }
+    }
+    override fun delete(favoriteTvEntity: FavoriteTvEntity) {
+        return exe.execute {
+            localDataSourceTv.deleteTvFavorite(favoriteTvEntity)
+        }
+    }
+    override fun findTv(checklogin: String): LiveData<FavoriteTvEntity> = localDataSourceTv.findTvFavorite(checklogin)
 
 }
 

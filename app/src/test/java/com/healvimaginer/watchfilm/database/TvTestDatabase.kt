@@ -1,4 +1,4 @@
-package com.healvimaginer.watchfilm.data.source.local.room.database
+package com.healvimaginer.watchfilm.database
 
 import android.content.Context
 import androidx.room.Database
@@ -8,18 +8,17 @@ import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteTvEntity
 import com.healvimaginer.watchfilm.data.source.local.room.dao.FavoriteTvDao
 
 @Database(entities = [FavoriteTvEntity::class], version = 1, exportSchema = false)
-abstract class FavoriteTvDatabase : RoomDatabase() {
+abstract class TvTestDatabase : RoomDatabase() {
     abstract fun favoriteTvDao(): FavoriteTvDao
     companion object {
         @Volatile
-        private var INSTANCE: FavoriteTvDatabase? = null
+        private var INSTANCE: TvTestDatabase? = null
 
-        fun getInstance(context: Context): FavoriteTvDatabase =
+        fun getInstance(context: Context): TvTestDatabase =
             INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
+                val instance = Room.inMemoryDatabaseBuilder(
                     context.applicationContext,
-                    FavoriteTvDatabase::class.java,
-                    "FavoriteTv.db"
+                    TvTestDatabase::class.java,
                 )
                     .fallbackToDestructiveMigration()
                     .build()
