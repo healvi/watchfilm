@@ -1,0 +1,104 @@
+{
+  "tv": [
+     {
+      "contentId": "t1",
+      "title": "Marvel's Iron Fist",
+      "description": "Danny Rand resurfaces 15 years after being presumed dead. Now, with the power of the Iron Fist, he seeks to reclaim his past and fulfill his destiny.",
+      "rilis": "2017",
+      "status": "Dibatalkan",
+      "network": "NETFLIX",
+      "image": "https://image.tmdb.org/t/p/w500/7BsvSuDQuoqhWmU2fL7W2GOcZHU.jpg",
+      "kreator": "Scott Buck"
+    },
+    {
+      "contentId": "t2",
+      "title": "Naruto Shipudden",
+      "description": "Naruto Shippūden Ultimate Ninja Storm Generations OVA Madara vs Hashirama is the tenth Naruto OVA. It is distributed as part of Naruto Shippūden: Ultimate Ninja Storm Generations.",
+      "rilis": "2002",
+      "status": "Rilis",
+      "network": "NETFLIX, Bioskop",
+      "image": "https://image.tmdb.org/t/p/w500/9zfwPffUXpBrEP26yp0q1ckXDcj.jpg",
+      "kreator": "James Wan"
+    },
+    {
+      "contentId": "t3",
+      "title": "NCIS 2003",
+      "description": "From murder and espionage to terrorism and stolen submarines, a team of special agents investigates any crime that has a shred of evidence connected to Navy and Marine Corps personnel, regardless of rank or position.",
+      "rilis": "2003",
+      "status": "Berlanjut",
+      "network": "CBS",
+      "image": "https://image.tmdb.org/t/p/w500/rcICfiL9fvwRjoWHxW8QeroLYrJ.jpg",
+      "kreator": "Donald .Bellisario"
+    },
+    {
+      "contentId": "t4",
+      "title": "Riverdale",
+      "description": "et in the present, the series offers a bold, subversive take on Archie, Betty, Veronica and their friends, exploring the surreality of small-town life, the darkness and weirdness bubbling beneath Riverdale’s wholesome facade.",
+      "rilis": "Roberto Aguirre-sacceas",
+      "status": "Berlanjut",
+      "network": "The CW",
+      "image": "https://image.tmdb.org/t/p/w500/rBkptJyAMqCfoMwUGQfCpubroec.jpg",
+      "kreator": "Roberto Aguirre-sacceas"
+    },
+    {
+      "contentId": "t5",
+      "title": "Riverdale",
+      "description": "Chicagoan Frank Gallagher is the proud single dad of six smart, industrious, independent kids, who without him would be... perhaps better off. When Frank's not at the bar spending what little money they have, he's passed out on the floor. But the kids have found ways to grow up in spite of him. They may not be like any family you know, but they make no apologies for being exactly who they are.",
+      "rilis": "2011",
+      "status": "Berakhir",
+      "network": "76.419 Juta Dollar",
+      "image": "https://image.tmdb.org/t/p/w500/lvWL5ZRlYFh7M7fOvYswcRqyprI.jpg",
+      "kreator": "ShowTime"
+    },
+    {
+      "contentId": "t6",
+      "title": "Supergirl",
+      "description": "Twenty-four-year-old Kara Zor-El, who was taken in by the Danvers family when she was 13 after being sent away from Krypton, must learn to embrace her powers after previously hiding them. The Danvers teach her to be careful with her powers, until she has to reveal them during an unexpected disaster, setting her on her journey of heroism.",
+      "rilis": "2015",
+      "status": "Berlanjut",
+      "network": "CBS",
+      "image": "https://image.tmdb.org/t/p/w500/xdANQijuNrJaw1HA61rDccME4Tm.jpg",
+      "kreator": "Greg Berlanti"
+    },
+    {
+      "contentId": "t7",
+      "title": "Supernatrual",
+      "description": "Twenty-four-year-old Kara Zor-El, who was taken in by the Danvers family when she was 13 after being sent away from Krypton, must learn to embrace her powers after previously hiding them. The Danvers teach her to be careful with her powers, until she has to reveal them during an unexpected disaster, setting her on her journey of heroism.",
+      "rilis": "2015",
+      "status": "Berlanjut",
+      "network": "CBS",
+      "image": "https://image.tmdb.org/t/p/w500/2HVkfkgY1nvWTCRj3H1zTmlghUG.jpg",
+      "kreator": "Greg Berlantin"
+    },
+    {
+      "contentId": "t8",
+      "title": "Simpson",
+      "description": "Bertempat di Springfield, kota rata-rata di Amerika, pertunjukan ini berfokus pada kejenakaan dan petualangan sehari-hari keluarga Simpson; Homer, Marge, Bart, Lisa dan Maggie, serta ribuan pemain virtual. Sejak awal, serial ini telah menjadi ikon budaya pop, menarik ratusan selebriti menjadi bintang tamu. Acara ini juga menjadi terkenal karena satirnya yang tak kenal takut terhadap kehidupan politik, media, dan Amerika secara umum.",
+      "rilis": "1989",
+      "status": "Berlanjut",
+      "network": "CBS",
+      "image": "https://image.tmdb.org/t/p/w500/2HVkfkgY1nvWTCRj3H1zTmlghUG.jpg",
+      "kreator": "Matt groening"
+    },
+    {
+      "contentId": "t9",
+      "title": "The Umbrella Academy",
+      "description": "A dysfunctional family of superheroes comes together to solve the mystery of their father's death, the threat of the apocalypse and more",
+      "rilis": "2019",
+      "status": "Berlanjut",
+      "network": "NETFLIX",
+      "image": "https://image.tmdb.org/t/p/w500/uQ538BfYLDJh3GXlzRZLo0j7PFj.jpg",
+      "kreator": "Steve Blackman"
+    },
+    {
+      "contentId": "t10",
+      "title": "The Walking Dead",
+      "description": "Sheriff's deputy Rick Grimes awakens from a coma to find a post-apocalyptic world dominated by flesh-eating zombies. He sets out to find his family and encounters many other survivors along the way.",
+      "rilis": "2010",
+      "status": "Berlanjut",
+      "network": "AMC",
+      "image": "https://image.tmdb.org/t/p/w500/5WU6uusqJrLfiBaNs3KpF4o8Lnj.jpg",
+      "kreator": "Frank Darabont"
+    }
+  ]
+}

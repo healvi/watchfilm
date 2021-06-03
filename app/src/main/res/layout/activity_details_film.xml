@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.healvimaginer.watchfilm.presentation.film.DetailsFilmActivity">
+
+    <ImageView
+        android:id="@+id/imagefilm"
+        android:layout_width="201dp"
+        android:layout_height="208dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars"
+        android:contentDescription="@string/avatars" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/judul"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imagefilm"
+        app:layout_constraintTop_toTopOf="@+id/imagefilm" />
+
+    <TextView
+        android:id="@+id/title_film"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintStart_toEndOf="@+id/imagefilm"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:text="Naruto Shippuden" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/title_film"
+        app:layout_constraintStart_toEndOf="@+id/imagefilm"
+        app:layout_constraintTop_toBottomOf="@+id/title_film"
+        android:text="@string/rilis" />
+
+    <TextView
+        android:id="@+id/rilis_film"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView3"
+        app:layout_constraintStart_toEndOf="@+id/imagefilm"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        tools:text="2020" />
+
+    <TextView
+        android:id="@+id/director_film"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imagefilm"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        tools:text="Masashi Kishimito" />
+
+    <TextView
+        android:id="@+id/texvisa"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/anggaran"
+        app:layout_constraintEnd_toStartOf="@+id/txview"
+        app:layout_constraintStart_toStartOf="@+id/imagefilm"
+        app:layout_constraintTop_toBottomOf="@+id/imagefilm" />
+
+    <TextView
+        android:id="@+id/anggaran_film"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toStartOf="@+id/director_film"
+        app:layout_constraintStart_toStartOf="@+id/texvisa"
+        app:layout_constraintTop_toBottomOf="@+id/texvisa"
+        tools:text="12 Juta dollars" />
+
+    <TextView
+        android:id="@+id/txview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/director_film"
+        app:layout_constraintStart_toEndOf="@+id/imagefilm"
+        app:layout_constraintTop_toBottomOf="@+id/imagefilm"
+        android:text="@string/pendapatan" />
+
+    <TextView
+        android:id="@+id/pendapatan_film"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        app:layout_constraintEnd_toEndOf="@+id/txview"
+        app:layout_constraintStart_toStartOf="@+id/txview"
+        app:layout_constraintTop_toBottomOf="@+id/txview"
+        tools:text="13 juta dolar" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/deskripsi"
+        app:layout_constraintStart_toStartOf="@+id/imagefilm"
+        app:layout_constraintTop_toBottomOf="@+id/anggaran_film" />
+
+    <TextView
+        android:id="@+id/deskription_film"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView10"
+        app:layout_constraintTop_toBottomOf="@+id/textView10"
+        tools:text="ini deskrisipn" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/director"
+        app:layout_constraintEnd_toEndOf="@+id/rilis_film"
+        app:layout_constraintStart_toStartOf="@+id/rilis_film"
+        app:layout_constraintTop_toBottomOf="@+id/rilis_film" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:focusable="true"
+        android:contentDescription="@string/favorite" />
+</androidx.constraintlayout.widget.ConstraintLayout>

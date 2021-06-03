@@ -1,0 +1,104 @@
+{
+  "film": [
+    {
+      "contentId": "f1",
+      "title": "Start Is Born",
+      "description": "Film Ini berisi tentang bagaimana kita terlahir dan bagaimana kita mendapat ha kita sebagai manusia abadi",
+      "rilis": "31 Agustus 2018",
+      "anggaran": "36 Juta Dollar",
+      "pendapatan": "436.2 Juta Dollar",
+      "image": "https://image.tmdb.org/t/p/w500/7BsvSuDQuoqhWmU2fL7W2GOcZHU.jpg",
+      "director": "Bradley Cooper"
+    },
+    {
+      "contentId": "f2",
+      "title": "Aquaman(2018)",
+      "description": "Once home to the most advanced civilization on Earth, Atlantis is now an underwater kingdom ruled by the power-hungry King Orm. With a vast army at his disposal, Orm plans to conquer the remaining oceanic people and then the surface world. Standing in his way is Arthur Curry, Orm's half-human, half-Atlantean brother and true heir to the throne.",
+      "rilis": "21 Desember 2018",
+      "anggaran": "160 Juta Dollar",
+      "pendapatan": "1.148.461 Juta Dollar",
+      "image": "https://image.tmdb.org/t/p/w500/9zfwPffUXpBrEP26yp0q1ckXDcj.jpg",
+      "director": "James Wan"
+    },
+    {
+      "contentId": "f3",
+      "title": "Alita:Battle Angel",
+      "description": "Ketika Alita terbangun tanpa ingatan tentang siapa dia di dunia masa depan yang tidak dia kenal, dia ditangkap oleh Ido, seorang dokter yang penuh kasih yang menyadari bahwa di suatu tempat dalam cangkang cyborg yang ditinggalkan ini adalah hati dan jiwa seorang wanita muda dengan luar biasa. lalu.",
+      "rilis": "14 February 2019",
+      "anggaran": "170 Juta Dollar",
+      "pendapatan": "404.852 Juta Dollar",
+      "image": "https://image.tmdb.org/t/p/w500/rcICfiL9fvwRjoWHxW8QeroLYrJ.jpg",
+      "director": "Robert Rodgriguez"
+    },
+    {
+      "contentId": "f4",
+      "title": "Bohemian Rhasody (2018)",
+      "description": "Singer Freddie Mercury, guitarist Brian May, drummer Roger Taylor and bass guitarist John Deacon take the music world by storm when they form the rock 'n' roll band Queen in 1970. Hit songs become instant classics. When Mercury's increasingly wild lifestyle starts to spiral out of control, Queen soon faces its greatest challenge yet – finding a way to keep the band together amid the success and excess.",
+      "rilis": "02 November 2018",
+      "anggaran": "52 Juta Dollar",
+      "pendapatan": "894.027 Juta Dollar",
+      "image": "https://image.tmdb.org/t/p/w500/rBkptJyAMqCfoMwUGQfCpubroec.jpg",
+      "director": "Bryan Singer"
+    },
+    {
+      "contentId": "f5",
+      "title": "Cold Pursuit (2019)",
+      "description": "The quiet family life of Nels Coxman, a snowplow driver, is upended after his son's murder. Nels begins a vengeful hunt for Viking, the drug lord he holds responsible for the killing, eliminating Viking's associates one by one. As Nels draws closer to Viking, his actions bring even more unexpected and violent consequences, as he proves that revenge is all in the execution.",
+      "rilis": "08 Februari 2019",
+      "anggaran": "60 Juta Dollar",
+      "pendapatan": "76.419 Juta Dollar",
+      "image": "https://image.tmdb.org/t/p/w500/lvWL5ZRlYFh7M7fOvYswcRqyprI.jpg",
+      "director": "Hans Petter Moland"
+    },
+    {
+      "contentId": "f6",
+      "title": "Creed II",
+      "description": "Between personal obligations and training for his next big fight against an opponent with ties to his family's past, Adonis Creed is up against the challenge of his life.",
+      "rilis": "21 November 2018",
+      "anggaran": "50 Juta Dollar",
+      "pendapatan": "214.215 Juta Dollar",
+      "image": "https://image.tmdb.org/t/p/w500/xdANQijuNrJaw1HA61rDccME4Tm.jpg",
+      "director": "Steven Caple Jr"
+    },
+    {
+      "contentId": "f7",
+      "title": "Glass",
+      "description": "In a series of escalating encounters, former security guard David Dunn uses his supernatural abilities to track Kevin Wendell Crumb, a disturbed man who has twenty-four personalities. Meanwhile, the shadowy presence of Elijah Price emerges as an orchestrator who holds secrets critical to both men.",
+      "rilis": "18 january 2019",
+      "anggaran": "20 Juta Dollar",
+      "pendapatan": "246.941 Juta Dollar",
+      "image": "https://image.tmdb.org/t/p/w500/2HVkfkgY1nvWTCRj3H1zTmlghUG.jpg",
+      "director": "M. Night Shyamalan"
+    },
+    {
+      "contentId": "f8",
+      "title": "How To Train Your Dragon:The Hidden World",
+      "description": "Ketika Hiccup memenuhi mimpinya untuk menciptakan utopia naga yang damai, penemuan Toothless 'dari pasangan yang tak teruji dan sukar ditangkap membuat Night Fury menjauh. Ketika bahaya meningkat di rumah dan pemerintahan Hiccup sebagai kepala desa diuji, baik naga dan pengendara harus membuat keputusan yang mustahil untuk menyelamatkan jenis mereka.",
+      "rilis": "09 january 2019",
+      "anggaran": "129 Juta Dollar",
+      "pendapatan": "517.526 Juta Dollar",
+      "image": "https://image.tmdb.org/t/p/w500/khtVL4abxYczXAWbo1wAz13CLx3.jpg",
+      "director": "Dean DeBlois"
+    },
+    {
+      "contentId": "f9",
+      "title": "Avengers:Infinity War",
+      "description": "Karena Avengers dan sekutunya terus melindungi dunia dari ancaman yang terlalu besar untuk ditangani oleh seorang pahlawan, bahaya baru telah muncul dari bayangan kosmik: Thanos. Seorang lalim penghujatan intergalaksi, tujuannya adalah untuk mengumpulkan semua enam Batu Infinity, artefak kekuatan yang tak terbayangkan, dan menggunakannya untuk menimbulkan kehendak memutar pada semua realitas. Segala sesuatu yang telah diperjuangkan oleh Avengers telah berkembang hingga saat ini - nasib Bumi dan keberadaannya sendiri tidak pernah lebih pasti.",
+      "rilis": "27 April 2019",
+      "anggaran": "300 Juta Dollar",
+      "pendapatan": "2.046.239 Juta Dollar",
+      "image": "https://image.tmdb.org/t/p/w500/uQ538BfYLDJh3GXlzRZLo0j7PFj.jpg",
+      "director": "Anthony Russo"
+    },
+    {
+      "contentId": "f10",
+      "title": "Crimes:Grinderwald",
+      "description": "Gellert Grindelwald telah melarikan diri dari penjara dan telah mulai mengumpulkan pengikut ke tujuannya — meninggikan penyihir di atas semua makhluk non-magis. Satu-satunya yang bisa menghentikannya adalah penyihir yang pernah disebutnya sebagai sahabat terdekatnya, Albus Dumbledore. Namun, Dumbledore akan perlu mencari bantuan dari penyihir yang telah menggagalkan Grindelwald sebelumnya, mantan muridnya, Newt Scamander, yang setuju untuk membantu, tidak menyadari bahaya yang ada di depan. Garis-garis digambar saat cinta dan kesetiaan diuji, bahkan di antara teman-teman dan keluarga sejati, di dunia sihir yang semakin terbagi.",
+      "rilis": "16 November 2018",
+      "anggaran": "200 Juta Dollar",
+      "pendapatan": "653.355 Juta Dollar",
+      "image": "https://image.tmdb.org/t/p/w500/5WU6uusqJrLfiBaNs3KpF4o8Lnj.jpg",
+      "director": "David Yates"
+    }
+  ]
+}
