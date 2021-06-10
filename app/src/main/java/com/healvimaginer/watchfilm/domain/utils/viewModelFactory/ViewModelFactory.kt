@@ -1,15 +1,16 @@
-package com.healvimaginer.watchfilm.domain.viewModelFactory
+package com.healvimaginer.watchfilm.domain.utils.viewModelFactory
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.healvimaginer.watchfilm.data.FilmRepository
 import com.healvimaginer.watchfilm.domain.di.Injection
+import com.healvimaginer.watchfilm.domain.usecase.FilmUseCase
 import com.healvimaginer.watchfilm.presentation.favorite.filmtvfavorite.film.FavFilmViewModel
 import com.healvimaginer.watchfilm.presentation.film.DetailFilmViewModel
 import com.healvimaginer.watchfilm.presentation.film.FilmViewModel
 
-class ViewModelFactory private constructor(private val mFilmRepository: FilmRepository) : ViewModelProvider.NewInstanceFactory() {
+class ViewModelFactory private constructor(private val filmUseCase: FilmUseCase) : ViewModelProvider.NewInstanceFactory() {
 
     companion object {
         @Volatile
@@ -17,7 +18,7 @@ class ViewModelFactory private constructor(private val mFilmRepository: FilmRepo
 
         fun getInstance(context: Context): ViewModelFactory =
             instance ?: synchronized(this) {
-                instance ?: ViewModelFactory(Injection.provideRepository(context)).apply {
+                instance ?: ViewModelFactory(Injection.procideFilmUseCase(context)).apply {
                     instance = this
                 }
             }
@@ -27,13 +28,13 @@ class ViewModelFactory private constructor(private val mFilmRepository: FilmRepo
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
             modelClass.isAssignableFrom(FilmViewModel::class.java) -> {
-                FilmViewModel(mFilmRepository) as T
+                FilmViewModel(filmUseCase) as T
             }
             modelClass.isAssignableFrom(DetailFilmViewModel::class.java) -> {
-                DetailFilmViewModel(mFilmRepository) as T
+                DetailFilmViewModel(filmUseCase) as T
             }
             modelClass.isAssignableFrom(FavFilmViewModel::class.java) -> {
-                FavFilmViewModel(mFilmRepository) as T
+                FavFilmViewModel(filmUseCase) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }

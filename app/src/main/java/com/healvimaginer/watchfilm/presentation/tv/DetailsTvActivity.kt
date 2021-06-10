@@ -12,12 +12,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.healvimaginer.watchfilm.R
-import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteTvEntity
 import com.healvimaginer.watchfilm.databinding.ActivityDetailsTvBinding
-import com.healvimaginer.watchfilm.domain.model.Film
 import com.healvimaginer.watchfilm.domain.model.Tv
-import com.healvimaginer.watchfilm.domain.viewModelFactory.ViewModelFactoryTv
-import com.healvimaginer.watchfilm.domain.vo.Status
+import com.healvimaginer.watchfilm.domain.utils.viewModelFactory.ViewModelFactoryTv
+import com.healvimaginer.watchfilm.domain.utils.vo.Status
 import com.healvimaginer.watchfilm.presentation.favorite.FavoriteActivity
 
 class DetailsTvActivity : AppCompatActivity() {

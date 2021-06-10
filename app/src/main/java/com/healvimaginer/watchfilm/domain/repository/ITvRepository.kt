@@ -1,11 +1,11 @@
-package com.healvimaginer.watchfilm.data
+package com.healvimaginer.watchfilm.domain.repository
 
 import androidx.lifecycle.LiveData
 import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteTvEntity
 import com.healvimaginer.watchfilm.domain.model.Tv
 import com.healvimaginer.watchfilm.domain.utils.vo.Resource
 
-interface TvDataSource {
+interface ITvRepository {
     fun getAllTv(): LiveData<Resource<List<Tv>>>
     fun getTv(TvId: String): LiveData<Resource<Tv>>
     fun getAllTvPagging() : LiveData<List<Tv>>

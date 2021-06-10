@@ -14,7 +14,7 @@ import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
-import com.healvimaginer.watchfilm.domain.vo.Resource
+import com.healvimaginer.watchfilm.domain.utils.vo.Resource
 import org.junit.Rule
 
 @RunWith(MockitoJUnitRunner::class)

@@ -6,16 +6,14 @@ import androidx.paging.DataSource
 import com.healvimaginer.watchfilm.data.source.local.LocalDataSourceFilm
 import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteFilmEntity
 import com.healvimaginer.watchfilm.data.source.local.entity.FilmsEntity
-import com.healvimaginer.watchfilm.data.source.local.room.dao.FavoriteFilmDao
 import com.healvimaginer.watchfilm.data.source.remote.RemoteDataSource
 import com.healvimaginer.watchfilm.domain.utils.AppExecutors
 import com.healvimaginer.watchfilm.domain.utils.DataDummy
 import com.healvimaginer.watchfilm.domain.utils.LiveDataTestUtil
 import com.healvimaginer.watchfilm.domain.utils.PageListUtil
-import com.healvimaginer.watchfilm.domain.vo.Resource
+import com.healvimaginer.watchfilm.domain.utils.vo.Resource
 import junit.framework.Assert.assertEquals
 import org.junit.Assert
-import org.junit.Assert.assertThat
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mockito

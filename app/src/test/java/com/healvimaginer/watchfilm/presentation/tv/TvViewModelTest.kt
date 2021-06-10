@@ -6,7 +6,7 @@ import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import com.healvimaginer.watchfilm.data.TvRepository
 import com.healvimaginer.watchfilm.data.source.local.entity.TvEntity
-import com.healvimaginer.watchfilm.domain.vo.Resource
+import com.healvimaginer.watchfilm.domain.utils.vo.Resource
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule

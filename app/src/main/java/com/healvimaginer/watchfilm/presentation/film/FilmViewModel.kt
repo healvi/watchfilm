@@ -2,11 +2,10 @@ package com.healvimaginer.watchfilm.presentation.film
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.paging.PagedList
 import com.healvimaginer.watchfilm.data.FilmRepository
-import com.healvimaginer.watchfilm.data.source.local.entity.FilmsEntity
 import com.healvimaginer.watchfilm.domain.model.Film
-import com.healvimaginer.watchfilm.domain.vo.Resource
-class FilmViewModel(private val filmRepository: FilmRepository) :ViewModel() {
-    fun getFilm() : LiveData<Resource<List<Film>>> = filmRepository.getAllFilm()
+import com.healvimaginer.watchfilm.domain.usecase.FilmUseCase
+import com.healvimaginer.watchfilm.domain.utils.vo.Resource
+class FilmViewModel(filmUseCase: FilmUseCase) :ViewModel() {
+    val film = filmUseCase.getAllFilm()
 }

@@ -11,7 +11,7 @@ import com.healvimaginer.watchfilm.domain.utils.AppExecutors
 import com.healvimaginer.watchfilm.domain.utils.DataDummy
 import com.healvimaginer.watchfilm.domain.utils.LiveDataTestUtil
 import com.healvimaginer.watchfilm.domain.utils.PageListUtil
-import com.healvimaginer.watchfilm.domain.vo.Resource
+import com.healvimaginer.watchfilm.domain.utils.vo.Resource
 import junit.framework.Assert.assertEquals
 import org.junit.Assert
 import org.junit.Rule

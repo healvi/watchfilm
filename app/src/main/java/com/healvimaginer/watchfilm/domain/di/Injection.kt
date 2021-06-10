@@ -10,11 +10,17 @@ import com.healvimaginer.watchfilm.data.source.local.room.database.FavoriteTvDat
 import com.healvimaginer.watchfilm.data.source.local.room.database.FilmDatabase
 import com.healvimaginer.watchfilm.data.source.local.room.database.TvDatabase
 import com.healvimaginer.watchfilm.data.source.remote.RemoteDataSource
+import com.healvimaginer.watchfilm.domain.repository.IFilmRepository
+import com.healvimaginer.watchfilm.domain.repository.ITvRepository
+import com.healvimaginer.watchfilm.domain.usecase.FilmUseCase
+import com.healvimaginer.watchfilm.domain.usecase.TvUseCase
+import com.healvimaginer.watchfilm.domain.usecase.interactor.FilmInteractor
+import com.healvimaginer.watchfilm.domain.usecase.interactor.TvInteractor
 import com.healvimaginer.watchfilm.domain.utils.AppExecutors
 import com.healvimaginer.watchfilm.domain.utils.JsonHelper
 
 object Injection {
-    fun provideRepository(context: Context): FilmRepository {
+    fun provideRepository(context: Context): IFilmRepository {
         val database = FilmDatabase.getInstance(context)
         val databaseFav = FavoriteFilmDatabase.getInstance(context)
         val localDataSourceFilm = LocalDataSourceFilm.getInstance(database.FilmDao(), databaseFav.favoriteFilmDao())
@@ -24,7 +30,12 @@ object Injection {
         return FilmRepository.getInstance(remoteDataSource, localDataSourceFilm, appExecutors)
     }
 
-    fun provideRepositoryTv(context: Context): TvRepository {
+    fun procideFilmUseCase(context: Context):FilmUseCase {
+        val repository = provideRepository(context)
+        return FilmInteractor(repository)
+    }
+
+    fun provideRepositoryTv(context: Context): ITvRepository {
         val database = TvDatabase.getInstance(context)
         val databaseFav = FavoriteTvDatabase.getInstance(context)
         val localDataSourceFilm = LocalDataSourceTv.getInstance(database.TvDao(), databaseFav.favoriteTvDao())
@@ -32,5 +43,10 @@ object Injection {
         val remoteDataSource = RemoteDataSource.getInstance(JsonHelper(context))
 
         return TvRepository.getInstance(remoteDataSource,localDataSourceFilm,appExecutors)
+    }
+
+    fun procideTvUseCase(context: Context): TvUseCase {
+        val repository = provideRepositoryTv(context)
+        return TvInteractor(repository)
     }
 }

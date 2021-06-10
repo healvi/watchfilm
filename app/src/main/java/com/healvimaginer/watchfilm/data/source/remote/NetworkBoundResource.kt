@@ -3,7 +3,7 @@ package com.healvimaginer.watchfilm.data.source.remote
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.healvimaginer.watchfilm.domain.utils.AppExecutors
-import com.healvimaginer.watchfilm.domain.vo.Resource
+import com.healvimaginer.watchfilm.domain.utils.vo.Resource
 
 abstract class NetworkBoundResource<ResultType, RequestType>(private val mExecutors: AppExecutors) {
 

@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.healvimaginer.watchfilm.data.source.local.entity.FilmsEntity
 import com.healvimaginer.watchfilm.databinding.FragmentFavoriteFilmBinding
-import com.healvimaginer.watchfilm.domain.viewModelFactory.ViewModelFactory
+import com.healvimaginer.watchfilm.domain.utils.viewModelFactory.ViewModelFactory
 
 
 class FavoriteFilmFragment : Fragment() {
@@ -31,7 +31,7 @@ class FavoriteFilmFragment : Fragment() {
             val filmadapter = FilmAdapter()
 
 
-            viewModel.getAllFilmPag().observe(viewLifecycleOwner, {film ->
+            viewModel.film.observe(viewLifecycleOwner, {film ->
                 binding.progressBar.visibility = View.INVISIBLE
                 val filmlist = ArrayList<FilmsEntity>()
                 film.map { data ->

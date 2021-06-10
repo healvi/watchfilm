@@ -4,27 +4,27 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.healvimaginer.watchfilm.data.TvRepository
 import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteTvEntity
-import com.healvimaginer.watchfilm.data.source.local.entity.TvEntity
 import com.healvimaginer.watchfilm.domain.model.Tv
-import com.healvimaginer.watchfilm.domain.vo.Resource
+import com.healvimaginer.watchfilm.domain.usecase.TvUseCase
+import com.healvimaginer.watchfilm.domain.utils.vo.Resource
 
-class DetailTvViewModel(private val tvRepository: TvRepository) :ViewModel() {
+class DetailTvViewModel(private val tvUseCase: TvUseCase) :ViewModel() {
     private lateinit var contentId : String
 
     fun setSelectedTv(contentId :String) {
         this.contentId = contentId
     }
 
-    fun getTv() : LiveData<Resource<Tv>> = tvRepository.getTv(contentId)
+    fun getTv() : LiveData<Resource<Tv>> = tvUseCase.getTv(contentId)
     fun insert(favoriteTvEntity: Tv) {
-        tvRepository.insert(favoriteTvEntity)
+        tvUseCase.insert(favoriteTvEntity)
     }
 
     fun delete(favoriteTvEntity: Tv) {
-        tvRepository.delete(favoriteTvEntity)
+        tvUseCase.delete(favoriteTvEntity)
     }
 
     fun findTv(check:String) : LiveData<FavoriteTvEntity> {
-        return tvRepository.findTv(check)
+        return tvUseCase.findTv(check)
     }
 }

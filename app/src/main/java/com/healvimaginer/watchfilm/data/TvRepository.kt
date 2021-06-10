@@ -2,8 +2,6 @@ package com.healvimaginer.watchfilm.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import androidx.paging.LivePagedListBuilder
-import androidx.paging.PagedList
 import com.healvimaginer.watchfilm.data.source.local.LocalDataSourceTv
 import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteTvEntity
 import com.healvimaginer.watchfilm.data.source.local.entity.TvEntity
@@ -12,14 +10,14 @@ import com.healvimaginer.watchfilm.data.source.remote.NetworkBoundResource
 import com.healvimaginer.watchfilm.data.source.remote.RemoteDataSource
 import com.healvimaginer.watchfilm.data.source.remote.response.TvResponse
 import com.healvimaginer.watchfilm.domain.model.Tv
+import com.healvimaginer.watchfilm.domain.repository.ITvRepository
 import com.healvimaginer.watchfilm.domain.utils.AppExecutors
 import com.healvimaginer.watchfilm.domain.utils.DataMapper
-import com.healvimaginer.watchfilm.domain.vo.Resource
+import com.healvimaginer.watchfilm.domain.utils.vo.Resource
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-class TvRepository private constructor(private val remoteDataSource: RemoteDataSource, private val localDataSourceTv: LocalDataSourceTv, private val appExecutors: AppExecutors) :
-    TvDataSource {
+class TvRepository private constructor(private val remoteDataSource: RemoteDataSource, private val localDataSourceTv: LocalDataSourceTv, private val appExecutors: AppExecutors) : ITvRepository{
     private val exe: ExecutorService = Executors.newSingleThreadExecutor()
     companion object {
         @Volatile

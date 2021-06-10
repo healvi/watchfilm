@@ -1,4 +1,4 @@
-package com.healvimaginer.watchfilm.domain.vo
+package com.healvimaginer.watchfilm.domain.utils.vo
 
 data class Resource<T>(val status: Status, val data: T?, val message: String?) {
     companion object {

@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.healvimaginer.watchfilm.data.source.local.entity.TvEntity
 import com.healvimaginer.watchfilm.databinding.FragmentFavoriteTvBinding
-import com.healvimaginer.watchfilm.domain.viewModelFactory.ViewModelFactoryTv
+import com.healvimaginer.watchfilm.domain.utils.viewModelFactory.ViewModelFactoryTv
 
 
 class FavoriteTvFragment : Fragment() {
@@ -32,7 +32,7 @@ class FavoriteTvFragment : Fragment() {
             binding.progressBar.visibility = View.VISIBLE
             val tvadapter = TvAdapter()
 
-            viewModel.getAllTvPag().observe(viewLifecycleOwner, {tv ->
+            viewModel.tv.observe(viewLifecycleOwner, {tv ->
                 binding.progressBar.visibility = View.INVISIBLE
                 val tvlist = ArrayList<TvEntity>()
                 tv.map { it ->

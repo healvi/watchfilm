@@ -11,7 +11,7 @@ import com.healvimaginer.watchfilm.data.source.remote.NetworkBoundResource
 import com.healvimaginer.watchfilm.data.source.remote.RemoteDataSource
 import com.healvimaginer.watchfilm.data.source.remote.response.TvResponse
 import com.healvimaginer.watchfilm.domain.utils.AppExecutors
-import com.healvimaginer.watchfilm.domain.vo.Resource
+import com.healvimaginer.watchfilm.domain.utils.vo.Resource
 import java.util.*
 import java.util.concurrent.Executors
 

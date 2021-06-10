@@ -12,7 +12,7 @@ import com.healvimaginer.watchfilm.data.source.remote.RemoteDataSource
 import com.healvimaginer.watchfilm.domain.utils.AppExecutors
 import com.healvimaginer.watchfilm.domain.utils.DataDummy
 import com.healvimaginer.watchfilm.domain.utils.LiveDataTestUtil
-import com.healvimaginer.watchfilm.domain.vo.Resource
+import com.healvimaginer.watchfilm.domain.utils.vo.Resource
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule

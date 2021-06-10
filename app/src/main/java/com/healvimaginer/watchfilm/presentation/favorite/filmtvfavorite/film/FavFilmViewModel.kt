@@ -6,7 +6,8 @@ import androidx.paging.PagedList
 import com.healvimaginer.watchfilm.data.FilmRepository
 import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteFilmEntity
 import com.healvimaginer.watchfilm.domain.model.Film
+import com.healvimaginer.watchfilm.domain.usecase.FilmUseCase
 
-class FavFilmViewModel(private val filmRepository: FilmRepository) :ViewModel() {
-    fun getAllFilmPag(): LiveData<List<Film>> = filmRepository.getAllFilmPagging()
+class FavFilmViewModel(filmUseCase: FilmUseCase) :ViewModel() {
+    val film = filmUseCase.getAllFilmPagging()
 }

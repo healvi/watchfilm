@@ -6,7 +6,8 @@ import androidx.paging.PagedList
 import com.healvimaginer.watchfilm.data.TvRepository
 import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteTvEntity
 import com.healvimaginer.watchfilm.domain.model.Tv
+import com.healvimaginer.watchfilm.domain.usecase.TvUseCase
 
-class FavTvViewModel(private val tvRepository: TvRepository) :ViewModel() {
-    fun getAllTvPag(): LiveData<List<Tv>> = tvRepository.getAllTvPagging()
+class FavTvViewModel(tvUseCase: TvUseCase) :ViewModel() {
+    val tv = tvUseCase.getAllTvPagging()
 }

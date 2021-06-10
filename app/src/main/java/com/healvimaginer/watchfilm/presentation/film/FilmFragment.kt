@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.healvimaginer.watchfilm.domain.viewModelFactory.ViewModelFactory
+import com.healvimaginer.watchfilm.domain.utils.viewModelFactory.ViewModelFactory
 import com.healvimaginer.watchfilm.databinding.FragmentFilmBinding
-import com.healvimaginer.watchfilm.domain.vo.Status
+import com.healvimaginer.watchfilm.domain.utils.vo.Status
 
 
 class FilmFragment : Fragment() {
@@ -28,7 +28,7 @@ class FilmFragment : Fragment() {
             val factory = ViewModelFactory.getInstance(requireContext())
             val viewModel = ViewModelProvider(this,factory)[FilmViewModel::class.java]
             val filmadapter = FilmAdapter()
-            viewModel.getFilm().observe(viewLifecycleOwner, {film ->
+            viewModel.film.observe(viewLifecycleOwner, {film ->
                 if (film != null ) {
                     when (film.status) {
                         Status.LOADING -> binding.progressBar.visibility = View.VISIBLE

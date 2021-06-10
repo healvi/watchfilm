@@ -2,8 +2,6 @@ package com.healvimaginer.watchfilm.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import androidx.paging.LivePagedListBuilder
-import androidx.paging.PagedList
 import com.healvimaginer.watchfilm.data.source.local.LocalDataSourceFilm
 import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteFilmEntity
 import com.healvimaginer.watchfilm.data.source.local.entity.FilmsEntity
@@ -12,14 +10,16 @@ import com.healvimaginer.watchfilm.data.source.remote.NetworkBoundResource
 import com.healvimaginer.watchfilm.data.source.remote.RemoteDataSource
 import com.healvimaginer.watchfilm.data.source.remote.response.FilmResponse
 import com.healvimaginer.watchfilm.domain.model.Film
+import com.healvimaginer.watchfilm.domain.repository.IFilmRepository
 import com.healvimaginer.watchfilm.domain.utils.AppExecutors
 import com.healvimaginer.watchfilm.domain.utils.DataMapper
-import com.healvimaginer.watchfilm.domain.vo.Resource
+import com.healvimaginer.watchfilm.domain.utils.vo.Resource
+import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 class FilmRepository private constructor(private val remoteDataSource: RemoteDataSource, private val localDataSourceFilm: LocalDataSourceFilm, private val appExecutors: AppExecutors) :
-    FilmDataSource {
-    val exe = Executors.newSingleThreadExecutor()
+    IFilmRepository {
+    private val exe: ExecutorService = Executors.newSingleThreadExecutor()
     companion object {
         @Volatile
         private var instance: FilmRepository? = null
@@ -103,7 +103,7 @@ class FilmRepository private constructor(private val remoteDataSource: RemoteDat
     }
 
     override fun getAllFilmPagging(): LiveData<List<Film>> {
-        return  return Transformations.map(localDataSourceFilm.getAllFilmFavoritePagging()) {
+        return Transformations.map(localDataSourceFilm.getAllFilmFavoritePagging()) {
             DataMapper.mapEntitiesToDomainFavFilm(it)
         }
 

@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.healvimaginer.watchfilm.databinding.FragmentTvBinding
-import com.healvimaginer.watchfilm.domain.viewModelFactory.ViewModelFactoryTv
-import com.healvimaginer.watchfilm.domain.vo.Status
+import com.healvimaginer.watchfilm.domain.utils.viewModelFactory.ViewModelFactoryTv
+import com.healvimaginer.watchfilm.domain.utils.vo.Status
 
 
 class TvFragment : Fragment() {
@@ -30,7 +30,7 @@ class TvFragment : Fragment() {
 
             val tvadapter = TvAdapter()
 
-            viewModel.getTv().observe(viewLifecycleOwner, {tv ->
+            viewModel.tv.observe(viewLifecycleOwner, {tv ->
                 if (tv != null ) {
                     when (tv.status) {
                         Status.LOADING -> binding.progressBar.visibility = View.VISIBLE
