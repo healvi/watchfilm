@@ -34,20 +34,22 @@ class FavoriteFilmFragment : Fragment() {
             viewModel.getAllFilmPag().observe(viewLifecycleOwner, {film ->
                 binding.progressBar.visibility = View.INVISIBLE
                 val filmlist = ArrayList<FilmsEntity>()
-                film.map { filmEntity ->
+                film.map { data ->
                     val filma = FilmsEntity(
-                        contentId = filmEntity.contentId,
-                        description = filmEntity.description,
-                        image = filmEntity.image,
-                        anggaran = filmEntity.anggaran,
-                        director = filmEntity.director,
-                        rilis = filmEntity.rilis,
-                        pendapatan = filmEntity.pendapatan,
-                        title = filmEntity.title
+                        contentId=data.contentId,
+                        title=data.title,
+                        name=data.name,
+                        overview=data.overview,
+                        popularity=data.popularity,
+                        poster_path=data.poster_path,
+                        backdrop_path=data.backdrop_path,
+                        vote_average=data.vote_average,
+                        release_date=data.release_date,
+                        first_air_date=data.first_air_date
                     )
                     filmlist.add(filma)
                 }
-                filmadapter.submitList(film)
+                filmadapter.setFilm(film)
                 filmadapter.notifyDataSetChanged()
             })
 

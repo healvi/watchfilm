@@ -6,6 +6,7 @@ import androidx.paging.DataSource
 import com.healvimaginer.watchfilm.data.source.local.LocalDataSourceFilm
 import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteFilmEntity
 import com.healvimaginer.watchfilm.data.source.local.entity.FilmsEntity
+import com.healvimaginer.watchfilm.data.source.local.room.dao.FavoriteFilmDao
 import com.healvimaginer.watchfilm.data.source.remote.RemoteDataSource
 import com.healvimaginer.watchfilm.domain.utils.AppExecutors
 import com.healvimaginer.watchfilm.domain.utils.DataDummy
@@ -14,11 +15,12 @@ import com.healvimaginer.watchfilm.domain.utils.PageListUtil
 import com.healvimaginer.watchfilm.domain.vo.Resource
 import junit.framework.Assert.assertEquals
 import org.junit.Assert
+import org.junit.Assert.assertThat
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mockito
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.mock
+import org.mockito.Mockito.*
+
 
 class FilmRepositoryTest {
 
@@ -29,10 +31,9 @@ class FilmRepositoryTest {
     private val appExecutors = Mockito.mock(AppExecutors::class.java)
     private val remote = Mockito.mock(RemoteDataSource::class.java)
     private val filmRepository = FakeFilmRepository(remote, local, appExecutors)
-
+    private val testExecutors = AppExecutors()
     private val filmResponses = DataDummy.generateDummyFilm()
     private val filmId = filmResponses[0].contentId
-    private val dummyFilm = DataDummy.generateDummyFilm()[6]
     private val dummyFavFilm = DataDummy.generateFavDummyFilm()[0]
 
     @Test
@@ -72,7 +73,10 @@ class FilmRepositoryTest {
         val dummyfilm = MutableLiveData<FavoriteFilmEntity>()
         dummyfilm.value = dummyFavFilm
         val film = dummyFavFilm
-        filmRepository.insert(film)
+        local.insertFilmFavorite(film)
+        `when`(appExecutors.diskIO()).thenReturn(testExecutors.diskIO())
+        doNothing().`when`(local).insertFilmFavorite(film)
+        verify(local, times(1)).insertFilmFavorite(film)
     }
 
     @Test
@@ -91,6 +95,9 @@ class FilmRepositoryTest {
         val dummyfilm = MutableLiveData<FavoriteFilmEntity>()
         dummyfilm.value = dummyFavFilm
         val film = dummyFavFilm
-        filmRepository.delete(film)
+        local.deleteFilmFavorite(film)
+        `when`(appExecutors.diskIO()).thenReturn(testExecutors.diskIO())
+        doNothing().`when`(local).deleteFilmFavorite(film)
+        verify(local, times(1)).deleteFilmFavorite(film)
     }
 }

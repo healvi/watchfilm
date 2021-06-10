@@ -63,7 +63,8 @@ class DetailTvViewModelTest {
         val dummytv = MutableLiveData<FavoriteTvEntity>()
         dummytv.value = dummyFavTv
         val tv = dummyFavTv
-        fakeTvRepository.insert(tv)
+        local.insertTvFavorite(tv)
+        Mockito.verify(local, Mockito.times(1)).insertTvFavorite(tv)
     }
 
     @Test
@@ -82,6 +83,7 @@ class DetailTvViewModelTest {
         val dummytv = MutableLiveData<FavoriteTvEntity>()
         dummytv.value = dummyFavTv
         val tv = dummyFavTv
-        fakeTvRepository.insert(tv)
+        local.deleteTvFavorite(tv)
+        Mockito.verify(local, Mockito.times(1)).deleteTvFavorite(tv)
     }
 }

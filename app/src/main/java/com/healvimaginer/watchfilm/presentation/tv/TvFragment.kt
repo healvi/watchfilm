@@ -36,7 +36,7 @@ class TvFragment : Fragment() {
                         Status.LOADING -> binding.progressBar.visibility = View.VISIBLE
                         Status.SUCCESS -> {
                             binding.progressBar.visibility = View.GONE
-                            tv.data?.let { tvadapter.submitList(it) }
+                            tv.data?.let { tvadapter.setTv(it) }
                             tvadapter.notifyDataSetChanged()
                         }
                     }

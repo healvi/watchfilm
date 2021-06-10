@@ -1,6 +1,7 @@
 package com.healvimaginer.watchfilm.data
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.healvimaginer.watchfilm.data.source.local.LocalDataSourceTv
@@ -10,13 +11,16 @@ import com.healvimaginer.watchfilm.data.source.remote.ApiResponse
 import com.healvimaginer.watchfilm.data.source.remote.NetworkBoundResource
 import com.healvimaginer.watchfilm.data.source.remote.RemoteDataSource
 import com.healvimaginer.watchfilm.data.source.remote.response.TvResponse
+import com.healvimaginer.watchfilm.domain.model.Tv
 import com.healvimaginer.watchfilm.domain.utils.AppExecutors
+import com.healvimaginer.watchfilm.domain.utils.DataMapper
 import com.healvimaginer.watchfilm.domain.vo.Resource
+import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 class TvRepository private constructor(private val remoteDataSource: RemoteDataSource, private val localDataSourceTv: LocalDataSourceTv, private val appExecutors: AppExecutors) :
     TvDataSource {
-    val exe = Executors.newSingleThreadExecutor()
+    private val exe: ExecutorService = Executors.newSingleThreadExecutor()
     companion object {
         @Volatile
         private var instance: TvRepository? = null
@@ -27,18 +31,16 @@ class TvRepository private constructor(private val remoteDataSource: RemoteDataS
             }
     }
 
-    override fun getAllTv(): LiveData<Resource<PagedList<TvEntity>>> {
-        return object : NetworkBoundResource<PagedList<TvEntity>, List<TvResponse>>(appExecutors) {
-            override fun loadFromDB(): LiveData<PagedList<TvEntity>> {
-                val config = PagedList.Config.Builder()
-                    .setEnablePlaceholders(false)
-                    .setInitialLoadSizeHint(4)
-                    .setPageSize(2)
-                    .build()
-                return LivePagedListBuilder(localDataSourceTv.getAllTv(),config).build()
+    override fun getAllTv(): LiveData<Resource<List<Tv>>> {
+        return object : NetworkBoundResource<List<Tv>, List<TvResponse>>(appExecutors) {
+            override fun loadFromDB(): LiveData<List<Tv>> {
+                return Transformations.map(localDataSourceTv.getAllTv()) {
+                    DataMapper.mapEntitiesToDomainTv(it)
+                }
+
             }
 
-            override fun shouldFetch(data: PagedList<TvEntity>?): Boolean {
+            override fun shouldFetch(data: List<Tv>?): Boolean {
                 return data == null || data.isEmpty()
             }
 
@@ -48,16 +50,18 @@ class TvRepository private constructor(private val remoteDataSource: RemoteDataS
 
             override fun saveCallResult(data: List<TvResponse>) {
                 val tvList = ArrayList<TvEntity>()
-                for (response in data) {
+                for (it in data) {
                     val tv = TvEntity(
-                        response.contentId,
-                        response.title,
-                        response.description,
-                        response.Kreator,
-                        response.rilis,
-                        response.image,
-                        response.status,
-                        response.network
+                        contentId=it.contentId,
+                        title=it.title,
+                        name=it.name,
+                        overview=it.overview,
+                        popularity=it.popularity,
+                        poster_path=it.poster_path,
+                        backdrop_path=it.backdrop_path,
+                        vote_average=it.vote_average,
+                        release_date=it.release_date,
+                        first_air_date=it.first_air_date
                     )
                     tvList.add(tv)
                 }
@@ -66,53 +70,55 @@ class TvRepository private constructor(private val remoteDataSource: RemoteDataS
         }.asLiveData()
     }
 
-    override fun getTv(tvId: String): LiveData<Resource<TvEntity>> {
-        return object : NetworkBoundResource<TvEntity, TvResponse>(appExecutors) {
-            override fun loadFromDB(): LiveData<TvEntity> {
-                return localDataSourceTv.getTv(tvId)
+    override fun getTv(TvId: String): LiveData<Resource<Tv>> {
+        return object : NetworkBoundResource<Tv, TvResponse>(appExecutors) {
+            override fun loadFromDB(): LiveData<Tv> {
+                return Transformations.map(localDataSourceTv.getTv(TvId)) {
+                    DataMapper.mapEntitiesToDomainTvOne(it)
+                }
+
             }
 
-            override fun shouldFetch(data: TvEntity?): Boolean {
+            override fun shouldFetch(data: Tv?): Boolean {
                 return data?.contentId == null || data.contentId.isEmpty()
             }
 
             override fun createCall(): LiveData<ApiResponse<TvResponse>> {
-                return remoteDataSource.getTv(tvId)
+                return remoteDataSource.getTv(TvId)
             }
 
             override fun saveCallResult(data: TvResponse) {
                 val tv = TvEntity(
-                    data.contentId,
-                    data.title,
-                    data.description,
-                    data.Kreator,
-                    data.rilis,
-                    data.image,
-                    data.status,
-                    data.network
+                    contentId=data.contentId,
+                    title=data.title,
+                    name=data.name,
+                    overview=data.overview,
+                    popularity=data.popularity,
+                    poster_path=data.poster_path,
+                    backdrop_path=data.backdrop_path,
+                    vote_average=data.vote_average,
+                    release_date=data.release_date,
+                    first_air_date=data.first_air_date
                 )
                 localDataSourceTv.updateFilm(tv)
             }
         }.asLiveData()
     }
 
-    override fun getAllTvPagging(): LiveData<PagedList<FavoriteTvEntity>> {
-        val config = PagedList.Config.Builder()
-            .setEnablePlaceholders(false)
-            .setInitialLoadSizeHint(4)
-            .setPageSize(2)
-            .build()
-        return LivePagedListBuilder(localDataSourceTv.getAllTvFavoritePagging(),config).build()
-    }
-
-    override fun insert(favoriteTvEntity: FavoriteTvEntity) {
-        return exe.execute {
-            localDataSourceTv.insertTvFavorite(favoriteTvEntity)
+    override fun getAllTvPagging(): LiveData<List<Tv>> {
+        return Transformations.map(localDataSourceTv.getAllTvFavoritePagging()) {
+            DataMapper.mapEntitiesToDomainFavTv(it)
         }
     }
-    override fun delete(favoriteTvEntity: FavoriteTvEntity) {
+
+    override fun insert(favoriteTvEntity: Tv) {
         return exe.execute {
-            localDataSourceTv.deleteTvFavorite(favoriteTvEntity)
+            localDataSourceTv.insertTvFavorite(DataMapper.mapDomainToFavTvEntity(favoriteTvEntity))
+        }
+    }
+    override fun delete(favoriteTvEntity: Tv) {
+        return exe.execute {
+            localDataSourceTv.deleteTvFavorite(DataMapper.mapDomainToFavTvEntity(favoriteTvEntity))
         }
     }
     override fun findTv(checklogin: String): LiveData<FavoriteTvEntity> = localDataSourceTv.findTvFavorite(checklogin)

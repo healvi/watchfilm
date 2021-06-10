@@ -12,10 +12,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.healvimaginer.watchfilm.R
-import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteFilmEntity
 import com.healvimaginer.watchfilm.domain.viewModelFactory.ViewModelFactory
-import com.healvimaginer.watchfilm.data.source.local.entity.FilmsEntity
 import com.healvimaginer.watchfilm.databinding.ActivityDetailsFilmBinding
+import com.healvimaginer.watchfilm.domain.model.Film
 import com.healvimaginer.watchfilm.domain.vo.Status
 import com.healvimaginer.watchfilm.presentation.favorite.FavoriteActivity
 
@@ -53,21 +52,20 @@ class DetailsFilmActivity : AppCompatActivity() {
         }
     }
 
-    private fun populate(filmEntity: FilmsEntity) {
+    private fun populate(filmEntity: Film) {
         with(binding) {
             titleFilm.text = filmEntity.title
-            rilisFilm.text = filmEntity.rilis
-            directorFilm.text = filmEntity.director
-            anggaranFilm.text = filmEntity.anggaran
-            pendapatanFilm.text = filmEntity.pendapatan
-            deskriptionFilm.text = filmEntity.description
+            rilisFilm.text = filmEntity.release_date
+            directorFilm.text = filmEntity.overview
+            anggaranFilm.text = filmEntity.popularity.toString()
+            pendapatanFilm.text = filmEntity.vote_average.toString()
+            deskriptionFilm.text = filmEntity.first_air_date
 
         }
         Glide.with(this)
-            .load(filmEntity.image)
+            .load(filmEntity.poster_path)
             .transform(RoundedCorners(20))
-            .apply(
-                RequestOptions.placeholderOf(R.drawable.ic_loading)
+            .apply(RequestOptions.placeholderOf(R.drawable.ic_loading)
                 .error(R.drawable.ic_error))
             .into(binding.imagefilm)
 
@@ -83,34 +81,38 @@ class DetailsFilmActivity : AppCompatActivity() {
         })
     }
 
-    private fun setStatusFavorite(statusFavorite: Boolean, filmEntity: FilmsEntity) {
+    private fun setStatusFavorite(statusFavorite: Boolean, it: Film) {
         if (statusFavorite) {
             binding.addFavorite.setImageResource(R.drawable.ic_favorite_white)
-            binding.addFavorite.setOnClickListener {
-                val favorite = FavoriteFilmEntity(
-                    contentId = filmEntity.contentId,
-                    description = filmEntity.description,
-                    image = filmEntity.image,
-                    anggaran = filmEntity.anggaran,
-                    director = filmEntity.director,
-                    rilis = filmEntity.rilis,
-                    pendapatan = filmEntity.pendapatan,
-                    title = filmEntity.title
+            binding.addFavorite.setOnClickListener { data ->
+                val favorite = Film(
+                    contentId=it.contentId,
+                    title=it.title,
+                    name=it.name,
+                    overview=it.overview,
+                    popularity=it.popularity,
+                    poster_path=it.poster_path,
+                    backdrop_path=it.backdrop_path,
+                    vote_average=it.vote_average,
+                    release_date=it.release_date,
+                    first_air_date=it.first_air_date
                 )
                 viewmodel.delete(favorite)
             }
         } else {
             binding.addFavorite.setImageResource(R.drawable.ic_not_favorite_white)
-            binding.addFavorite.setOnClickListener {
-                val favorite = FavoriteFilmEntity(
-                    contentId = filmEntity.contentId,
-                    description = filmEntity.description,
-                    image = filmEntity.image,
-                    anggaran = filmEntity.anggaran,
-                    director = filmEntity.director,
-                    rilis = filmEntity.rilis,
-                    pendapatan = filmEntity.pendapatan,
-                    title = filmEntity.title
+            binding.addFavorite.setOnClickListener { data ->
+                val favorite = Film(
+                    contentId=it.contentId,
+                    title=it.title,
+                    name=it.name,
+                    overview=it.overview,
+                    popularity=it.popularity,
+                    poster_path=it.poster_path,
+                    backdrop_path=it.backdrop_path,
+                    vote_average=it.vote_average,
+                    release_date=it.release_date,
+                    first_air_date=it.first_air_date
                 )
                 viewmodel.insert(favorite)
             }

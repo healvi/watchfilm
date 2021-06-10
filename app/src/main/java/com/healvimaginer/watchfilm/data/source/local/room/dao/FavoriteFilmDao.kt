@@ -9,7 +9,7 @@ import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteFilmEntity
 interface FavoriteFilmDao {
 
     @Query("SELECT * from FavoriteFilm ORDER BY contentId ASC")
-    fun getAllFilmPagging(): DataSource.Factory<Int, FavoriteFilmEntity>
+    fun getAllFilmPagging(): LiveData<List<FavoriteFilmEntity>>
 
     @Query("SELECT * FROM FavoriteFilm where contentId = :checkLogin")
     fun findFilm(checkLogin:String): LiveData<FavoriteFilmEntity>
@@ -19,5 +19,8 @@ interface FavoriteFilmDao {
 
     @Delete
     fun deleteFilm(favorite: FavoriteFilmEntity)
+
+    @Query("SELECT * FROM FavoriteFilm")
+    fun checkfilm(): LiveData<List<FavoriteFilmEntity>>
 }
 

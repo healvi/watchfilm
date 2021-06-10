@@ -8,7 +8,7 @@ import com.healvimaginer.watchfilm.data.source.local.entity.TvEntity
 @Dao
 interface TvDao {
     @Query("SELECT * FROM tv ORDER BY contentId ASC")
-    fun getAllTv(): DataSource.Factory<Int, TvEntity>
+    fun getAllTv(): LiveData<List<TvEntity>>
 
     @Query("SELECT * FROM tv where contentId = :checkLogin")
     fun getTv(checkLogin:String):LiveData<TvEntity>

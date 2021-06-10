@@ -7,7 +7,7 @@ import com.healvimaginer.watchfilm.data.source.local.entity.FilmsEntity
 @Dao
 interface FilmDao {
     @Query("SELECT * FROM film ORDER BY contentId ASC")
-    fun getAllFilm(): DataSource.Factory<Int, FilmsEntity>
+    fun getAllFilm(): LiveData<List<FilmsEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertFilm(film: List<FilmsEntity>)

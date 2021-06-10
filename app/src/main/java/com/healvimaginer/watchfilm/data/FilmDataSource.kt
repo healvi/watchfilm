@@ -5,13 +5,14 @@ import androidx.paging.PagedList
 import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteFilmEntity
 
 import com.healvimaginer.watchfilm.data.source.local.entity.FilmsEntity
+import com.healvimaginer.watchfilm.domain.model.Film
 import com.healvimaginer.watchfilm.domain.vo.Resource
 
 interface FilmDataSource {
-    fun getAllFilm(): LiveData<Resource<PagedList<FilmsEntity>>>
-    fun getFilm(filmId: String): LiveData<Resource<FilmsEntity>>
-    fun getAllFilmPagging() : LiveData<PagedList<FavoriteFilmEntity>>
-    fun insert(favoriteFilmEntity: FavoriteFilmEntity)
-    fun delete(favoriteFilmEntity: FavoriteFilmEntity)
+    fun getAllFilm(): LiveData<Resource<List<Film>>>
+    fun getFilm(filmId: String): LiveData<Resource<Film>>
+    fun getAllFilmPagging() : LiveData<List<Film>>
+    fun insert(favoriteFilmEntity: Film)
+    fun delete(favoriteFilmEntity: Film)
     fun findFilm(checklogin : String) :LiveData<FavoriteFilmEntity>
 }

@@ -13,8 +13,9 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.healvimaginer.watchfilm.R
 import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteTvEntity
-import com.healvimaginer.watchfilm.data.source.local.entity.TvEntity
 import com.healvimaginer.watchfilm.databinding.ActivityDetailsTvBinding
+import com.healvimaginer.watchfilm.domain.model.Film
+import com.healvimaginer.watchfilm.domain.model.Tv
 import com.healvimaginer.watchfilm.domain.viewModelFactory.ViewModelFactoryTv
 import com.healvimaginer.watchfilm.domain.vo.Status
 import com.healvimaginer.watchfilm.presentation.favorite.FavoriteActivity
@@ -55,19 +56,19 @@ class DetailsTvActivity : AppCompatActivity() {
         }
     }
 
-    private fun detailview(tvEntity: TvEntity) {
+    private fun detailview(tvEntity: Tv) {
         with(binding) {
             titleTv.text = tvEntity.title
-            rilisTv.text = tvEntity.rilis
-            kreatorTv.text = tvEntity.kreator
-            statusTv.text = tvEntity.status
-            networkTv.text = tvEntity.network
-            deskriptionTv.text = tvEntity.description
+            rilisTv.text = tvEntity.release_date
+            kreatorTv.text = tvEntity.overview
+            statusTv.text = tvEntity.name
+            networkTv.text = tvEntity.popularity.toString()
+            deskriptionTv.text = tvEntity.vote_average.toString()
 
 
         }
         Glide.with(this)
-            .load(tvEntity.image)
+            .load(tvEntity.poster_path)
             .transform(RoundedCorners(20))
             .apply(RequestOptions.placeholderOf(R.drawable.ic_loading)
                 .error(R.drawable.ic_error))
@@ -85,34 +86,38 @@ class DetailsTvActivity : AppCompatActivity() {
 
     }
 
-    private fun setStatusFavorite(statusFavorite: Boolean, tvEntity: TvEntity) {
+    private fun setStatusFavorite(statusFavorite: Boolean, data: Tv) {
         if (statusFavorite) {
             binding.addFavorite.setImageResource(R.drawable.ic_favorite_white)
             binding.addFavorite.setOnClickListener {
-                val favorite = FavoriteTvEntity(
-                    contentId = tvEntity.contentId,
-                    description = tvEntity.description,
-                    image = tvEntity.image,
-                    kreator = tvEntity.kreator,
-                    network = tvEntity.network,
-                    rilis = tvEntity.rilis,
-                    status = tvEntity.status,
-                    title = tvEntity.title
+                val favorite = Tv(
+                    contentId=data.contentId,
+                    title=data.title,
+                    name=data.name,
+                    overview=data.overview,
+                    popularity=data.popularity,
+                    poster_path=data.poster_path,
+                    backdrop_path=data.backdrop_path,
+                    vote_average=data.vote_average,
+                    release_date=data.release_date,
+                    first_air_date=data.first_air_date
                 )
                 viewmodel.delete(favorite)
             }
         } else {
             binding.addFavorite.setImageResource(R.drawable.ic_not_favorite_white)
             binding.addFavorite.setOnClickListener {
-                val favorite = FavoriteTvEntity(
-                    contentId = tvEntity.contentId,
-                    description = tvEntity.description,
-                    image = tvEntity.image,
-                    kreator = tvEntity.kreator,
-                    network = tvEntity.network,
-                    rilis = tvEntity.rilis,
-                    status = tvEntity.status,
-                    title = tvEntity.title
+                val favorite = Tv(
+                    contentId=data.contentId,
+                    title=data.title,
+                    name=data.name,
+                    overview=data.overview,
+                    popularity=data.popularity,
+                    poster_path=data.poster_path,
+                    backdrop_path=data.backdrop_path,
+                    vote_average=data.vote_average,
+                    release_date=data.release_date,
+                    first_air_date=data.first_air_date
                 )
                 viewmodel.insert(favorite)
             }

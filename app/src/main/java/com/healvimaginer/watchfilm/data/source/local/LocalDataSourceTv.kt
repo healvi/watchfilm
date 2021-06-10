@@ -15,12 +15,12 @@ class LocalDataSourceTv(private val tvDao: TvDao, private val favoriteTvDao: Fav
             INSTANCE ?: LocalDataSourceTv(tvDao,favoriteTvDao)
     }
 
-    fun getAllTv(): DataSource.Factory<Int, TvEntity> = tvDao.getAllTv()
+    fun getAllTv(): LiveData<List<TvEntity>> = tvDao.getAllTv()
     fun getTv(checkLogin:String):LiveData<TvEntity> = tvDao.getTv(checkLogin)
     fun insertTv(tv:List<TvEntity>) = tvDao.insertTv(tv)
     fun updateFilm(tv: TvEntity) = tvDao.updateTv(tv)
 
-    fun getAllTvFavoritePagging(): DataSource.Factory<Int, FavoriteTvEntity> = favoriteTvDao.getAllTvPagging()
+    fun getAllTvFavoritePagging(): LiveData<List<FavoriteTvEntity>> = favoriteTvDao.getAllTvPagging()
     fun findTvFavorite(checkLogin:String):LiveData<FavoriteTvEntity> = favoriteTvDao.findTv(checkLogin)
     fun insertTvFavorite(favorite: FavoriteTvEntity) = favoriteTvDao.insertTv(favorite)
     fun deleteTvFavorite(favorite: FavoriteTvEntity) = favoriteTvDao.deleteTv(favorite)

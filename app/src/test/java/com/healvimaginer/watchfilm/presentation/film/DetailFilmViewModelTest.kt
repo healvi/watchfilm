@@ -21,6 +21,8 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.mockito.Mockito.doNothing
+import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
@@ -35,7 +37,7 @@ class DetailFilmViewModelTest {
     private val remote = Mockito.mock(RemoteDataSource::class.java)
     private val filmResponses = DataDummy.generateDummyFilm()
     private val filmId = filmResponses[0].contentId
-
+    private val testExecutors = AppExecutors()
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
@@ -66,7 +68,10 @@ class DetailFilmViewModelTest {
         val dummyfilm = MutableLiveData<FavoriteFilmEntity>()
         dummyfilm.value = dummyFavFilm
         val film = dummyFavFilm
-        fakeFilmRepository.insert(film)
+        local.insertFilmFavorite(film)
+        Mockito.`when`(appExecutors.diskIO()).thenReturn(testExecutors.diskIO())
+        doNothing().`when`(local).insertFilmFavorite(film)
+        verify(local, Mockito.times(1)).insertFilmFavorite(film)
     }
 
     @Test
@@ -85,7 +90,10 @@ class DetailFilmViewModelTest {
         val dummyfilm = MutableLiveData<FavoriteFilmEntity>()
         dummyfilm.value = dummyFavFilm
         val film = dummyFavFilm
-        fakeFilmRepository.delete(film)
+        local.deleteFilmFavorite(film)
+        Mockito.`when`(appExecutors.diskIO()).thenReturn(testExecutors.diskIO())
+        doNothing().`when`(local).deleteFilmFavorite(film)
+        verify(local, Mockito.times(1)).deleteFilmFavorite(film)
     }
 
 }

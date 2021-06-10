@@ -1,6 +1,7 @@
 package com.healvimaginer.watchfilm.data
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.healvimaginer.watchfilm.data.source.local.LocalDataSourceFilm
@@ -10,7 +11,9 @@ import com.healvimaginer.watchfilm.data.source.remote.ApiResponse
 import com.healvimaginer.watchfilm.data.source.remote.NetworkBoundResource
 import com.healvimaginer.watchfilm.data.source.remote.RemoteDataSource
 import com.healvimaginer.watchfilm.data.source.remote.response.FilmResponse
+import com.healvimaginer.watchfilm.domain.model.Film
 import com.healvimaginer.watchfilm.domain.utils.AppExecutors
+import com.healvimaginer.watchfilm.domain.utils.DataMapper
 import com.healvimaginer.watchfilm.domain.vo.Resource
 import java.util.concurrent.Executors
 
@@ -27,18 +30,15 @@ class FilmRepository private constructor(private val remoteDataSource: RemoteDat
             }
     }
 
-    override fun getAllFilm(): LiveData<Resource<PagedList<FilmsEntity>>> {
-        return object : NetworkBoundResource<PagedList<FilmsEntity>, List<FilmResponse>>(appExecutors) {
-            override fun loadFromDB(): LiveData<PagedList<FilmsEntity>> {
-                val config = PagedList.Config.Builder()
-                    .setEnablePlaceholders(false)
-                    .setInitialLoadSizeHint(4)
-                    .setPageSize(2)
-                    .build()
-                return LivePagedListBuilder(localDataSourceFilm.getAllFilm(),config).build()
+    override fun getAllFilm(): LiveData<Resource<List<Film>>> {
+        return object : NetworkBoundResource<List<Film>, List<FilmResponse>>(appExecutors) {
+            override fun loadFromDB(): LiveData<List<Film>> {
+                return Transformations.map(localDataSourceFilm.getAllFilm()) {
+                    DataMapper.mapEntitiesToDomainFilm(it)
+                }
             }
 
-            override fun shouldFetch(data: PagedList<FilmsEntity>?): Boolean {
+            override fun shouldFetch(data: List<Film>?): Boolean {
                 return data == null || data.isEmpty()
             }
 
@@ -48,16 +48,18 @@ class FilmRepository private constructor(private val remoteDataSource: RemoteDat
 
             override fun saveCallResult(data: List<FilmResponse>) {
                 val filmList = ArrayList<FilmsEntity>()
-                for (response in data) {
+                for (it in data) {
                     val film = FilmsEntity(
-                        response.contentId,
-                        response.title,
-                        response.description,
-                        response.director,
-                        response.rilis,
-                        response.image,
-                        response.anggaran,
-                        response.pendapatan
+                        contentId=it.contentId,
+                        title=it.title,
+                        name=it.name,
+                        overview=it.overview,
+                        popularity=it.popularity,
+                        poster_path=it.poster_path,
+                        backdrop_path=it.backdrop_path,
+                        vote_average=it.vote_average,
+                        release_date=it.release_date,
+                        first_air_date=it.first_air_date
                     )
                     filmList.add(film)
                 }
@@ -66,13 +68,15 @@ class FilmRepository private constructor(private val remoteDataSource: RemoteDat
         }.asLiveData()
     }
 
-    override fun getFilm(filmId: String): LiveData<Resource<FilmsEntity>> {
-        return object : NetworkBoundResource<FilmsEntity, FilmResponse>(appExecutors) {
-            override fun loadFromDB(): LiveData<FilmsEntity> {
-                return localDataSourceFilm.getFilm(filmId)
+    override fun getFilm(filmId: String): LiveData<Resource<Film>> {
+        return object : NetworkBoundResource<Film, FilmResponse>(appExecutors) {
+            override fun loadFromDB(): LiveData<Film> {
+                return Transformations.map(localDataSourceFilm.getFilm(filmId)) {
+                    DataMapper.mapEntitiesToDomainFilmOne(it)
+                }
             }
 
-            override fun shouldFetch(data: FilmsEntity?): Boolean {
+            override fun shouldFetch(data: Film?): Boolean {
                 return data?.contentId == null || data.contentId.isEmpty()
             }
 
@@ -80,40 +84,40 @@ class FilmRepository private constructor(private val remoteDataSource: RemoteDat
                 return remoteDataSource.getFilm(filmId)
             }
 
-            override fun saveCallResult(response: FilmResponse) {
+            override fun saveCallResult(data: FilmResponse) {
                     val film = FilmsEntity(
-                        response.contentId,
-                        response.title,
-                        response.description,
-                        response.director,
-                        response.rilis,
-                        response.image,
-                        response.anggaran,
-                        response.pendapatan
+                        contentId=data.contentId,
+                        title=data.title,
+                        name=data.name,
+                        overview=data.overview,
+                        popularity=data.popularity,
+                        poster_path=data.poster_path,
+                        backdrop_path=data.backdrop_path,
+                        vote_average=data.vote_average,
+                        release_date=data.release_date,
+                        first_air_date=data.first_air_date
                     )
                 localDataSourceFilm.updateFilm(film)
             }
         }.asLiveData()
     }
 
-    override fun getAllFilmPagging(): LiveData<PagedList<FavoriteFilmEntity>> {
-        val config = PagedList.Config.Builder()
-            .setEnablePlaceholders(false)
-            .setInitialLoadSizeHint(4)
-            .setPageSize(2)
-            .build()
-        return LivePagedListBuilder(localDataSourceFilm.getAllFilmFavoritePagging(),config).build()
+    override fun getAllFilmPagging(): LiveData<List<Film>> {
+        return  return Transformations.map(localDataSourceFilm.getAllFilmFavoritePagging()) {
+            DataMapper.mapEntitiesToDomainFavFilm(it)
+        }
+
     }
 
-    override fun insert(favoriteFilmEntity: FavoriteFilmEntity)  {
+    override fun insert(favoriteFilmEntity: Film)  {
         return exe.execute {
-            localDataSourceFilm.insertFilmFavorite(favoriteFilmEntity)
+            localDataSourceFilm.insertFilmFavorite(DataMapper.mapDomainToFavFilmEntity(favoriteFilmEntity))
         }
     }
 
-    override fun delete(favoriteFilmEntity: FavoriteFilmEntity) {
+    override fun delete(favoriteFilmEntity: Film) {
         return exe.execute {
-            localDataSourceFilm.deleteFilmFavorite(favoriteFilmEntity)
+            localDataSourceFilm.deleteFilmFavorite(DataMapper.mapDomainToFavFilmEntity(favoriteFilmEntity))
         }
     }
 

@@ -34,12 +34,14 @@ class JsonHelper(private val context : Context) {
                 val title       = film.getString("title")
                 val description = film.getString("description")
                 val director    = film.getString("director")
-                val rilis       = film.getString("rilis")
+                val rilis       = 12F
                 val image       = film.getString("image")
                 val anggaran    = film.getString("anggaran")
-                val pendapatan  = film.getString("pendapatan")
+                val pendapatan  = 12F
+                val hasil    = film.getString("anggaran")
+                val makan    = film.getString("anggaran")
 
-                val filmResponse = FilmResponse(id,title,description,director,rilis,image,anggaran,pendapatan)
+                val filmResponse = FilmResponse(id,title,description,director,rilis,image,anggaran,pendapatan,hasil,makan)
                 list.add(filmResponse)
             }
         } catch (e: JSONException) {
@@ -59,11 +61,13 @@ class JsonHelper(private val context : Context) {
                 val title       = tv.getString("title")
                 val description = tv.getString("description")
                 val kreator    = tv.getString("kreator")
-                val rilis       = tv.getString("rilis")
+                val rilis       = 12F
                 val image       = tv.getString("image")
                 val status    = tv.getString("status")
-                val network  = tv.getString("network")
-                val tvResponse = TvResponse(id,title,description,kreator,rilis,image,status,network)
+                val network  = 12F
+                val hasil    = tv.getString("status")
+                val makan    = tv.getString("status")
+                val tvResponse = TvResponse(id,title,description,kreator,rilis,image,status,network,hasil,makan )
                 list.add(tvResponse)
             }
         } catch (e: JSONException) {
@@ -83,12 +87,14 @@ class JsonHelper(private val context : Context) {
                 val title       = film.getString("title")
                 val description = film.getString("description")
                 val director    = film.getString("director")
-                val rilis       = film.getString("rilis")
+                val rilis       = 12F
                 val image       = film.getString("image")
                 val anggaran    = film.getString("anggaran")
-                val pendapatan  = film.getString("pendapatan")
+                val pendapatan  = 12F
+                val hasil    = film.getString("anggaran")
+                val makan    = film.getString("anggaran")
 
-                filmResponse = FilmResponse(id,title,description,director,rilis,image,anggaran,pendapatan)
+                val filmResponse = FilmResponse(id,title,description,director,rilis,image,anggaran,pendapatan,hasil,makan)
             }
         } catch (e: JSONException) {
             e.printStackTrace()
@@ -97,7 +103,7 @@ class JsonHelper(private val context : Context) {
     }
 
     fun loadTv(tvId: String):TvResponse {
-        val fileName = String.format("tv_%s.json", tvId)
+        val fileName = String.format("film_%s.json", tvId)
         var tvResponse : TvResponse? = null
         try {
             val result = parsingFileToString(fileName)
@@ -107,11 +113,13 @@ class JsonHelper(private val context : Context) {
                 val title       = tv.getString("title")
                 val description = tv.getString("description")
                 val kreator    = tv.getString("kreator")
-                val rilis       = tv.getString("rilis")
+                val rilis       = 12F
                 val image       = tv.getString("image")
                 val status    = tv.getString("status")
-                val network  = tv.getString("network")
-                tvResponse = TvResponse(id,title,description,kreator,rilis,image,status,network)
+                val network  = 12F
+                val hasil    = tv.getString("status")
+                val makan    = tv.getString("status")
+                val tvResponse = TvResponse(id,title,description,kreator,rilis,image,status,network,hasil,makan )
             }
         } catch (e: JSONException) {
             e.printStackTrace()

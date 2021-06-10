@@ -11,27 +11,24 @@ data class TvEntity(
     @NonNull
     @ColumnInfo(name = "contentId")
     var contentId:String,
-
     @ColumnInfo(name = "title")
-    var title:String,
-
-    @ColumnInfo(name = "description")
-    var description:String,
-
-    @ColumnInfo(name = "kreator")
-    var kreator:String,
-
-    @ColumnInfo(name = "rilis")
-    var rilis : String,
-
-    @ColumnInfo(name = "image")
-    var image:String,
-
-    @ColumnInfo(name = "network")
-    var network :String,
-
-    @ColumnInfo(name = "status")
-    var status : String,
+    var title: String?,
+    @ColumnInfo(name = "name")
+    val name: String?,
+    @ColumnInfo(name = "overview")
+    var overview: String?,
+    @ColumnInfo(name = "popularity")
+    var popularity: Float?,
+    @ColumnInfo(name = "poster_path")
+    var poster_path: String?,
+    @ColumnInfo(name = "backdrop_path")
+    var backdrop_path: String?,
+    @ColumnInfo(name = "vote_average")
+    var vote_average: Float?,
+    @ColumnInfo(name = "release_date")
+    var release_date: String?,
+    @ColumnInfo(name = "first_air_date")
+    val first_air_date: String?
 
 
 )

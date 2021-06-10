@@ -27,7 +27,7 @@ class TvRepositoryTest {
     private val appExecutors = Mockito.mock(AppExecutors::class.java)
     private val remote = Mockito.mock(RemoteDataSource::class.java)
     private val tvRepository = FakeTvRepository(remote,local,appExecutors)
-
+    private val testExecutors = AppExecutors()
     private val tvResponses = DataDummy.generateDummyTv()
     private val tvId = tvResponses[0].contentId
     private val dummyFavTv = DataDummy.generateFavDummyTv()[0]
@@ -69,7 +69,10 @@ class TvRepositoryTest {
         val dummytv = MutableLiveData<FavoriteTvEntity>()
         dummytv.value = dummyFavTv
         val tv = dummyFavTv
-        tvRepository.insert(tv)
+        local.insertTvFavorite(tv)
+        Mockito.`when`(appExecutors.diskIO()).thenReturn(testExecutors.diskIO())
+        Mockito.doNothing().`when`(local).insertTvFavorite(tv)
+        Mockito.verify(local, Mockito.times(1)).insertTvFavorite(tv)
     }
 
     @Test
@@ -88,6 +91,9 @@ class TvRepositoryTest {
         val dummytv = MutableLiveData<FavoriteTvEntity>()
         dummytv.value = dummyFavTv
         val tv = dummyFavTv
-        tvRepository.insert(tv)
+        local.deleteTvFavorite(tv)
+        Mockito.`when`(appExecutors.diskIO()).thenReturn(testExecutors.diskIO())
+        Mockito.doNothing().`when`(local).deleteTvFavorite(tv)
+        Mockito.verify(local, Mockito.times(1)).deleteTvFavorite(tv)
     }
 }

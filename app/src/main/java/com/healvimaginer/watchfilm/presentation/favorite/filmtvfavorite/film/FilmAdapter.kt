@@ -12,25 +12,34 @@ import com.bumptech.glide.request.RequestOptions
 import com.healvimaginer.watchfilm.R
 import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteFilmEntity
 import com.healvimaginer.watchfilm.databinding.ItemListFilmBinding
+import com.healvimaginer.watchfilm.domain.model.Film
 import com.healvimaginer.watchfilm.presentation.film.DetailsFilmActivity
 
 
-class FilmAdapter :  PagedListAdapter<FavoriteFilmEntity, FilmAdapter.ViewHolder>(DIFF_CALLBACK) {
-    companion object {
-        private val DIFF_CALLBACK: DiffUtil.ItemCallback<FavoriteFilmEntity> = object : DiffUtil.ItemCallback<FavoriteFilmEntity>() {
-            override fun areItemsTheSame(oldNote: FavoriteFilmEntity, newNote: FavoriteFilmEntity): Boolean {
-                return oldNote.title == newNote.title && oldNote.description == newNote.description && oldNote.rilis == newNote.rilis && oldNote.image == newNote.image
-            }
-
-            @SuppressLint("DiffUtilEquals")
-            override fun areContentsTheSame(oldNote: FavoriteFilmEntity, newNote: FavoriteFilmEntity): Boolean {
-                return oldNote == newNote
-            }
-        }
+class FilmAdapter : RecyclerView.Adapter<FilmAdapter.ViewHolder>() {
+    private val listFilm = ArrayList<Film>()
+    fun setFilm(film: List<Film>){
+        this.listFilm.clear()
+        this.listFilm.addAll(film)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position) as FavoriteFilmEntity)
+    class ViewHolder(private val binding: ItemListFilmBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(filmlist: Film) {
+            with(binding) {
+                tvItemTitle.text = filmlist.title
+                tvItemDate.text = filmlist.release_date
+                itemView.setOnClickListener {
+                    val intent = Intent(itemView.context, DetailsFilmActivity::class.java)
+                    intent.putExtra(DetailsFilmActivity.EXTRA_FILM,filmlist.contentId)
+                    itemView.context.startActivity(intent)
+                }
+                Glide.with(itemView.context)
+                    .load(filmlist.poster_path)
+                    .apply(RequestOptions.placeholderOf(R.drawable.ic_loading))
+                    .error(R.drawable.ic_error)
+                    .into(imgPoster)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -38,22 +47,13 @@ class FilmAdapter :  PagedListAdapter<FavoriteFilmEntity, FilmAdapter.ViewHolder
         return ViewHolder(itemListMainBinding)
     }
 
-    class ViewHolder(private val binding: ItemListFilmBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(filmlist: FavoriteFilmEntity) {
-            with(binding) {
-                tvItemTitle.text = filmlist.title
-                tvItemDate.text = filmlist.rilis
-                itemView.setOnClickListener {
-                    val intent = Intent(itemView.context, DetailsFilmActivity::class.java)
-                    intent.putExtra(DetailsFilmActivity.EXTRA_FILM,filmlist.contentId)
-                    itemView.context.startActivity(intent)
-                }
-                Glide.with(itemView.context)
-                    .load(filmlist.image)
-                    .apply(RequestOptions.placeholderOf(R.drawable.ic_loading))
-                    .error(R.drawable.ic_error)
-                    .into(imgPoster)
-            }
-        }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val filmlist = listFilm[position]
+        holder.bind(filmlist)
     }
+
+    override fun getItemCount(): Int {
+        return listFilm.size
+    }
+
 }

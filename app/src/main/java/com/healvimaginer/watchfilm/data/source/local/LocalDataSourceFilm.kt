@@ -15,12 +15,12 @@ class LocalDataSourceFilm(private val filmDao: FilmDao, private val favoriteFilm
             INSTANCE ?: LocalDataSourceFilm(filmDao, favoriteFilmDao)
     }
 
-    fun getAllFilm(): DataSource.Factory<Int, FilmsEntity> = filmDao.getAllFilm()
+    fun getAllFilm(): LiveData<List<FilmsEntity>> = filmDao.getAllFilm()
     fun insertFilm(film: List<FilmsEntity>) = filmDao.insertFilm(film)
     fun getFilm(checkLogin:String): LiveData<FilmsEntity> = filmDao.getFilm(checkLogin)
     fun updateFilm(film: FilmsEntity) = filmDao.updateFilm(film)
 
-    fun getAllFilmFavoritePagging(): DataSource.Factory<Int, FavoriteFilmEntity> = favoriteFilmDao.getAllFilmPagging()
+    fun getAllFilmFavoritePagging(): LiveData<List<FavoriteFilmEntity>> = favoriteFilmDao.getAllFilmPagging()
     fun findFilmFavorite(checkLogin:String): LiveData<FavoriteFilmEntity> = favoriteFilmDao.findFilm(checkLogin)
     fun insertFilmFavorite(favorite: FavoriteFilmEntity) = favoriteFilmDao.insertFilm(favorite)
     fun deleteFilmFavorite(favorite: FavoriteFilmEntity) = favoriteFilmDao.deleteFilm(favorite)

@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.healvimaginer.watchfilm.data.FilmRepository
 import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteFilmEntity
 import com.healvimaginer.watchfilm.data.source.local.entity.FilmsEntity
+import com.healvimaginer.watchfilm.domain.model.Film
 import com.healvimaginer.watchfilm.domain.vo.Resource
 
 class DetailFilmViewModel(private val filmRepository: FilmRepository) :ViewModel() {
@@ -13,13 +14,13 @@ class DetailFilmViewModel(private val filmRepository: FilmRepository) :ViewModel
     fun setSelectedFilm(contentId :String){
         this.contentId = contentId
     }
-    fun getFilm() : LiveData<Resource<FilmsEntity>> = filmRepository.getFilm(contentId)
+    fun getFilm() : LiveData<Resource<Film>> = filmRepository.getFilm(contentId)
 
-    fun insert(favoriteFilmEntity: FavoriteFilmEntity) {
+    fun insert(favoriteFilmEntity: Film) {
         filmRepository.insert(favoriteFilmEntity)
     }
 
-    fun delete(favoriteFilmEntity: FavoriteFilmEntity) {
+    fun delete(favoriteFilmEntity: Film) {
         filmRepository.delete(favoriteFilmEntity)
     }
 

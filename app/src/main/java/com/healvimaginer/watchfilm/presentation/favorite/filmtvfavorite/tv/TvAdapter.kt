@@ -12,34 +12,28 @@ import com.bumptech.glide.request.RequestOptions
 import com.healvimaginer.watchfilm.R
 import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteTvEntity
 import com.healvimaginer.watchfilm.databinding.ItemListTvBinding
+import com.healvimaginer.watchfilm.domain.model.Tv
 import com.healvimaginer.watchfilm.presentation.tv.DetailsTvActivity
 
-class TvAdapter: PagedListAdapter<FavoriteTvEntity, TvAdapter.ViewHolder>(DIFF_CALLBACK) {
-    companion object {
-        private val DIFF_CALLBACK: DiffUtil.ItemCallback<FavoriteTvEntity> = object : DiffUtil.ItemCallback<FavoriteTvEntity>() {
-            override fun areItemsTheSame(oldNote: FavoriteTvEntity, newNote: FavoriteTvEntity): Boolean {
-                return oldNote.title == newNote.title && oldNote.description == newNote.description && oldNote.rilis == newNote.rilis && oldNote.image == newNote.image
-            }
-
-            @SuppressLint("DiffUtilEquals")
-            override fun areContentsTheSame(oldNote: FavoriteTvEntity, newNote: FavoriteTvEntity): Boolean {
-                return oldNote == newNote
-            }
-        }
+class TvAdapter: RecyclerView.Adapter<TvAdapter.ViewHolder>() {
+    private val listTv = ArrayList<Tv>()
+    fun setTv(film: List<Tv>){
+        this.listTv.clear()
+        this.listTv.addAll(film)
     }
 
     class ViewHolder(private val binding: ItemListTvBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(tvlist: FavoriteTvEntity) {
+        fun bind(tvlist: Tv) {
             with(binding) {
                 tvItemTitle.text = tvlist.title
-                tvItemDate.text = tvlist.rilis
+                tvItemDate.text = tvlist.release_date
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, DetailsTvActivity::class.java)
                     intent.putExtra(DetailsTvActivity.EXTRA_TV,tvlist.contentId)
                     itemView.context.startActivity(intent)
                 }
                 Glide.with(itemView.context)
-                    .load(tvlist.image)
+                    .load(tvlist.poster_path)
                     .apply(RequestOptions.placeholderOf(R.drawable.ic_loading))
                     .error(R.drawable.ic_error)
                     .into(imgPoster)
@@ -52,8 +46,12 @@ class TvAdapter: PagedListAdapter<FavoriteTvEntity, TvAdapter.ViewHolder>(DIFF_C
         return ViewHolder(itemTv)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position) as FavoriteTvEntity)
+    override fun getItemCount(): Int {
+        return listTv.size
     }
 
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val tvlist = listTv[position]
+        holder.bind(tvlist)
+    }
 }

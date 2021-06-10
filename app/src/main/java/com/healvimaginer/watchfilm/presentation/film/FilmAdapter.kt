@@ -12,33 +12,27 @@ import com.bumptech.glide.request.RequestOptions
 import com.healvimaginer.watchfilm.R
 import com.healvimaginer.watchfilm.data.source.local.entity.FilmsEntity
 import com.healvimaginer.watchfilm.databinding.ItemListFilmBinding
+import com.healvimaginer.watchfilm.domain.model.Film
 
-class FilmAdapter : PagedListAdapter<FilmsEntity,FilmAdapter.ViewHolder>(DIFF_CALLBACK) {
-    companion object {
-        private val DIFF_CALLBACK: DiffUtil.ItemCallback<FilmsEntity> = object : DiffUtil.ItemCallback<FilmsEntity>() {
-            override fun areItemsTheSame(oldNote: FilmsEntity, newNote: FilmsEntity): Boolean {
-                return oldNote.title == newNote.title && oldNote.description == newNote.description && oldNote.rilis == newNote.rilis && oldNote.image == newNote.image
-            }
-
-            @SuppressLint("DiffUtilEquals")
-            override fun areContentsTheSame(oldNote: FilmsEntity, newNote: FilmsEntity): Boolean {
-                return oldNote == newNote
-            }
-        }
+class FilmAdapter : RecyclerView.Adapter<FilmAdapter.ViewHolder>() {
+    private val listFilm = ArrayList<Film>()
+    fun setFilm(film: List<Film>){
+        this.listFilm.clear()
+        this.listFilm.addAll(film)
     }
 
     class ViewHolder(private val binding: ItemListFilmBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(filmlist: FilmsEntity) {
+        fun bind(filmlist: Film) {
             with(binding) {
                 tvItemTitle.text = filmlist.title
-                tvItemDate.text = filmlist.rilis
+                tvItemDate.text = filmlist.release_date
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, DetailsFilmActivity::class.java)
                     intent.putExtra(DetailsFilmActivity.EXTRA_FILM,filmlist.contentId)
                     itemView.context.startActivity(intent)
                 }
                 Glide.with(itemView.context)
-                    .load(filmlist.image)
+                    .load(filmlist.poster_path)
                     .apply(RequestOptions.placeholderOf(R.drawable.ic_loading))
                     .error(R.drawable.ic_error)
                     .into(imgPoster)
@@ -52,7 +46,12 @@ class FilmAdapter : PagedListAdapter<FilmsEntity,FilmAdapter.ViewHolder>(DIFF_CA
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position) as FilmsEntity)
+        val filmlist = listFilm[position]
+        holder.bind(filmlist)
+    }
+
+    override fun getItemCount(): Int {
+        return listFilm.size
     }
 
 }

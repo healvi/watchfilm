@@ -1,6 +1,10 @@
-package com.healvimaginer.watchfilm.data.source.remote.response
+package com.healvimaginer.watchfilm.domain.model
 
-data class FilmResponse(
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+data class Film(
     var contentId:String,
     var title: String?,
     val name: String?,
@@ -11,4 +15,5 @@ data class FilmResponse(
     var vote_average: Float?,
     var release_date: String?,
     val first_air_date: String?
-)
+
+) : Parcelable

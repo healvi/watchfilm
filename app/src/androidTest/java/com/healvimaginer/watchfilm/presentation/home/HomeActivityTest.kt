@@ -53,7 +53,13 @@ class HomeActivityTest {
         Espresso.onView(ViewMatchers.withId(R.id.rilis_film))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
         Espresso.onView(ViewMatchers.withId(R.id.rilis_film))
-            .check(ViewAssertions.matches(ViewMatchers.withText(dummyFilm[0].rilis)))
+            .check(ViewAssertions.matches(ViewMatchers.withText(dummyFilm[0].release_date)))
+//        insert
+        Espresso.onView(ViewMatchers.withId(R.id.add_favorite)).perform(ViewActions.click())
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+//        delete
+        Espresso.onView(ViewMatchers.withId(R.id.add_favorite)).perform(ViewActions.click())
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 
     @Test
@@ -79,7 +85,15 @@ class HomeActivityTest {
         Espresso.onView(ViewMatchers.withId(R.id.rilis_tv))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
         Espresso.onView(ViewMatchers.withId(R.id.rilis_tv))
-            .check(ViewAssertions.matches(ViewMatchers.withText(dummyTv[0].rilis)))
+            .check(ViewAssertions.matches(ViewMatchers.withText(dummyTv[0].release_date)))
+//        insert
+        Espresso.onView(ViewMatchers.withId(R.id.add_favorite)).perform(ViewActions.click())
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+//        delete
+        Espresso.onView(ViewMatchers.withId(R.id.add_favorite)).perform(ViewActions.click())
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
+
+
 
 }
