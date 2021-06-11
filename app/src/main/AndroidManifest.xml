@@ -13,9 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Watchfilm"
         tools:ignore="AllowBackup">
-        <activity android:name=".presentation.favorite.FavoriteActivity"></activity>
-        <activity android:name=".presentation.tv.DetailsTvActivity" />
-        <activity android:name=".presentation.film.DetailsFilmActivity" />
+        <activity android:name=".presentation.favorite.FavoriteActivity" />
+        <activity android:name=".presentation.detail.tv.DetailsTvActivity" />
+        <activity android:name=".presentation.detail.film.DetailsFilmActivity" />
         <activity android:name=".presentation.home.HomeActivity" />
         <activity android:name=".presentation.SplashScreenActivity">
             <intent-filter>

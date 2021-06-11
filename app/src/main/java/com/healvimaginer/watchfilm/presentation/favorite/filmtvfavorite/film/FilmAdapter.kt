@@ -1,19 +1,15 @@
 package com.healvimaginer.watchfilm.presentation.favorite.filmtvfavorite.film
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagedListAdapter
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.healvimaginer.watchfilm.R
-import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteFilmEntity
 import com.healvimaginer.watchfilm.databinding.ItemListFilmBinding
 import com.healvimaginer.watchfilm.domain.model.Film
-import com.healvimaginer.watchfilm.presentation.film.DetailsFilmActivity
+import com.healvimaginer.watchfilm.presentation.detail.film.DetailsFilmActivity
 
 
 class FilmAdapter : RecyclerView.Adapter<FilmAdapter.ViewHolder>() {

@@ -5,10 +5,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "tv")
+@Entity(tableName = "tva")
 data class TvEntity(
     @PrimaryKey
-    @NonNull
     @ColumnInfo(name = "contentId")
     var contentId:String,
     @ColumnInfo(name = "name")

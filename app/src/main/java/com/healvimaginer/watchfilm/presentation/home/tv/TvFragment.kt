@@ -1,4 +1,4 @@
-package com.healvimaginer.watchfilm.presentation.tv
+package com.healvimaginer.watchfilm.presentation.home.tv
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.healvimaginer.watchfilm.data.vo.Resource
 import com.healvimaginer.watchfilm.databinding.FragmentTvBinding
 import com.healvimaginer.watchfilm.domain.utils.viewModelFactory.ViewModelFactoryTv
-import com.healvimaginer.watchfilm.domain.utils.vo.Status
 
 
 class TvFragment : Fragment() {
@@ -32,9 +32,9 @@ class TvFragment : Fragment() {
 
             viewModel.tv.observe(viewLifecycleOwner, {tv ->
                 if (tv != null ) {
-                    when (tv.status) {
-                        Status.LOADING -> binding.progressBar.visibility = View.VISIBLE
-                        Status.SUCCESS -> {
+                    when (tv) {
+                        is Resource.loading -> binding.progressBar.visibility = View.VISIBLE
+                        is Resource.success -> {
                             binding.progressBar.visibility = View.GONE
                             tv.data?.let { tvadapter.setTv(it) }
                             tvadapter.notifyDataSetChanged()

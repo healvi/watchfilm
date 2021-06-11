@@ -1,4 +1,4 @@
-package com.healvimaginer.watchfilm.domain.utils.vo
+package com.healvimaginer.watchfilm.data.vo
 
 enum class Status {
     SUCCESS,

@@ -10,24 +10,24 @@ import retrofit2.http.Query
 
 interface ApiService {
     @GET("movie/now_playing")
-    fun getMovies(
+    suspend fun getMovies(
         @Query("api_key") apiKey: String? = "e1af1d8f71da53bab4ce522010bd47b0"
-    ): Call<ListMovieResponse>
+    ): ListMovieResponse
 
     @GET("tv/popular")
-    fun getTvShows(
+    suspend fun getTvShows(
         @Query("api_key") apiKey: String? = "e1af1d8f71da53bab4ce522010bd47b0"
-    ): Call<ListTvResponse>
+    ): ListTvResponse
 
     @GET("search/movie")
-    fun getSearchMovies(
+    suspend fun getSearchMovies(
         @Query("api_key") apiKey: String? = "e1af1d8f71da53bab4ce522010bd47b0",
         @Query("query") query: String?
-    ): Call<DetailMovieResponse>
+    ): DetailMovieResponse
 
     @GET("search/tv")
-    fun getSearchTvShows(
+    suspend fun getSearchTvShows(
         @Query("api_key") apiKey: String? = "e1af1d8f71da53bab4ce522010bd47b0",
         @Query("query") query: String?
-    ): Call<DetailTvResponse>
+    ): DetailTvResponse
 }

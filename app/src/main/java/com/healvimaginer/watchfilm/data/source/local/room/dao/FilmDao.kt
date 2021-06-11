@@ -1,16 +1,13 @@
 package com.healvimaginer.watchfilm.data.source.local.room.dao
 
-import androidx.lifecycle.LiveData
-import androidx.paging.DataSource
 import androidx.room.*
 import com.healvimaginer.watchfilm.data.source.local.entity.FilmsEntity
+import kotlinx.coroutines.flow.Flow
+
 @Dao
 interface FilmDao {
-    @Query("SELECT * FROM film ORDER BY contentId ASC")
-    fun getAllFilm(): LiveData<List<FilmsEntity>>
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertFilm(film: List<FilmsEntity>)
+    @Query("SELECT * FROM filma ORDER BY contentId ASC")
+    fun getAllFilm(): Flow<List<FilmsEntity>>
 
     @Update
     fun updateFilm(film: FilmsEntity)
@@ -18,7 +15,11 @@ interface FilmDao {
     @Delete
     fun deleteFilm(film: FilmsEntity)
 
-    @Query("SELECT * FROM film where contentId = :checkLogin")
-    fun getFilm(checkLogin:String): LiveData<FilmsEntity>
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertFilm(film: List<FilmsEntity>)
+
+    @Query("SELECT * FROM filma where contentId = :checkLogin")
+    fun getFilm(checkLogin:String): Flow<FilmsEntity>
+
 
 }

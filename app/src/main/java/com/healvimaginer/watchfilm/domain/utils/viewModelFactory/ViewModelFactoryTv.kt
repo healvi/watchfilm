@@ -3,12 +3,11 @@ package com.healvimaginer.watchfilm.domain.utils.viewModelFactory
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.healvimaginer.watchfilm.data.TvRepository
 import com.healvimaginer.watchfilm.domain.di.Injection
 import com.healvimaginer.watchfilm.domain.usecase.TvUseCase
 import com.healvimaginer.watchfilm.presentation.favorite.filmtvfavorite.tv.FavTvViewModel
-import com.healvimaginer.watchfilm.presentation.tv.DetailTvViewModel
-import com.healvimaginer.watchfilm.presentation.tv.TvViewModel
+import com.healvimaginer.watchfilm.presentation.detail.tv.DetailTvViewModel
+import com.healvimaginer.watchfilm.presentation.home.tv.TvViewModel
 
 class ViewModelFactoryTv private constructor(private val tvUseCase: TvUseCase) : ViewModelProvider.NewInstanceFactory() {
 

@@ -4,15 +4,16 @@ import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import androidx.room.*
 import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteFilmEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface FavoriteFilmDao {
 
     @Query("SELECT * from FavoriteFilm ORDER BY contentId ASC")
-    fun getAllFilmPagging(): LiveData<List<FavoriteFilmEntity>>
+    fun getAllFilmPagging(): Flow<List<FavoriteFilmEntity>>
 
     @Query("SELECT * FROM FavoriteFilm where contentId = :checkLogin")
-    fun findFilm(checkLogin:String): LiveData<FavoriteFilmEntity>
+    fun findFilm(checkLogin:String): Flow<FavoriteFilmEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertFilm(favorite: FavoriteFilmEntity)
@@ -21,6 +22,6 @@ interface FavoriteFilmDao {
     fun deleteFilm(favorite: FavoriteFilmEntity)
 
     @Query("SELECT * FROM FavoriteFilm")
-    fun checkfilm(): LiveData<List<FavoriteFilmEntity>>
+    fun checkfilm(): Flow<List<FavoriteFilmEntity>>
 }
 

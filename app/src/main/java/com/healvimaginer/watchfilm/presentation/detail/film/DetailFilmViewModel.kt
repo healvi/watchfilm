@@ -1,12 +1,12 @@
-package com.healvimaginer.watchfilm.presentation.film
+package com.healvimaginer.watchfilm.presentation.detail.film
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.healvimaginer.watchfilm.data.FilmRepository
+import androidx.lifecycle.asLiveData
 import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteFilmEntity
 import com.healvimaginer.watchfilm.domain.model.Film
 import com.healvimaginer.watchfilm.domain.usecase.FilmUseCase
-import com.healvimaginer.watchfilm.domain.utils.vo.Resource
+import com.healvimaginer.watchfilm.data.vo.Resource
 
 class DetailFilmViewModel(private val filmUseCase: FilmUseCase) :ViewModel() {
     private lateinit var contentId : String
@@ -14,7 +14,7 @@ class DetailFilmViewModel(private val filmUseCase: FilmUseCase) :ViewModel() {
     fun setSelectedFilm(contentId :String){
         this.contentId = contentId
     }
-    fun getFilm() : LiveData<Resource<Film>> = filmUseCase.getFilm(contentId)
+    fun getFilm() : LiveData<Resource<Film>> = filmUseCase.getFilm(contentId).asLiveData()
 
     fun insert(favoriteFilmEntity: Film) {
         filmUseCase.insert(favoriteFilmEntity)
@@ -25,6 +25,6 @@ class DetailFilmViewModel(private val filmUseCase: FilmUseCase) :ViewModel() {
     }
 
     fun findFilm(check:String) : LiveData<FavoriteFilmEntity> {
-        return filmUseCase.findFilm(check)
+        return filmUseCase.findFilm(check).asLiveData()
     }
 }

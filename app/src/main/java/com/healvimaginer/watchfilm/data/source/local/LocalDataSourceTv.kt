@@ -1,11 +1,12 @@
 package com.healvimaginer.watchfilm.data.source.local
 
-import androidx.lifecycle.LiveData
-import androidx.paging.DataSource
+
 import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteTvEntity
 import com.healvimaginer.watchfilm.data.source.local.entity.TvEntity
 import com.healvimaginer.watchfilm.data.source.local.room.dao.FavoriteTvDao
 import com.healvimaginer.watchfilm.data.source.local.room.dao.TvDao
+import kotlinx.coroutines.flow.Flow
+
 
 class LocalDataSourceTv(private val tvDao: TvDao, private val favoriteTvDao: FavoriteTvDao) {
     companion object {
@@ -15,13 +16,13 @@ class LocalDataSourceTv(private val tvDao: TvDao, private val favoriteTvDao: Fav
             INSTANCE ?: LocalDataSourceTv(tvDao,favoriteTvDao)
     }
 
-    fun getAllTv(): LiveData<List<TvEntity>> = tvDao.getAllTv()
-    fun getTv(checkLogin:String):LiveData<TvEntity> = tvDao.getTv(checkLogin)
-    fun insertTv(tv:List<TvEntity>) = tvDao.insertTv(tv)
+    fun getAllTv(): Flow<List<TvEntity>> = tvDao.getAllTv()
+    fun getTv(checkLogin:String):Flow<TvEntity> = tvDao.getTv(checkLogin)
+    suspend fun insertTv(tv:List<TvEntity>) = tvDao.insertTv(tv)
     fun updateFilm(tv: TvEntity) = tvDao.updateTv(tv)
 
-    fun getAllTvFavoritePagging(): LiveData<List<FavoriteTvEntity>> = favoriteTvDao.getAllTvPagging()
-    fun findTvFavorite(checkLogin:String):LiveData<FavoriteTvEntity> = favoriteTvDao.findTv(checkLogin)
+    fun getAllTvFavoritePagging(): Flow<List<FavoriteTvEntity>> = favoriteTvDao.getAllTvPagging()
+    fun findTvFavorite(checkLogin:String):Flow<FavoriteTvEntity> = favoriteTvDao.findTv(checkLogin)
     fun insertTvFavorite(favorite: FavoriteTvEntity) = favoriteTvDao.insertTv(favorite)
     fun deleteTvFavorite(favorite: FavoriteTvEntity) = favoriteTvDao.deleteTv(favorite)
 }

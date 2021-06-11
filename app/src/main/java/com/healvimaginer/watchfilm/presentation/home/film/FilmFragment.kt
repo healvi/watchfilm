@@ -1,4 +1,4 @@
-package com.healvimaginer.watchfilm.presentation.film
+package com.healvimaginer.watchfilm.presentation.home.film
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.healvimaginer.watchfilm.data.vo.Resource
 import com.healvimaginer.watchfilm.domain.utils.viewModelFactory.ViewModelFactory
 import com.healvimaginer.watchfilm.databinding.FragmentFilmBinding
-import com.healvimaginer.watchfilm.domain.utils.vo.Status
 
 
 class FilmFragment : Fragment() {
@@ -30,9 +30,9 @@ class FilmFragment : Fragment() {
             val filmadapter = FilmAdapter()
             viewModel.film.observe(viewLifecycleOwner, {film ->
                 if (film != null ) {
-                    when (film.status) {
-                        Status.LOADING -> binding.progressBar.visibility = View.VISIBLE
-                        Status.SUCCESS -> {
+                    when (film) {
+                        is Resource.loading -> binding.progressBar.visibility = View.VISIBLE
+                        is Resource.success -> {
                             binding.progressBar.visibility = View.GONE
                             film.data?.let { filmadapter.setFilm(it) }
                             filmadapter.notifyDataSetChanged()

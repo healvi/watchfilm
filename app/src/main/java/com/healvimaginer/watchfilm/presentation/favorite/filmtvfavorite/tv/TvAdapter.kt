@@ -1,19 +1,15 @@
 package com.healvimaginer.watchfilm.presentation.favorite.filmtvfavorite.tv
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagedListAdapter
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.healvimaginer.watchfilm.R
-import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteTvEntity
 import com.healvimaginer.watchfilm.databinding.ItemListTvBinding
 import com.healvimaginer.watchfilm.domain.model.Tv
-import com.healvimaginer.watchfilm.presentation.tv.DetailsTvActivity
+import com.healvimaginer.watchfilm.presentation.detail.tv.DetailsTvActivity
 
 class TvAdapter: RecyclerView.Adapter<TvAdapter.ViewHolder>() {
     private val listTv = ArrayList<Tv>()

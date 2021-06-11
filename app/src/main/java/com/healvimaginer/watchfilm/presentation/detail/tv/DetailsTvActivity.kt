@@ -1,4 +1,4 @@
-package com.healvimaginer.watchfilm.presentation.tv
+package com.healvimaginer.watchfilm.presentation.detail.tv
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -12,10 +12,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.healvimaginer.watchfilm.R
+import com.healvimaginer.watchfilm.data.vo.Resource
 import com.healvimaginer.watchfilm.databinding.ActivityDetailsTvBinding
 import com.healvimaginer.watchfilm.domain.model.Tv
 import com.healvimaginer.watchfilm.domain.utils.viewModelFactory.ViewModelFactoryTv
-import com.healvimaginer.watchfilm.domain.utils.vo.Status
 import com.healvimaginer.watchfilm.presentation.favorite.FavoriteActivity
 
 class DetailsTvActivity : AppCompatActivity() {
@@ -40,9 +40,9 @@ class DetailsTvActivity : AppCompatActivity() {
                 viewmodel.setSelectedTv(tvId)
                 viewmodel.getTv().observe(this, {tv ->
                     if (tv != null ) {
-                        when (tv.status) {
-                            Status.LOADING -> binding.progressBar.visibility = View.VISIBLE
-                            Status.SUCCESS -> {
+                        when (tv) {
+                            is Resource.loading -> binding.progressBar.visibility = View.VISIBLE
+                            is Resource.success -> {
                                 binding.progressBar.visibility = View.GONE
                                 tv.data?.let { detailview(it) }
                             }

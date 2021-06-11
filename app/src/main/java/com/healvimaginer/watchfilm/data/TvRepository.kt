@@ -1,39 +1,37 @@
 package com.healvimaginer.watchfilm.data
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import com.healvimaginer.watchfilm.data.source.local.LocalDataSourceTv
 import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteTvEntity
 import com.healvimaginer.watchfilm.data.source.local.entity.TvEntity
-import com.healvimaginer.watchfilm.data.source.remote.ApiResponses
-import com.healvimaginer.watchfilm.data.source.remote.NetworkBoundResource
-import com.healvimaginer.watchfilm.data.source.remote.RemoteDataSource
+import com.healvimaginer.watchfilm.data.source.RemoteDataSource
 import com.healvimaginer.watchfilm.data.source.remote.network.ApiResponse
 import com.healvimaginer.watchfilm.data.source.remote.response.TvResponse
 import com.healvimaginer.watchfilm.domain.model.Tv
 import com.healvimaginer.watchfilm.domain.repository.ITvRepository
 import com.healvimaginer.watchfilm.domain.utils.AppExecutors
 import com.healvimaginer.watchfilm.domain.utils.DataMapper
-import com.healvimaginer.watchfilm.domain.utils.vo.Resource
+import com.healvimaginer.watchfilm.data.vo.Resource
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-class TvRepository private constructor(private val remoteDataSource: RemoteDataSource, private val localDataSourceTv: LocalDataSourceTv, private val appExecutors: AppExecutors) : ITvRepository{
+class TvRepository(private val remoteDataSource: RemoteDataSource, private val localDataSourceTv: LocalDataSourceTv, private val appExecutors: AppExecutors) : ITvRepository{
     private val exe: ExecutorService = Executors.newSingleThreadExecutor()
     companion object {
         @Volatile
         private var instance: TvRepository? = null
 
-        fun getInstance(remoteData: RemoteDataSource,localDataSourceTv: LocalDataSourceTv,appExecutors: AppExecutors): TvRepository =
+        fun getInstance(remoteData: RemoteDataSource, localDataSourceTv: LocalDataSourceTv, appExecutors: AppExecutors): TvRepository =
             instance ?: synchronized(this) {
                 TvRepository(remoteData,localDataSourceTv,appExecutors).apply { instance = this }
             }
     }
 
-    override fun getAllTv(): LiveData<Resource<List<Tv>>> {
+    override fun getAllTv(): Flow<Resource<List<Tv>>> {
         return object : NetworkBoundResource<List<Tv>, List<TvResponse>>(appExecutors) {
-            override fun loadFromDB(): LiveData<List<Tv>> {
-                return Transformations.map(localDataSourceTv.getAllTv()) {
+            override fun loadFromDB(): Flow<List<Tv>> {
+                return localDataSourceTv.getAllTv().map {
                     DataMapper.mapEntitiesToDomainTv(it)
                 }
 
@@ -43,11 +41,11 @@ class TvRepository private constructor(private val remoteDataSource: RemoteDataS
                 return data == null || data.isEmpty()
             }
 
-            override fun createCall(): LiveData<ApiResponse<List<TvResponse>>> {
+            override suspend fun createCall(): Flow<ApiResponse<List<TvResponse>>> {
                 return remoteDataSource.getAllTv()
             }
 
-            override fun saveCallResult(data: List<TvResponse>) {
+            override suspend fun saveCallResult(data: List<TvResponse>) {
                 val tvList = ArrayList<TvEntity>()
                 for (it in data) {
                     val tv = TvEntity(
@@ -64,13 +62,13 @@ class TvRepository private constructor(private val remoteDataSource: RemoteDataS
                 }
                 localDataSourceTv.insertTv(tvList)
             }
-        }.asLiveData()
+        }.asFlow()
     }
 
-    override fun getTv(TvId: String): LiveData<Resource<Tv>> {
+    override fun getTv(TvId: String): Flow<Resource<Tv>> {
         return object : NetworkBoundResource<Tv, TvResponse>(appExecutors) {
-            override fun loadFromDB(): LiveData<Tv> {
-                return Transformations.map(localDataSourceTv.getTv(TvId)) {
+            override fun loadFromDB(): Flow<Tv> {
+                return localDataSourceTv.getTv(TvId).map {
                     DataMapper.mapEntitiesToDomainTvOne(it)
                 }
 
@@ -80,11 +78,11 @@ class TvRepository private constructor(private val remoteDataSource: RemoteDataS
                 return data?.contentId == null || data.contentId.isEmpty()
             }
 
-            override fun createCall(): LiveData<ApiResponse<TvResponse>> {
+            override suspend fun createCall(): Flow<ApiResponse<TvResponse>> {
                 return remoteDataSource.getTv(TvId)
             }
 
-            override fun saveCallResult(data: TvResponse) {
+            override suspend fun saveCallResult(data: TvResponse) {
                 val tv = TvEntity(
                     contentId=data.contentId,
                     name=data.name,
@@ -97,11 +95,11 @@ class TvRepository private constructor(private val remoteDataSource: RemoteDataS
                 )
                 localDataSourceTv.updateFilm(tv)
             }
-        }.asLiveData()
+        }.asFlow()
     }
 
-    override fun getAllTvPagging(): LiveData<List<Tv>> {
-        return Transformations.map(localDataSourceTv.getAllTvFavoritePagging()) {
+    override fun getAllTvPagging(): Flow<List<Tv>> {
+        return localDataSourceTv.getAllTvFavoritePagging().map {
             DataMapper.mapEntitiesToDomainFavTv(it)
         }
     }
@@ -116,5 +114,5 @@ class TvRepository private constructor(private val remoteDataSource: RemoteDataS
             localDataSourceTv.deleteTvFavorite(DataMapper.mapDomainToFavTvEntity(favoriteTvEntity))
         }
     }
-    override fun findTv(checklogin: String): LiveData<FavoriteTvEntity> = localDataSourceTv.findTvFavorite(checklogin)
+    override fun findTv(checklogin: String): Flow<FavoriteTvEntity> = localDataSourceTv.findTvFavorite(checklogin)
 }

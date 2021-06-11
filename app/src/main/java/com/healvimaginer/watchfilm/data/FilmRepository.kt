@@ -1,40 +1,38 @@
 package com.healvimaginer.watchfilm.data
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import com.healvimaginer.watchfilm.data.source.local.LocalDataSourceFilm
 import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteFilmEntity
 import com.healvimaginer.watchfilm.data.source.local.entity.FilmsEntity
-import com.healvimaginer.watchfilm.data.source.remote.ApiResponses
-import com.healvimaginer.watchfilm.data.source.remote.NetworkBoundResource
-import com.healvimaginer.watchfilm.data.source.remote.RemoteDataSource
+import com.healvimaginer.watchfilm.data.source.RemoteDataSource
 import com.healvimaginer.watchfilm.data.source.remote.network.ApiResponse
 import com.healvimaginer.watchfilm.data.source.remote.response.FilmResponse
 import com.healvimaginer.watchfilm.domain.model.Film
 import com.healvimaginer.watchfilm.domain.repository.IFilmRepository
 import com.healvimaginer.watchfilm.domain.utils.AppExecutors
 import com.healvimaginer.watchfilm.domain.utils.DataMapper
-import com.healvimaginer.watchfilm.domain.utils.vo.Resource
+import com.healvimaginer.watchfilm.data.vo.Resource
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-class FilmRepository private constructor(private val remoteDataSource: RemoteDataSource, private val localDataSourceFilm: LocalDataSourceFilm, private val appExecutors: AppExecutors) :
+class FilmRepository(private val remoteDataSource: RemoteDataSource, private val localDataSourceFilm: LocalDataSourceFilm, private val appExecutors: AppExecutors) :
     IFilmRepository {
     private val exe: ExecutorService = Executors.newSingleThreadExecutor()
     companion object {
         @Volatile
         private var instance: FilmRepository? = null
 
-        fun getInstance(remoteData: RemoteDataSource,localDataSourceFilm: LocalDataSourceFilm,appExecutors: AppExecutors): FilmRepository =
+        fun getInstance(remoteData: RemoteDataSource, localDataSourceFilm: LocalDataSourceFilm, appExecutors: AppExecutors): FilmRepository =
             instance ?: synchronized(this) {
                 FilmRepository(remoteData,localDataSourceFilm,appExecutors).apply { instance = this }
             }
     }
 
-    override fun getAllFilm(): LiveData<Resource<List<Film>>> {
+    override fun getAllFilm(): Flow<Resource<List<Film>>> {
         return object : NetworkBoundResource<List<Film>, List<FilmResponse>>(appExecutors) {
-            override fun loadFromDB(): LiveData<List<Film>> {
-                return Transformations.map(localDataSourceFilm.getAllFilm()) {
+            override fun loadFromDB(): Flow<List<Film>> {
+                return localDataSourceFilm.getAllFilm().map {
                     DataMapper.mapEntitiesToDomainFilm(it)
                 }
             }
@@ -43,11 +41,11 @@ class FilmRepository private constructor(private val remoteDataSource: RemoteDat
                 return data == null || data.isEmpty()
             }
 
-            override fun createCall(): LiveData<ApiResponse<List<FilmResponse>>> {
+            override suspend fun createCall(): Flow<ApiResponse<List<FilmResponse>>> {
                 return remoteDataSource.getAllFilm()
             }
 
-            override fun saveCallResult(data: List<FilmResponse>) {
+            override suspend fun saveCallResult(data: List<FilmResponse>) {
                 val filmList = ArrayList<FilmsEntity>()
                 for (it in data) {
                     val film = FilmsEntity(
@@ -64,13 +62,13 @@ class FilmRepository private constructor(private val remoteDataSource: RemoteDat
                 }
                 localDataSourceFilm.insertFilm(filmList)
             }
-        }.asLiveData()
+        }.asFlow()
     }
 
-    override fun getFilm(filmId: String): LiveData<Resource<Film>> {
+    override fun getFilm(filmId: String): Flow<Resource<Film>> {
         return object : NetworkBoundResource<Film, FilmResponse>(appExecutors) {
-            override fun loadFromDB(): LiveData<Film> {
-                return Transformations.map(localDataSourceFilm.getFilm(filmId)) {
+            override fun loadFromDB(): Flow<Film> {
+                return localDataSourceFilm.getFilm(filmId).map {
                     DataMapper.mapEntitiesToDomainFilmOne(it)
                 }
             }
@@ -79,11 +77,11 @@ class FilmRepository private constructor(private val remoteDataSource: RemoteDat
                 return data?.contentId == null || data.contentId.isEmpty()
             }
 
-            override fun createCall(): LiveData<ApiResponse<FilmResponse>> {
+            override suspend fun createCall(): Flow<ApiResponse<FilmResponse>> {
                 return remoteDataSource.getFilm(filmId)
             }
 
-            override fun saveCallResult(data: FilmResponse) {
+            override suspend fun saveCallResult(data: FilmResponse) {
                     val film = FilmsEntity(
                         contentId=data.contentId,
                         title=data.title,
@@ -96,11 +94,11 @@ class FilmRepository private constructor(private val remoteDataSource: RemoteDat
                     )
                 localDataSourceFilm.updateFilm(film)
             }
-        }.asLiveData()
+        }.asFlow()
     }
 
-    override fun getAllFilmPagging(): LiveData<List<Film>> {
-        return Transformations.map(localDataSourceFilm.getAllFilmFavoritePagging()) {
+    override fun getAllFilmPagging(): Flow<List<Film>> {
+        return localDataSourceFilm.getAllFilmFavoritePagging().map {
             DataMapper.mapEntitiesToDomainFavFilm(it)
         }
 
@@ -118,7 +116,7 @@ class FilmRepository private constructor(private val remoteDataSource: RemoteDat
         }
     }
 
-    override fun findFilm(checklogin: String): LiveData<FavoriteFilmEntity> = localDataSourceFilm.findFilmFavorite(checklogin)
+    override fun findFilm(checklogin: String): Flow<FavoriteFilmEntity> = localDataSourceFilm.findFilmFavorite(checklogin)
 
 
 }
