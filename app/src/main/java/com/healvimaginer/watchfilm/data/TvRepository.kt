@@ -5,9 +5,10 @@ import androidx.lifecycle.Transformations
 import com.healvimaginer.watchfilm.data.source.local.LocalDataSourceTv
 import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteTvEntity
 import com.healvimaginer.watchfilm.data.source.local.entity.TvEntity
-import com.healvimaginer.watchfilm.data.source.remote.ApiResponse
+import com.healvimaginer.watchfilm.data.source.remote.ApiResponses
 import com.healvimaginer.watchfilm.data.source.remote.NetworkBoundResource
 import com.healvimaginer.watchfilm.data.source.remote.RemoteDataSource
+import com.healvimaginer.watchfilm.data.source.remote.network.ApiResponse
 import com.healvimaginer.watchfilm.data.source.remote.response.TvResponse
 import com.healvimaginer.watchfilm.domain.model.Tv
 import com.healvimaginer.watchfilm.domain.repository.ITvRepository
@@ -51,14 +52,12 @@ class TvRepository private constructor(private val remoteDataSource: RemoteDataS
                 for (it in data) {
                     val tv = TvEntity(
                         contentId=it.contentId,
-                        title=it.title,
                         name=it.name,
                         overview=it.overview,
                         popularity=it.popularity,
                         poster_path=it.poster_path,
                         backdrop_path=it.backdrop_path,
                         vote_average=it.vote_average,
-                        release_date=it.release_date,
                         first_air_date=it.first_air_date
                     )
                     tvList.add(tv)
@@ -88,14 +87,12 @@ class TvRepository private constructor(private val remoteDataSource: RemoteDataS
             override fun saveCallResult(data: TvResponse) {
                 val tv = TvEntity(
                     contentId=data.contentId,
-                    title=data.title,
                     name=data.name,
                     overview=data.overview,
                     popularity=data.popularity,
                     poster_path=data.poster_path,
                     backdrop_path=data.backdrop_path,
                     vote_average=data.vote_average,
-                    release_date=data.release_date,
                     first_air_date=data.first_air_date
                 )
                 localDataSourceTv.updateFilm(tv)

@@ -58,6 +58,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$livedata"
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$logging_interceptor_version"
     implementation "androidx.test.espresso:espresso-idling-resource:$idleResourceVersion"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$archLifecycleVersion"
     implementation "androidx.paging:paging-runtime-ktx:$pagingVersion"

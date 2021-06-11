@@ -2,67 +2,110 @@ package com.healvimaginer.watchfilm.data.source.remote
 
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.healvimaginer.watchfilm.data.source.remote.response.FilmResponse
-import com.healvimaginer.watchfilm.data.source.remote.response.TvResponse
-import com.healvimaginer.watchfilm.domain.utils.EspressoIdlingResource
-import com.healvimaginer.watchfilm.domain.utils.JsonHelper
-
-class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
-
-    private val handler = Handler(Looper.getMainLooper())
+import com.healvimaginer.watchfilm.data.source.remote.network.ApiResponse
+import com.healvimaginer.watchfilm.data.source.remote.network.ApiService
+import com.healvimaginer.watchfilm.data.source.remote.response.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+class RemoteDataSource private constructor(private val apiService: ApiService) {
 
     companion object {
-        private const val SERVICE_LATENCY_IN_MILLIS: Long = 2000
 
         @Volatile
         private var instance: RemoteDataSource? = null
 
-        fun getInstance(helper: JsonHelper): RemoteDataSource =
+        fun getInstance(apiService: ApiService): RemoteDataSource =
             instance ?: synchronized(this) {
-                RemoteDataSource(helper).apply { instance = this }
+                RemoteDataSource(apiService).apply { instance = this }
             }
     }
 
 
     fun getAllFilm() : LiveData<ApiResponse<List<FilmResponse>>> {
-        EspressoIdlingResource.increment()
         val resultFilm = MutableLiveData<ApiResponse<List<FilmResponse>>>()
-        handler.postDelayed({
-            resultFilm.value = ApiResponse.success(jsonHelper.loadAllFilm())
-            EspressoIdlingResource.decrement()
-                            }, SERVICE_LATENCY_IN_MILLIS)
+        val client = apiService.getMovies("e1af1d8f71da53bab4ce522010bd47b0")
+        client.enqueue(object : Callback<ListMovieResponse> {
+            override fun onResponse(
+                call: Call<ListMovieResponse>,
+                response: Response<ListMovieResponse>
+            ) {
+                val dataArray = response.body()?.results
+                resultFilm.value = if (dataArray != null) ApiResponse.Success(dataArray) else ApiResponse.Empty
+            }
+
+            override fun onFailure(call: Call<ListMovieResponse>, t: Throwable) {
+                resultFilm.value = ApiResponse.Error(t.message.toString())
+                Log.e("RemoteDataSource", t.message.toString())
+            }
+        })
+
         return resultFilm
     }
 
     fun getAllTv() : LiveData<ApiResponse<List<TvResponse>>> {
-        EspressoIdlingResource.increment()
         val resultTv = MutableLiveData<ApiResponse<List<TvResponse>>>()
-        handler.postDelayed({
-            resultTv.value = ApiResponse.success(jsonHelper.loadAllTv())
-            EspressoIdlingResource.decrement()
-        }, SERVICE_LATENCY_IN_MILLIS)
+        val client = apiService.getTvShows("e1af1d8f71da53bab4ce522010bd47b0")
+        client.enqueue(object : Callback<ListTvResponse> {
+            override fun onResponse(
+                call: Call<ListTvResponse>,
+                response: Response<ListTvResponse>
+            ) {
+                val dataArray = response.body()?.results
+                resultTv.value = if (dataArray != null) ApiResponse.Success(dataArray) else ApiResponse.Empty
+            }
+
+            override fun onFailure(call: Call<ListTvResponse>, t: Throwable) {
+                resultTv.value = ApiResponse.Error(t.message.toString())
+                Log.e("RemoteDataSource", t.message.toString())
+            }
+        })
+
         return resultTv
     }
 
     fun getFilm(filmId:String) : LiveData<ApiResponse<FilmResponse>> {
-        EspressoIdlingResource.increment()
         val resultFilm = MutableLiveData<ApiResponse<FilmResponse>>()
-        handler.postDelayed({
-            resultFilm.value = ApiResponse.success(jsonHelper.loadFilm(filmId))
-            EspressoIdlingResource.decrement()
-        }, SERVICE_LATENCY_IN_MILLIS)
+        val client = apiService.getSearchMovies("e1af1d8f71da53bab4ce522010bd47b0", filmId)
+        client.enqueue(object : Callback<DetailMovieResponse> {
+            override fun onResponse(
+                call: Call<DetailMovieResponse>,
+                response: Response<DetailMovieResponse>
+            ) {
+                val data = response.body()?.results
+                resultFilm.value = if (data != null) ApiResponse.Success(data) else ApiResponse.Empty
+            }
+
+            override fun onFailure(call: Call<DetailMovieResponse>, t: Throwable) {
+                resultFilm.value = ApiResponse.Error(t.message.toString())
+                Log.e("RemoteDataSource", t.message.toString())
+            }
+        })
+
         return resultFilm
     }
 
     fun getTv(tvId:String) : LiveData<ApiResponse<TvResponse>> {
-        EspressoIdlingResource.increment()
         val resultTv = MutableLiveData<ApiResponse<TvResponse>>()
-        handler.postDelayed({
-            resultTv.value = ApiResponse.success(jsonHelper.loadTv(tvId))
-            EspressoIdlingResource.decrement()
-        }, SERVICE_LATENCY_IN_MILLIS)
+        val client = apiService.getSearchTvShows("e1af1d8f71da53bab4ce522010bd47b0", tvId)
+        client.enqueue(object : Callback<DetailTvResponse> {
+            override fun onResponse(
+                call: Call<DetailTvResponse>,
+                response: Response<DetailTvResponse>
+            ) {
+                val data = response.body()?.results
+                resultTv.value = if (data != null) ApiResponse.Success(data) else ApiResponse.Empty
+            }
+
+            override fun onFailure(call: Call<DetailTvResponse>, t: Throwable) {
+                resultTv.value = ApiResponse.Error(t.message.toString())
+                Log.e("RemoteDataSource", t.message.toString())
+            }
+        })
+
         return resultTv
     }
 }

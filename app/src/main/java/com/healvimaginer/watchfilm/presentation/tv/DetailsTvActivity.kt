@@ -56,8 +56,8 @@ class DetailsTvActivity : AppCompatActivity() {
 
     private fun detailview(tvEntity: Tv) {
         with(binding) {
-            titleTv.text = tvEntity.title
-            rilisTv.text = tvEntity.release_date
+            titleTv.text = tvEntity.name
+            rilisTv.text = tvEntity.first_air_date
             kreatorTv.text = tvEntity.overview
             statusTv.text = tvEntity.name
             networkTv.text = tvEntity.popularity.toString()
@@ -66,7 +66,7 @@ class DetailsTvActivity : AppCompatActivity() {
 
         }
         Glide.with(this)
-            .load(tvEntity.poster_path)
+            .load("https://image.tmdb.org/t/p/w500/"+tvEntity.poster_path)
             .transform(RoundedCorners(20))
             .apply(RequestOptions.placeholderOf(R.drawable.ic_loading)
                 .error(R.drawable.ic_error))
@@ -90,14 +90,12 @@ class DetailsTvActivity : AppCompatActivity() {
             binding.addFavorite.setOnClickListener {
                 val favorite = Tv(
                     contentId=data.contentId,
-                    title=data.title,
                     name=data.name,
                     overview=data.overview,
                     popularity=data.popularity,
                     poster_path=data.poster_path,
                     backdrop_path=data.backdrop_path,
                     vote_average=data.vote_average,
-                    release_date=data.release_date,
                     first_air_date=data.first_air_date
                 )
                 viewmodel.delete(favorite)
@@ -107,14 +105,12 @@ class DetailsTvActivity : AppCompatActivity() {
             binding.addFavorite.setOnClickListener {
                 val favorite = Tv(
                     contentId=data.contentId,
-                    title=data.title,
                     name=data.name,
                     overview=data.overview,
                     popularity=data.popularity,
                     poster_path=data.poster_path,
                     backdrop_path=data.backdrop_path,
                     vote_average=data.vote_average,
-                    release_date=data.release_date,
                     first_air_date=data.first_air_date
                 )
                 viewmodel.insert(favorite)

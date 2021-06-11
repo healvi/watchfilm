@@ -13,28 +13,22 @@ object DataMapper {
     fun mapDomainToFavFilmEntity(it : Film) = FavoriteFilmEntity(
         contentId=it.contentId,
         title=it.title,
-        name=it.name,
         overview=it.overview,
         popularity=it.popularity,
         poster_path=it.poster_path,
         backdrop_path=it.backdrop_path,
         vote_average=it.vote_average,
         release_date=it.release_date,
-        first_air_date=it.first_air_date
     )
-
-
 
     fun mapDomainToFavTvEntity(it : Tv) = FavoriteTvEntity(
         contentId=it.contentId,
-        title=it.title,
         name=it.name,
         overview=it.overview,
         popularity=it.popularity,
         poster_path=it.poster_path,
         backdrop_path=it.backdrop_path,
         vote_average=it.vote_average,
-        release_date=it.release_date,
         first_air_date=it.first_air_date
     )
 
@@ -43,14 +37,12 @@ object DataMapper {
             Film(
                 contentId=it.contentId,
                 title=it.title,
-                name=it.name,
                 overview=it.overview,
                 popularity=it.popularity,
                 poster_path=it.poster_path,
                 backdrop_path=it.backdrop_path,
                 vote_average=it.vote_average,
                 release_date=it.release_date,
-                first_air_date=it.first_air_date
             )
         }
 
@@ -58,14 +50,12 @@ object DataMapper {
         input.map {
             Tv(
                 contentId=it.contentId,
-                title=it.title,
                 name=it.name,
                 overview=it.overview,
                 popularity=it.popularity,
                 poster_path=it.poster_path,
                 backdrop_path=it.backdrop_path,
                 vote_average=it.vote_average,
-                release_date=it.release_date,
                 first_air_date=it.first_air_date
             )
         }
@@ -75,82 +65,70 @@ object DataMapper {
             Film(
                 contentId=it.contentId,
                 title=it.title,
-                name=it.name,
                 overview=it.overview,
                 popularity=it.popularity,
                 poster_path=it.poster_path,
                 backdrop_path=it.backdrop_path,
                 vote_average=it.vote_average,
                 release_date=it.release_date,
-                first_air_date=it.first_air_date
             )
         }
 
     fun mapEntitiesToDomainFilmOne(it: FilmsEntity) = Film(
             contentId = it.contentId,
             title = it.title,
-            name = it.name,
             overview = it.overview,
             popularity = it.popularity,
             poster_path = it.poster_path,
             backdrop_path = it.backdrop_path,
             vote_average = it.vote_average,
             release_date = it.release_date,
-            first_air_date = it.first_air_date
         )
 
     fun mapDomainToEntityFilm(it: Film) = FilmsEntity(
         contentId= it.contentId,
         title=it.title,
-        name=it.name,
         overview=it.overview,
         popularity=it.popularity,
         poster_path=it.poster_path,
         backdrop_path=it.backdrop_path,
         vote_average=it.vote_average,
         release_date=it.release_date,
-        first_air_date=it.first_air_date
     )
 
     fun mapEntitiesToDomainTv(input: List<TvEntity>): List<Tv> =
         input.map {
             Tv(
                 contentId=it.contentId,
-                title=it.title,
                 name=it.name,
                 overview=it.overview,
                 popularity=it.popularity,
                 poster_path=it.poster_path,
                 backdrop_path=it.backdrop_path,
                 vote_average=it.vote_average,
-                release_date=it.release_date,
                 first_air_date=it.first_air_date
             )
         }
 
     fun mapEntitiesToDomainTvOne(it: TvEntity) = Tv(
         contentId = it.contentId,
-        title = it.title,
         name = it.name,
         overview = it.overview,
         popularity = it.popularity,
         poster_path = it.poster_path,
         backdrop_path = it.backdrop_path,
         vote_average = it.vote_average,
-        release_date = it.release_date,
         first_air_date = it.first_air_date
     )
 
     fun mapDomainToEntityTv(it: Tv) = TvEntity(
         contentId= it.contentId,
-        title=it.title,
         name=it.name,
         overview=it.overview,
         popularity=it.popularity,
         poster_path=it.poster_path,
         backdrop_path=it.backdrop_path,
         vote_average=it.vote_average,
-        release_date=it.release_date,
         first_air_date=it.first_air_date
     )
 }

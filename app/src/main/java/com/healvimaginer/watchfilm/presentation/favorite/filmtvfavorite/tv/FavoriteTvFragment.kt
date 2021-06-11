@@ -38,14 +38,12 @@ class FavoriteTvFragment : Fragment() {
                 tv.map { it ->
                     val tva = TvEntity(
                         contentId=it.contentId,
-                        title=it.title,
                         name=it.name,
                         overview=it.overview,
                         popularity=it.popularity,
                         poster_path=it.poster_path,
                         backdrop_path=it.backdrop_path,
                         vote_average=it.vote_average,
-                        release_date=it.release_date,
                         first_air_date=it.first_air_date
                     )
                     tvlist.add(tva)

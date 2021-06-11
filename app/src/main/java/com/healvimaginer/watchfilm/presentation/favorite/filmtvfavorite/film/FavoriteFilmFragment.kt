@@ -38,14 +38,12 @@ class FavoriteFilmFragment : Fragment() {
                     val filma = FilmsEntity(
                         contentId=data.contentId,
                         title=data.title,
-                        name=data.name,
                         overview=data.overview,
                         popularity=data.popularity,
                         poster_path=data.poster_path,
                         backdrop_path=data.backdrop_path,
                         vote_average=data.vote_average,
                         release_date=data.release_date,
-                        first_air_date=data.first_air_date
                     )
                     filmlist.add(filma)
                 }

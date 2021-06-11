@@ -11,8 +11,6 @@ data class TvEntity(
     @NonNull
     @ColumnInfo(name = "contentId")
     var contentId:String,
-    @ColumnInfo(name = "title")
-    var title: String?,
     @ColumnInfo(name = "name")
     val name: String?,
     @ColumnInfo(name = "overview")
@@ -25,8 +23,6 @@ data class TvEntity(
     var backdrop_path: String?,
     @ColumnInfo(name = "vote_average")
     var vote_average: Float?,
-    @ColumnInfo(name = "release_date")
-    var release_date: String?,
     @ColumnInfo(name = "first_air_date")
     val first_air_date: String?
 

@@ -10,6 +10,7 @@ import com.healvimaginer.watchfilm.data.source.local.room.database.FavoriteTvDat
 import com.healvimaginer.watchfilm.data.source.local.room.database.FilmDatabase
 import com.healvimaginer.watchfilm.data.source.local.room.database.TvDatabase
 import com.healvimaginer.watchfilm.data.source.remote.RemoteDataSource
+import com.healvimaginer.watchfilm.data.source.remote.network.ApiConfig
 import com.healvimaginer.watchfilm.domain.repository.IFilmRepository
 import com.healvimaginer.watchfilm.domain.repository.ITvRepository
 import com.healvimaginer.watchfilm.domain.usecase.FilmUseCase
@@ -17,15 +18,14 @@ import com.healvimaginer.watchfilm.domain.usecase.TvUseCase
 import com.healvimaginer.watchfilm.domain.usecase.interactor.FilmInteractor
 import com.healvimaginer.watchfilm.domain.usecase.interactor.TvInteractor
 import com.healvimaginer.watchfilm.domain.utils.AppExecutors
-import com.healvimaginer.watchfilm.domain.utils.JsonHelper
 
 object Injection {
-    fun provideRepository(context: Context): IFilmRepository {
+    private fun provideRepository(context: Context): IFilmRepository {
         val database = FilmDatabase.getInstance(context)
         val databaseFav = FavoriteFilmDatabase.getInstance(context)
         val localDataSourceFilm = LocalDataSourceFilm.getInstance(database.FilmDao(), databaseFav.favoriteFilmDao())
         val appExecutors = AppExecutors()
-        val remoteDataSource = RemoteDataSource.getInstance(JsonHelper(context))
+        val remoteDataSource = RemoteDataSource.getInstance(ApiConfig.getApiService())
 
         return FilmRepository.getInstance(remoteDataSource, localDataSourceFilm, appExecutors)
     }
@@ -35,12 +35,12 @@ object Injection {
         return FilmInteractor(repository)
     }
 
-    fun provideRepositoryTv(context: Context): ITvRepository {
+    private fun provideRepositoryTv(context: Context): ITvRepository {
         val database = TvDatabase.getInstance(context)
         val databaseFav = FavoriteTvDatabase.getInstance(context)
         val localDataSourceFilm = LocalDataSourceTv.getInstance(database.TvDao(), databaseFav.favoriteTvDao())
         val appExecutors = AppExecutors()
-        val remoteDataSource = RemoteDataSource.getInstance(JsonHelper(context))
+        val remoteDataSource = RemoteDataSource.getInstance(ApiConfig.getApiService())
 
         return TvRepository.getInstance(remoteDataSource,localDataSourceFilm,appExecutors)
     }

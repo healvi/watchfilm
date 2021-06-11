@@ -25,15 +25,15 @@ class TvAdapter: RecyclerView.Adapter<TvAdapter.ViewHolder>() {
     class ViewHolder(private val binding: ItemListTvBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(tvlist: Tv) {
             with(binding) {
-                tvItemTitle.text = tvlist.title
-                tvItemDate.text = tvlist.release_date
+                tvItemTitle.text = tvlist.name
+                tvItemDate.text = tvlist.first_air_date
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, DetailsTvActivity::class.java)
                     intent.putExtra(DetailsTvActivity.EXTRA_TV,tvlist.contentId)
                     itemView.context.startActivity(intent)
                 }
                 Glide.with(itemView.context)
-                    .load(tvlist.poster_path)
+                    .load("https://image.tmdb.org/t/p/w500/"+tvlist.poster_path)
                     .apply(RequestOptions.placeholderOf(R.drawable.ic_loading))
                     .error(R.drawable.ic_error)
                     .into(imgPoster)

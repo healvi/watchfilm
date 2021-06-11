@@ -2,6 +2,7 @@ package com.healvimaginer.watchfilm.data.source.remote
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
+import com.healvimaginer.watchfilm.data.source.remote.network.ApiResponse
 import com.healvimaginer.watchfilm.domain.utils.AppExecutors
 import com.healvimaginer.watchfilm.domain.utils.vo.Resource
 
@@ -47,25 +48,25 @@ abstract class NetworkBoundResource<ResultType, RequestType>(private val mExecut
         result.addSource(apiResponse) { response ->
             result.removeSource(apiResponse)
             result.removeSource(dbSource)
-            when (response.status) {
-                StatusResponse.SUCCESS ->
+            when (response) {
+                is ApiResponse.Success ->
                     mExecutors.diskIO().execute {
-                        saveCallResult(response.body)
+                        saveCallResult(response.data)
                         mExecutors.mainThread().execute {
                             result.addSource(loadFromDB()) { newData ->
                                 result.value = Resource.success(newData)
                             }
                         }
                     }
-                StatusResponse.EMPTY -> mExecutors.mainThread().execute {
+                is ApiResponse.Empty -> mExecutors.mainThread().execute {
                     result.addSource(loadFromDB()) { newData ->
                         result.value = Resource.success(newData)
                     }
                 }
-                StatusResponse.ERROR -> {
+                is ApiResponse.Error -> {
                     onFetchFailed()
                     result.addSource(dbSource) { newData ->
-                        result.value = Resource.error(response.message, newData)
+                        result.value = Resource.error(response.errorMessage, newData)
                     }
                 }
             }

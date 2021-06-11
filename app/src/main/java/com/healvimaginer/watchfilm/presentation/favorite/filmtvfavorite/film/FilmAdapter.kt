@@ -34,7 +34,7 @@ class FilmAdapter : RecyclerView.Adapter<FilmAdapter.ViewHolder>() {
                     itemView.context.startActivity(intent)
                 }
                 Glide.with(itemView.context)
-                    .load(filmlist.poster_path)
+                    .load("https://image.tmdb.org/t/p/w500/"+filmlist.poster_path)
                     .apply(RequestOptions.placeholderOf(R.drawable.ic_loading))
                     .error(R.drawable.ic_error)
                     .into(imgPoster)

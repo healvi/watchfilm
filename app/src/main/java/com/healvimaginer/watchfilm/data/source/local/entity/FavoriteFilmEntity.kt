@@ -16,8 +16,6 @@ data class FavoriteFilmEntity(
     var contentId:String,
     @ColumnInfo(name = "title")
     var title: String?,
-    @ColumnInfo(name = "name")
-    val name: String?,
     @ColumnInfo(name = "overview")
     var overview: String?,
     @ColumnInfo(name = "popularity")
@@ -30,6 +28,4 @@ data class FavoriteFilmEntity(
     var vote_average: Float?,
     @ColumnInfo(name = "release_date")
     var release_date: String?,
-    @ColumnInfo(name = "first_air_date")
-    val first_air_date: String?
 ) : Parcelable

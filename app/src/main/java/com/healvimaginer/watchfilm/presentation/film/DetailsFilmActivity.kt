@@ -56,14 +56,14 @@ class DetailsFilmActivity : AppCompatActivity() {
         with(binding) {
             titleFilm.text = filmEntity.title
             rilisFilm.text = filmEntity.release_date
-            directorFilm.text = filmEntity.overview
+            directorFilm.text = filmEntity.popularity.toString()
             anggaranFilm.text = filmEntity.popularity.toString()
             pendapatanFilm.text = filmEntity.vote_average.toString()
-            deskriptionFilm.text = filmEntity.first_air_date
+            deskriptionFilm.text = filmEntity.overview
 
         }
         Glide.with(this)
-            .load(filmEntity.poster_path)
+            .load("https://image.tmdb.org/t/p/w500/"+filmEntity.poster_path)
             .transform(RoundedCorners(20))
             .apply(RequestOptions.placeholderOf(R.drawable.ic_loading)
                 .error(R.drawable.ic_error))
@@ -88,14 +88,12 @@ class DetailsFilmActivity : AppCompatActivity() {
                 val favorite = Film(
                     contentId=it.contentId,
                     title=it.title,
-                    name=it.name,
                     overview=it.overview,
                     popularity=it.popularity,
                     poster_path=it.poster_path,
                     backdrop_path=it.backdrop_path,
                     vote_average=it.vote_average,
                     release_date=it.release_date,
-                    first_air_date=it.first_air_date
                 )
                 viewmodel.delete(favorite)
             }
@@ -105,14 +103,12 @@ class DetailsFilmActivity : AppCompatActivity() {
                 val favorite = Film(
                     contentId=it.contentId,
                     title=it.title,
-                    name=it.name,
                     overview=it.overview,
                     popularity=it.popularity,
                     poster_path=it.poster_path,
                     backdrop_path=it.backdrop_path,
                     vote_average=it.vote_average,
                     release_date=it.release_date,
-                    first_air_date=it.first_air_date
                 )
                 viewmodel.insert(favorite)
             }
