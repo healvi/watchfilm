@@ -1,6 +1,7 @@
 package com.healvimaginer.watchfilm.presentation.detail.tv
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -14,7 +15,6 @@ import com.healvimaginer.watchfilm.R
 import com.healvimaginer.watchfilm.core.data.vo.Resource
 import com.healvimaginer.watchfilm.core.domain.model.Tv
 import com.healvimaginer.watchfilm.databinding.ActivityDetailsTvBinding
-import com.healvimaginer.watchfilm.presentation.favorite.FavoriteActivity
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class DetailsTvActivity : AppCompatActivity() {
@@ -122,8 +122,8 @@ class DetailsTvActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_favorite -> {
-                val intent = Intent(this, FavoriteActivity::class.java)
-                startActivity(intent)
+                val uri = Uri.parse("watchfilm://favorite")
+                startActivity(Intent(Intent.ACTION_VIEW, uri))
                 true
             }
             else -> false

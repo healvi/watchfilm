@@ -1,13 +1,13 @@
 package com.healvimaginer.watchfilm.presentation.home
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import com.healvimaginer.watchfilm.R
 import com.healvimaginer.watchfilm.databinding.ActivityMainBinding
-import com.healvimaginer.watchfilm.presentation.favorite.FavoriteActivity
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -29,8 +29,8 @@ class HomeActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_favorite -> {
-                val intent = Intent(this, FavoriteActivity::class.java)
-                startActivity(intent)
+                val uri = Uri.parse("watchfilm://favorite")
+                startActivity(Intent(Intent.ACTION_VIEW, uri))
                 true
             }
             else -> false

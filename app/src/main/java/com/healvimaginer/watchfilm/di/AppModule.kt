@@ -7,8 +7,6 @@ import com.healvimaginer.watchfilm.core.domain.usecase.interactor.FilmInteractor
 import com.healvimaginer.watchfilm.core.domain.usecase.interactor.TvInteractor
 import com.healvimaginer.watchfilm.presentation.detail.film.DetailFilmViewModel
 import com.healvimaginer.watchfilm.presentation.detail.tv.DetailTvViewModel
-import com.healvimaginer.watchfilm.presentation.favorite.filmtvfavorite.film.FavFilmViewModel
-import com.healvimaginer.watchfilm.presentation.favorite.filmtvfavorite.tv.FavTvViewModel
 import com.healvimaginer.watchfilm.presentation.home.film.FilmViewModel
 import com.healvimaginer.watchfilm.presentation.home.tv.TvViewModel
 import org.koin.android.viewmodel.dsl.viewModel
@@ -20,7 +18,7 @@ val filmCaseModule = module {
 
 val filmModelModule = module {
     viewModel { FilmViewModel(get()) }
-    viewModel { FavFilmViewModel(get()) }
+//    viewModel { FavFilmViewModel(get()) }
     viewModel { DetailFilmViewModel(get()) }
 }
 
@@ -30,6 +28,6 @@ val tvCaseModule = module {
 
 val tvModelModule = module {
     viewModel { TvViewModel(get()) }
-    viewModel { FavTvViewModel(get()) }
+//    viewModel { FavTvViewModel(get()) }
     viewModel { DetailTvViewModel(get()) }
 }
