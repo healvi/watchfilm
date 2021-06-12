@@ -7,20 +7,20 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.healvimaginer.watchfilm.R
 import com.healvimaginer.watchfilm.data.vo.Resource
-import com.healvimaginer.watchfilm.domain.utils.viewModelFactory.ViewModelFactory
 import com.healvimaginer.watchfilm.databinding.ActivityDetailsFilmBinding
 import com.healvimaginer.watchfilm.domain.model.Film
 import com.healvimaginer.watchfilm.presentation.favorite.FavoriteActivity
+import org.koin.android.viewmodel.ext.android.viewModel
+
 
 class DetailsFilmActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailsFilmBinding
-    private lateinit var viewmodel: DetailFilmViewModel
+    private val viewmodel: DetailFilmViewModel by viewModel()
     companion object {
         const val  EXTRA_FILM = "extra_film"
     }
@@ -28,8 +28,6 @@ class DetailsFilmActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailsFilmBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val factory = ViewModelFactory.getInstance(this)
-        viewmodel = ViewModelProvider(this,factory)[DetailFilmViewModel::class.java]
 
         val extras = intent.extras
         if (extras != null) {

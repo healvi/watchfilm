@@ -11,20 +11,20 @@ import com.healvimaginer.watchfilm.data.source.local.room.dao.FilmDao
 abstract class FilmDatabase : RoomDatabase() {
     abstract fun FilmDao(): FilmDao
     companion object {
-        @Volatile
-        private var INSTANCE: FilmDatabase? = null
-
-        fun getInstance(context: Context): FilmDatabase =
-            INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    FilmDatabase::class.java,
-                    "Film.db"
-                )
-                    .fallbackToDestructiveMigration()
-                    .build()
-                INSTANCE = instance
-                instance
-            }
+//        @Volatile
+//        private var INSTANCE: FilmDatabase? = null
+//
+//        fun getInstance(context: Context): FilmDatabase =
+//            INSTANCE ?: synchronized(this) {
+//                val instance = Room.databaseBuilder(
+//                    context.applicationContext,
+//                    FilmDatabase::class.java,
+//                    "Film.db"
+//                )
+//                    .fallbackToDestructiveMigration()
+//                    .build()
+//                INSTANCE = instance
+//                instance
+//            }
     }
 }

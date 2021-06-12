@@ -73,15 +73,19 @@ dependencies {
     implementation "androidx.room:room-ktx:2.3.0"
 
     // Koin AndroidX Scope features
-    implementation "io.insert-koin:koin-androidx-scope:$koin_version"
-// Koin AndroidX ViewModel features
-    implementation "io.insert-koin:koin-androidx-viewmodel:$koin_version"
-// Koin AndroidX Fragment features
-    implementation "io.insert-koin:koin-androidx-fragment:$koin_version"
-// Koin AndroidX WorkManager
-    implementation "io.insert-koin:koin-androidx-workmanager:$koin_version"
-// Koin AndroidX Experimental features
-    implementation "io.insert-koin:koin-androidx-ext:$koin_version"
+//    implementation "io.insert-koin:koin-androidx-scope:$koin_version"
+//// Koin AndroidX ViewModel features
+//    implementation "io.insert-koin:koin-androidx-viewmodel:$koin_version"
+//// Koin AndroidX Fragment features
+//    implementation "io.insert-koin:koin-androidx-fragment:$koin_version"
+//// Koin AndroidX WorkManager
+//    implementation "io.insert-koin:koin-androidx-workmanager:$koin_version"
+//// Koin AndroidX Experimental features
+//    implementation "io.insert-koin:koin-androidx-ext:$koin_version"
+
+    implementation "io.insert-koin:koin-core:$koin_version"
+    implementation "io.insert-koin:koin-android:$koin_version"
+    implementation "io.insert-koin:koin-android-viewmodel:$koin_version"
 
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
     testImplementation "org.mockito:mockito-inline:$mockitoVersion"

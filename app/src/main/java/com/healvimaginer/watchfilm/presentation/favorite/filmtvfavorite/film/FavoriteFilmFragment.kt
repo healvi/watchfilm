@@ -5,15 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.healvimaginer.watchfilm.data.source.local.entity.FilmsEntity
 import com.healvimaginer.watchfilm.databinding.FragmentFavoriteFilmBinding
-import com.healvimaginer.watchfilm.domain.utils.viewModelFactory.ViewModelFactory
-
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class FavoriteFilmFragment : Fragment() {
     private lateinit var binding: FragmentFavoriteFilmBinding
+    private val viewModel: FavFilmViewModel by viewModel()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -24,8 +23,8 @@ class FavoriteFilmFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
-            val factory = ViewModelFactory.getInstance(requireContext())
-            val viewModel = ViewModelProvider(this,factory)[FavFilmViewModel::class.java]
+//            val factory = ViewModelFactory.getInstance(requireContext())
+//            val viewModel = ViewModelProvider(this,factory)[FavFilmViewModel::class.java]
 
             binding.progressBar.visibility = View.VISIBLE
             val filmadapter = FilmAdapter()

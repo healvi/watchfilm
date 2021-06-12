@@ -5,15 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.healvimaginer.watchfilm.data.source.local.entity.TvEntity
 import com.healvimaginer.watchfilm.databinding.FragmentFavoriteTvBinding
-import com.healvimaginer.watchfilm.domain.utils.viewModelFactory.ViewModelFactoryTv
-
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class FavoriteTvFragment : Fragment() {
-
+    private val viewModel : FavTvViewModel by viewModel()
     private lateinit var binding: FragmentFavoriteTvBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,8 +24,8 @@ class FavoriteTvFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
-            val factory = ViewModelFactoryTv.getInstance(requireContext())
-            val viewModel = ViewModelProvider(this,factory)[FavTvViewModel::class.java]
+//            val factory = ViewModelFactoryTv.getInstance(requireContext())
+//            val viewModel = ViewModelProvider(this,factory)[FavTvViewModel::class.java]
 
             binding.progressBar.visibility = View.VISIBLE
             val tvadapter = TvAdapter()

@@ -10,10 +10,10 @@ import kotlinx.coroutines.flow.Flow
 
 class LocalDataSourceTv(private val tvDao: TvDao, private val favoriteTvDao: FavoriteTvDao) {
     companion object {
-        private var INSTANCE: LocalDataSourceTv? = null
-
-        fun getInstance(tvDao: TvDao,favoriteTvDao: FavoriteTvDao): LocalDataSourceTv =
-            INSTANCE ?: LocalDataSourceTv(tvDao,favoriteTvDao)
+//        private var INSTANCE: LocalDataSourceTv? = null
+//
+//        fun getInstance(tvDao: TvDao,favoriteTvDao: FavoriteTvDao): LocalDataSourceTv =
+//            INSTANCE ?: LocalDataSourceTv(tvDao,favoriteTvDao)
     }
 
     fun getAllTv(): Flow<List<TvEntity>> = tvDao.getAllTv()

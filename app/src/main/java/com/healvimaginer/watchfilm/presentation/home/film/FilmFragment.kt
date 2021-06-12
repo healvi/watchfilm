@@ -5,15 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.healvimaginer.watchfilm.data.vo.Resource
-import com.healvimaginer.watchfilm.domain.utils.viewModelFactory.ViewModelFactory
 import com.healvimaginer.watchfilm.databinding.FragmentFilmBinding
-
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class FilmFragment : Fragment() {
     private lateinit var binding: FragmentFilmBinding
+    private val viewModel : FilmViewModel by viewModel()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -25,8 +24,6 @@ class FilmFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
-            val factory = ViewModelFactory.getInstance(requireContext())
-            val viewModel = ViewModelProvider(this,factory)[FilmViewModel::class.java]
             val filmadapter = FilmAdapter()
             viewModel.film.observe(viewLifecycleOwner, {film ->
                 if (film != null ) {

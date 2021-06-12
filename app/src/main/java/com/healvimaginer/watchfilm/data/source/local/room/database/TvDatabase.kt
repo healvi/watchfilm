@@ -11,20 +11,20 @@ import com.healvimaginer.watchfilm.data.source.local.room.dao.TvDao
 abstract class TvDatabase : RoomDatabase() {
     abstract fun TvDao(): TvDao
     companion object {
-        @Volatile
-        private var INSTANCE: TvDatabase? = null
-
-        fun getInstance(context: Context): TvDatabase =
-            INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    TvDatabase::class.java,
-                    "Tv.db"
-                )
-                    .fallbackToDestructiveMigration()
-                    .build()
-                INSTANCE = instance
-                instance
-            }
+//        @Volatile
+//        private var INSTANCE: TvDatabase? = null
+//
+//        fun getInstance(context: Context): TvDatabase =
+//            INSTANCE ?: synchronized(this) {
+//                val instance = Room.databaseBuilder(
+//                    context.applicationContext,
+//                    TvDatabase::class.java,
+//                    "Tv.db"
+//                )
+//                    .fallbackToDestructiveMigration()
+//                    .build()
+//                INSTANCE = instance
+//                instance
+//            }
     }
 }

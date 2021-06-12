@@ -5,15 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.healvimaginer.watchfilm.data.vo.Resource
 import com.healvimaginer.watchfilm.databinding.FragmentTvBinding
-import com.healvimaginer.watchfilm.domain.utils.viewModelFactory.ViewModelFactoryTv
-
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class TvFragment : Fragment() {
     private lateinit var binding:FragmentTvBinding
+    private val viewModel : TvViewModel by viewModel()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -25,8 +24,6 @@ class TvFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
-            val factory = ViewModelFactoryTv.getInstance(requireContext())
-            val viewModel = ViewModelProvider(this,factory)[TvViewModel::class.java]
 
             val tvadapter = TvAdapter()
 

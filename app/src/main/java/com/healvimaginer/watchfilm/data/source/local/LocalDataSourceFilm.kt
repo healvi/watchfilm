@@ -7,12 +7,12 @@ import com.healvimaginer.watchfilm.data.source.local.room.dao.FilmDao
 import kotlinx.coroutines.flow.Flow
 
 class LocalDataSourceFilm(private val filmDao: FilmDao, private val favoriteFilmDao: FavoriteFilmDao) {
-    companion object {
-        private var INSTANCE: LocalDataSourceFilm? = null
-
-        fun getInstance(filmDao: FilmDao,favoriteFilmDao: FavoriteFilmDao): LocalDataSourceFilm =
-            INSTANCE ?: LocalDataSourceFilm(filmDao, favoriteFilmDao)
-    }
+//    companion object {
+//        private var INSTANCE: LocalDataSourceFilm? = null
+//
+//        fun getInstance(filmDao: FilmDao,favoriteFilmDao: FavoriteFilmDao): LocalDataSourceFilm =
+//            INSTANCE ?: LocalDataSourceFilm(filmDao, favoriteFilmDao)
+//    }
 
     fun getAllFilm(): Flow<List<FilmsEntity>> = filmDao.getAllFilm()
     suspend fun insertFilm(film: List<FilmsEntity>) = filmDao.insertFilm(film)

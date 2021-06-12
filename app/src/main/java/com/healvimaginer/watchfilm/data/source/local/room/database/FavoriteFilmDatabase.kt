@@ -10,21 +10,21 @@ import com.healvimaginer.watchfilm.data.source.local.room.dao.FavoriteFilmDao
 @Database(entities = [FavoriteFilmEntity::class], version = 1, exportSchema = false)
 abstract class FavoriteFilmDatabase : RoomDatabase() {
     abstract fun favoriteFilmDao(): FavoriteFilmDao
-    companion object {
-        @Volatile
-        private var INSTANCE: FavoriteFilmDatabase? = null
-
-        fun getInstance(context: Context): FavoriteFilmDatabase =
-            INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    FavoriteFilmDatabase::class.java,
-                    "FavoriteFilm.db"
-                )
-                    .fallbackToDestructiveMigration()
-                    .build()
-                INSTANCE = instance
-                instance
-            }
-    }
+//    companion object {
+//        @Volatile
+//        private var INSTANCE: FavoriteFilmDatabase? = null
+//
+//        fun getInstance(context: Context): FavoriteFilmDatabase =
+//            INSTANCE ?: synchronized(this) {
+//                val instance = Room.databaseBuilder(
+//                    context.applicationContext,
+//                    FavoriteFilmDatabase::class.java,
+//                    "FavoriteFilm.db"
+//                )
+//                    .fallbackToDestructiveMigration()
+//                    .build()
+//                INSTANCE = instance
+//                instance
+//            }
+//    }
 }

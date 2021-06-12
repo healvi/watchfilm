@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
@@ -15,11 +14,11 @@ import com.healvimaginer.watchfilm.R
 import com.healvimaginer.watchfilm.data.vo.Resource
 import com.healvimaginer.watchfilm.databinding.ActivityDetailsTvBinding
 import com.healvimaginer.watchfilm.domain.model.Tv
-import com.healvimaginer.watchfilm.domain.utils.viewModelFactory.ViewModelFactoryTv
 import com.healvimaginer.watchfilm.presentation.favorite.FavoriteActivity
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class DetailsTvActivity : AppCompatActivity() {
-    private lateinit var viewmodel: DetailTvViewModel
+    private val viewmodel: DetailTvViewModel by viewModel()
     private lateinit var binding: ActivityDetailsTvBinding
     companion object {
         const val  EXTRA_TV = "extra_tv"
@@ -28,9 +27,6 @@ class DetailsTvActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailsTvBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val factory = ViewModelFactoryTv.getInstance(this)
-        viewmodel = ViewModelProvider(this,factory)[DetailTvViewModel::class.java]
 
         val extras = intent.extras
         if (extras != null) {

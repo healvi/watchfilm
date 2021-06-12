@@ -12,18 +12,6 @@ import java.lang.Exception
 
 class RemoteDataSource(private val apiService: ApiService) {
 
-    companion object {
-
-        @Volatile
-        private var instance: RemoteDataSource? = null
-
-        fun getInstance(apiService: ApiService): RemoteDataSource =
-            instance ?: synchronized(this) {
-                RemoteDataSource(apiService).apply { instance = this }
-            }
-    }
-
-
     suspend fun getAllFilm() : Flow<ApiResponse<List<FilmResponse>>> {
         return flow {
            try {
@@ -36,7 +24,7 @@ class RemoteDataSource(private val apiService: ApiService) {
                }
            } catch (e : Exception) {
                emit(ApiResponse.Error(e.toString()))
-               Log.e("RemoteDataSource", e.message.toString())
+               Log.e("Gagal", e.message.toString())
            }
         }.flowOn(Dispatchers.IO)
     }
@@ -53,7 +41,7 @@ class RemoteDataSource(private val apiService: ApiService) {
                 }
             } catch (e : Exception) {
                 emit(ApiResponse.Error(e.toString()))
-                Log.e("RemoteDataSource", e.message.toString())
+                Log.e("Gagal film", e.message.toString())
             }
         }.flowOn(Dispatchers.IO)
     }
