@@ -1,16 +1,17 @@
 package com.healvimaginer.watchfilm.core.data
 
-import com.healvimaginer.watchfilm.data.source.local.LocalDataSourceFilm
-import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteFilmEntity
-import com.healvimaginer.watchfilm.data.source.local.entity.FilmsEntity
-import com.healvimaginer.watchfilm.data.source.RemoteDataSource
-import com.healvimaginer.watchfilm.data.source.remote.network.ApiResponse
-import com.healvimaginer.watchfilm.data.source.remote.response.FilmResponse
-import com.healvimaginer.watchfilm.domain.model.Film
-import com.healvimaginer.watchfilm.domain.repository.IFilmRepository
-import com.healvimaginer.watchfilm.domain.utils.AppExecutors
-import com.healvimaginer.watchfilm.domain.utils.DataMapper
-import com.healvimaginer.watchfilm.data.vo.Resource
+import com.healvimaginer.watchfilm.core.data.source.RemoteDataSource
+import com.healvimaginer.watchfilm.core.data.source.local.LocalDataSourceFilm
+import com.healvimaginer.watchfilm.core.data.source.local.entity.FavoriteFilmEntity
+import com.healvimaginer.watchfilm.core.data.source.local.entity.FilmsEntity
+import com.healvimaginer.watchfilm.core.data.source.remote.network.ApiResponse
+import com.healvimaginer.watchfilm.core.data.source.remote.response.FilmResponse
+import com.healvimaginer.watchfilm.core.data.vo.Resource
+import com.healvimaginer.watchfilm.core.domain.model.Film
+import com.healvimaginer.watchfilm.core.domain.repository.IFilmRepository
+import com.healvimaginer.watchfilm.core.domain.utils.AppExecutors
+import com.healvimaginer.watchfilm.core.domain.utils.DataMapper
+
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.util.concurrent.ExecutorService

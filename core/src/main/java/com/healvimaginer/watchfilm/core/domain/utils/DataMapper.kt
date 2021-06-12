@@ -2,12 +2,12 @@ package com.healvimaginer.watchfilm.core.domain.utils
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
-import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteFilmEntity
-import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteTvEntity
-import com.healvimaginer.watchfilm.data.source.local.entity.FilmsEntity
-import com.healvimaginer.watchfilm.data.source.local.entity.TvEntity
-import com.healvimaginer.watchfilm.domain.model.Film
-import com.healvimaginer.watchfilm.domain.model.Tv
+import com.healvimaginer.watchfilm.core.data.source.local.entity.FavoriteFilmEntity
+import com.healvimaginer.watchfilm.core.data.source.local.entity.FavoriteTvEntity
+import com.healvimaginer.watchfilm.core.data.source.local.entity.FilmsEntity
+import com.healvimaginer.watchfilm.core.data.source.local.entity.TvEntity
+import com.healvimaginer.watchfilm.core.domain.model.Film
+import com.healvimaginer.watchfilm.core.domain.model.Tv
 
 object DataMapper {
     fun mapDomainToFavFilmEntity(it : Film) = FavoriteFilmEntity(

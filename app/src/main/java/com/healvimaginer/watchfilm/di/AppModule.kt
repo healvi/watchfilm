@@ -1,9 +1,10 @@
-package com.healvimaginer.watchfilm.core.domain.di
+package com.healvimaginer.watchfilm.di
 
-import com.healvimaginer.watchfilm.domain.usecase.FilmUseCase
-import com.healvimaginer.watchfilm.domain.usecase.TvUseCase
-import com.healvimaginer.watchfilm.domain.usecase.interactor.FilmInteractor
-import com.healvimaginer.watchfilm.domain.usecase.interactor.TvInteractor
+
+import com.healvimaginer.watchfilm.core.domain.usecase.FilmUseCase
+import com.healvimaginer.watchfilm.core.domain.usecase.TvUseCase
+import com.healvimaginer.watchfilm.core.domain.usecase.interactor.FilmInteractor
+import com.healvimaginer.watchfilm.core.domain.usecase.interactor.TvInteractor
 import com.healvimaginer.watchfilm.presentation.detail.film.DetailFilmViewModel
 import com.healvimaginer.watchfilm.presentation.detail.tv.DetailTvViewModel
 import com.healvimaginer.watchfilm.presentation.favorite.filmtvfavorite.film.FavFilmViewModel

@@ -1,9 +1,9 @@
 package com.healvimaginer.watchfilm.core.data
 
 
-import com.healvimaginer.watchfilm.data.source.remote.network.ApiResponse
-import com.healvimaginer.watchfilm.domain.utils.AppExecutors
-import com.healvimaginer.watchfilm.data.vo.Resource
+import com.healvimaginer.watchfilm.core.data.source.remote.network.ApiResponse
+import com.healvimaginer.watchfilm.core.data.vo.Resource
+import com.healvimaginer.watchfilm.core.domain.utils.AppExecutors
 import kotlinx.coroutines.flow.*
 
 abstract class NetworkBoundResource<ResultType, RequestType>(private val mExecutors: AppExecutors) {

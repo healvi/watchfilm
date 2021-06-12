@@ -1,9 +1,9 @@
 package com.healvimaginer.watchfilm.core.data.source.remote.network
 
-import com.healvimaginer.watchfilm.data.source.remote.response.DetailMovieResponse
-import com.healvimaginer.watchfilm.data.source.remote.response.DetailTvResponse
-import com.healvimaginer.watchfilm.data.source.remote.response.ListMovieResponse
-import com.healvimaginer.watchfilm.data.source.remote.response.ListTvResponse
+import com.healvimaginer.watchfilm.core.data.source.remote.response.DetailMovieResponse
+import com.healvimaginer.watchfilm.core.data.source.remote.response.DetailTvResponse
+import com.healvimaginer.watchfilm.core.data.source.remote.response.ListMovieResponse
+import com.healvimaginer.watchfilm.core.data.source.remote.response.ListTvResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

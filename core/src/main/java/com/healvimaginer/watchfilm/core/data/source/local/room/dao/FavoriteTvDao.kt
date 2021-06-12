@@ -1,9 +1,7 @@
 package com.healvimaginer.watchfilm.core.data.source.local.room.dao
 
-import androidx.lifecycle.LiveData
-import androidx.paging.DataSource
 import androidx.room.*
-import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteTvEntity
+import com.healvimaginer.watchfilm.core.data.source.local.entity.FavoriteTvEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

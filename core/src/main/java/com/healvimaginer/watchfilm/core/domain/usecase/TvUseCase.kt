@@ -1,8 +1,8 @@
 package com.healvimaginer.watchfilm.core.domain.usecase
 
-import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteTvEntity
-import com.healvimaginer.watchfilm.domain.model.Tv
-import com.healvimaginer.watchfilm.data.vo.Resource
+import com.healvimaginer.watchfilm.core.data.source.local.entity.FavoriteTvEntity
+import com.healvimaginer.watchfilm.core.data.vo.Resource
+import com.healvimaginer.watchfilm.core.domain.model.Tv
 import kotlinx.coroutines.flow.Flow
 
 interface TvUseCase {

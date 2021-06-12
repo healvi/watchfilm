@@ -1,8 +1,8 @@
 package com.healvimaginer.watchfilm.core.domain.repository
 
-import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteFilmEntity
-import com.healvimaginer.watchfilm.domain.model.Film
-import com.healvimaginer.watchfilm.data.vo.Resource
+import com.healvimaginer.watchfilm.core.data.source.local.entity.FavoriteFilmEntity
+import com.healvimaginer.watchfilm.core.data.vo.Resource
+import com.healvimaginer.watchfilm.core.domain.model.Film
 import kotlinx.coroutines.flow.Flow
 
 interface IFilmRepository {

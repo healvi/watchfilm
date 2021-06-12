@@ -1,9 +1,10 @@
 package com.healvimaginer.watchfilm.core.data.source
 
 import android.util.Log
-import com.healvimaginer.watchfilm.data.source.remote.network.ApiResponse
-import com.healvimaginer.watchfilm.data.source.remote.network.ApiService
-import com.healvimaginer.watchfilm.data.source.remote.response.*
+import com.healvimaginer.watchfilm.core.data.source.remote.network.ApiResponse
+import com.healvimaginer.watchfilm.core.data.source.remote.network.ApiService
+import com.healvimaginer.watchfilm.core.data.source.remote.response.FilmResponse
+import com.healvimaginer.watchfilm.core.data.source.remote.response.TvResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

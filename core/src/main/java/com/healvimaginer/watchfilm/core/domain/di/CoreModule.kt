@@ -2,18 +2,18 @@ package com.healvimaginer.watchfilm.core.domain.di
 
 import androidx.room.Room
 import com.healvimaginer.watchfilm.core.data.FilmRepository
-import com.healvimaginer.watchfilm.data.TvRepository
-import com.healvimaginer.watchfilm.data.source.RemoteDataSource
-import com.healvimaginer.watchfilm.data.source.local.LocalDataSourceFilm
-import com.healvimaginer.watchfilm.data.source.local.LocalDataSourceTv
-import com.healvimaginer.watchfilm.data.source.local.room.database.FavoriteFilmDatabase
-import com.healvimaginer.watchfilm.data.source.local.room.database.FavoriteTvDatabase
-import com.healvimaginer.watchfilm.data.source.local.room.database.FilmDatabase
-import com.healvimaginer.watchfilm.data.source.local.room.database.TvDatabase
-import com.healvimaginer.watchfilm.data.source.remote.network.ApiService
-import com.healvimaginer.watchfilm.domain.repository.IFilmRepository
-import com.healvimaginer.watchfilm.domain.repository.ITvRepository
-import com.healvimaginer.watchfilm.domain.utils.AppExecutors
+import com.healvimaginer.watchfilm.core.data.TvRepository
+import com.healvimaginer.watchfilm.core.data.source.RemoteDataSource
+import com.healvimaginer.watchfilm.core.data.source.local.LocalDataSourceFilm
+import com.healvimaginer.watchfilm.core.data.source.local.LocalDataSourceTv
+import com.healvimaginer.watchfilm.core.data.source.local.room.database.FavoriteFilmDatabase
+import com.healvimaginer.watchfilm.core.data.source.local.room.database.FavoriteTvDatabase
+import com.healvimaginer.watchfilm.core.data.source.local.room.database.FilmDatabase
+import com.healvimaginer.watchfilm.core.data.source.local.room.database.TvDatabase
+import com.healvimaginer.watchfilm.core.data.source.remote.network.ApiService
+import com.healvimaginer.watchfilm.core.domain.repository.IFilmRepository
+import com.healvimaginer.watchfilm.core.domain.repository.ITvRepository
+import com.healvimaginer.watchfilm.core.domain.utils.AppExecutors
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -89,13 +89,7 @@ val repositoryModuleFilm = module(override = true) {
     single { RemoteDataSource(get()) }
     single { LocalDataSourceFilm(get(),get()) }
     factory { AppExecutors() }
-    single<IFilmRepository> {
-        com.healvimaginer.watchfilm.core.data.FilmRepository(
-            get(),
-            get(),
-            get()
-        )
-    }
+    single<IFilmRepository> { FilmRepository(get(), get(), get()) }
 }
 
 

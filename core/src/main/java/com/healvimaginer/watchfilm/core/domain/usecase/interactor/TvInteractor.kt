@@ -1,8 +1,9 @@
 package com.healvimaginer.watchfilm.core.domain.usecase.interactor
 
-import com.healvimaginer.watchfilm.domain.model.Tv
-import com.healvimaginer.watchfilm.domain.repository.ITvRepository
-import com.healvimaginer.watchfilm.domain.usecase.TvUseCase
+import com.healvimaginer.watchfilm.core.domain.model.Tv
+import com.healvimaginer.watchfilm.core.domain.repository.ITvRepository
+import com.healvimaginer.watchfilm.core.domain.usecase.TvUseCase
+
 
 class TvInteractor(private val tvRepository: ITvRepository) : TvUseCase {
     override fun getAllTv() = tvRepository.getAllTv()

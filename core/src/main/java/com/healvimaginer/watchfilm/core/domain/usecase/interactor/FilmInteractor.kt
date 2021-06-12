@@ -1,8 +1,9 @@
 package com.healvimaginer.watchfilm.core.domain.usecase.interactor
 
-import com.healvimaginer.watchfilm.domain.model.Film
-import com.healvimaginer.watchfilm.domain.repository.IFilmRepository
-import com.healvimaginer.watchfilm.domain.usecase.FilmUseCase
+import com.healvimaginer.watchfilm.core.domain.model.Film
+import com.healvimaginer.watchfilm.core.domain.repository.IFilmRepository
+import com.healvimaginer.watchfilm.core.domain.usecase.FilmUseCase
+
 
 class FilmInteractor(private val filmRepository: IFilmRepository) : FilmUseCase {
     override fun getAllFilm() = filmRepository.getAllFilm()

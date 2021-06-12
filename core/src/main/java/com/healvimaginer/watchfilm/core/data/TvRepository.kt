@@ -1,22 +1,23 @@
 package com.healvimaginer.watchfilm.core.data
 
-import com.healvimaginer.watchfilm.data.source.local.LocalDataSourceTv
-import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteTvEntity
-import com.healvimaginer.watchfilm.data.source.local.entity.TvEntity
-import com.healvimaginer.watchfilm.data.source.RemoteDataSource
-import com.healvimaginer.watchfilm.data.source.remote.network.ApiResponse
-import com.healvimaginer.watchfilm.data.source.remote.response.TvResponse
-import com.healvimaginer.watchfilm.domain.model.Tv
-import com.healvimaginer.watchfilm.domain.repository.ITvRepository
-import com.healvimaginer.watchfilm.domain.utils.AppExecutors
-import com.healvimaginer.watchfilm.domain.utils.DataMapper
-import com.healvimaginer.watchfilm.data.vo.Resource
+import com.healvimaginer.watchfilm.core.data.source.RemoteDataSource
+import com.healvimaginer.watchfilm.core.data.source.local.LocalDataSourceTv
+import com.healvimaginer.watchfilm.core.data.source.local.entity.FavoriteTvEntity
+import com.healvimaginer.watchfilm.core.data.source.local.entity.TvEntity
+import com.healvimaginer.watchfilm.core.data.source.remote.network.ApiResponse
+import com.healvimaginer.watchfilm.core.data.source.remote.response.TvResponse
+import com.healvimaginer.watchfilm.core.data.vo.Resource
+import com.healvimaginer.watchfilm.core.domain.model.Tv
+import com.healvimaginer.watchfilm.core.domain.repository.ITvRepository
+import com.healvimaginer.watchfilm.core.domain.utils.AppExecutors
+import com.healvimaginer.watchfilm.core.domain.utils.DataMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-class TvRepository(private val remoteDataSource: RemoteDataSource, private val localDataSourceTv: LocalDataSourceTv, private val appExecutors: AppExecutors) : ITvRepository{
+class TvRepository(private val remoteDataSource: RemoteDataSource, private val localDataSourceTv: LocalDataSourceTv, private val appExecutors: AppExecutors) :
+    ITvRepository {
     private val exe: ExecutorService = Executors.newSingleThreadExecutor()
     companion object {
         @Volatile

@@ -1,7 +1,7 @@
 package com.healvimaginer.watchfilm.core.data.source.local.room.dao
 
 import androidx.room.*
-import com.healvimaginer.watchfilm.data.source.local.entity.FilmsEntity
+import com.healvimaginer.watchfilm.core.data.source.local.entity.FilmsEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
