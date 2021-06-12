@@ -3,11 +3,10 @@ package com.healvimaginer.watchfilm.presentation.detail.tv
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import com.healvimaginer.watchfilm.data.source.local.entity.FavoriteTvEntity
-import com.healvimaginer.watchfilm.domain.model.Tv
-import com.healvimaginer.watchfilm.domain.usecase.TvUseCase
-import com.healvimaginer.watchfilm.data.vo.Resource
-
+import com.healvimaginer.watchfilm.core.data.source.local.entity.FavoriteTvEntity
+import com.healvimaginer.watchfilm.core.data.vo.Resource
+import com.healvimaginer.watchfilm.core.domain.model.Tv
+import com.healvimaginer.watchfilm.core.domain.usecase.TvUseCase
 class DetailTvViewModel(private val tvUseCase: TvUseCase) :ViewModel() {
     private lateinit var contentId : String
 
