@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.healvimaginer.watchfilm.R
-import com.healvimaginer.watchfilm.databinding.ItemListTvBinding
-import com.healvimaginer.watchfilm.domain.model.Tv
+import com.healvimaginer.watchfilm.core.databinding.ItemListTvBinding
+import com.healvimaginer.watchfilm.core.domain.model.Tv
 import com.healvimaginer.watchfilm.presentation.detail.tv.DetailsTvActivity
 
 class TvAdapter: RecyclerView.Adapter<TvAdapter.ViewHolder>() {

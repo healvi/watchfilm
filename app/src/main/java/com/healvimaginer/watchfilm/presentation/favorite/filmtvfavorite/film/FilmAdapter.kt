@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.healvimaginer.watchfilm.R
-import com.healvimaginer.watchfilm.databinding.ItemListFilmBinding
-import com.healvimaginer.watchfilm.domain.model.Film
+import com.healvimaginer.watchfilm.core.databinding.ItemListFilmBinding
+import com.healvimaginer.watchfilm.core.domain.model.Film
 import com.healvimaginer.watchfilm.presentation.detail.film.DetailsFilmActivity
 
 

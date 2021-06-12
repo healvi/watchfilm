@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".presentation.home.HomeActivity">
+    tools:context=".presentation.favorite.FavoriteActivity">
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/view_pager"
+        android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
@@ -16,7 +16,7 @@
         app:tabIndicatorColor="@android:color/white"/>
 
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/tabs"
+        android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>
