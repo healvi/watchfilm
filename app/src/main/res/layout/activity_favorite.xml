@@ -8,6 +8,7 @@ android:orientation="vertical"
 tools:context=".presentation.favorite.FavoriteActivity">
 
 <com.google.android.material.tabs.TabLayout
+    android:id="@+id/view_pager_favorite"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/colorPrimary"
@@ -15,6 +16,7 @@ tools:context=".presentation.favorite.FavoriteActivity">
     app:tabIndicatorColor="@android:color/white"/>
 
 <androidx.viewpager.widget.ViewPager
+    android:id="@+id/tabs_favorite"
     android:layout_width="match_parent"
     android:layout_height="match_parent" />
 </LinearLayout>

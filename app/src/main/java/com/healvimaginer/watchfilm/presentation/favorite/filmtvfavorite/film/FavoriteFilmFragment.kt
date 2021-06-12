@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.healvimaginer.watchfilm.core.data.source.local.entity.FilmsEntity
 import com.healvimaginer.watchfilm.databinding.FragmentFavoriteFilmBinding
 import org.koin.android.viewmodel.ext.android.viewModel

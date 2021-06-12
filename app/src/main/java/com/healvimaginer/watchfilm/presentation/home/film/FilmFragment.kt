@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.healvimaginer.watchfilm.data.vo.Resource
+import com.healvimaginer.watchfilm.core.data.vo.Resource
 import com.healvimaginer.watchfilm.databinding.FragmentFilmBinding
 import org.koin.android.viewmodel.ext.android.viewModel
 
