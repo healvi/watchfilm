@@ -1,18 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="filmsection">Film</string>
-    <string name="tvsection">Tv Shows</string>
-    <string name="avatars">avatars</string>
-    <string name="judul">Judul</string>
-    <string name="rilis">Rilis</string>
-    <string name="anggaran">Anggaran</string>
-    <string name="pendapatan">Pendapatan</string>
-    <string name="deskripsi">Deskripsi</string>
-    <string name="director">Director</string>
-    <string name="status">Status</string>
-    <string name="network">Network</string>
-    <string name="kreator">Kreator</string>
-    <string name="film_app">Film APP</string>
-    <string name="favorite">Favorite</string>
-    <string name="title_favorites">Favorite</string>
-</resources>
+<resources></resources>

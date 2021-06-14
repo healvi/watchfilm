@@ -14,6 +14,9 @@ import com.healvimaginer.watchfilm.core.data.source.remote.network.ApiService
 import com.healvimaginer.watchfilm.core.domain.repository.IFilmRepository
 import com.healvimaginer.watchfilm.core.domain.repository.ITvRepository
 import com.healvimaginer.watchfilm.core.domain.utils.AppExecutors
+import net.sqlcipher.database.SQLiteDatabase
+import net.sqlcipher.database.SupportFactory
+import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -25,10 +28,17 @@ import java.util.concurrent.TimeUnit
 
 val networkModule = module{
     single {
+        val hostname = "api.themoviedb.org"
+        val certificatePinner = CertificatePinner.Builder()
+            .add(hostname, "sha256/+vqZVAzTqUP8BGkfl88yU7SQ3C8J2uNEa55B7RZjEg0=")
+            .add(hostname, "sha256/JSMzqOOrtyOT1kmau6zKhgT676hGgczD5VMdRMyJZFA=")
+            .add(hostname, "sha256/iie1VXtL7HzAMF+/PVPR9xzT80kQxdZeJ+zduCB3uj0=")
+            .build()
         OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)
+            .certificatePinner(certificatePinner)
             .build()
     }
     single {
@@ -43,19 +53,29 @@ val networkModule = module{
 val databaseModuleTv = module {
     factory { get<TvDatabase>().TvDao() }
     single {
+        val passphrase : ByteArray = SQLiteDatabase.getBytes("healvi".toCharArray())
+        val factory = SupportFactory(passphrase)
         Room.databaseBuilder(
             androidContext(),
             TvDatabase::class.java, "Tv.db"
-        ).fallbackToDestructiveMigration().build()
+        ).fallbackToDestructiveMigration()
+            .openHelperFactory(factory)
+            .build()
     }
 }
+
 val databaseModuleFavTv = module {
     factory { get<FavoriteTvDatabase>().favoriteTvDao() }
     single {
+        val passphrase : ByteArray = SQLiteDatabase.getBytes("healvi".toCharArray())
+        val factory = SupportFactory(passphrase)
         Room.databaseBuilder(
             androidContext(),
             FavoriteTvDatabase::class.java, "FavoriteTv.db"
-        ).fallbackToDestructiveMigration().build()
+        ).fallbackToDestructiveMigration()
+            .openHelperFactory(factory)
+            .build()
+
     }
 }
 
@@ -68,20 +88,28 @@ val repositoryModuleTv = module{
 val databaseModuleFilm = module {
     factory { get<FilmDatabase>().FilmDao() }
     single {
+        val passphrase : ByteArray = SQLiteDatabase.getBytes("healvi".toCharArray())
+        val factory = SupportFactory(passphrase)
         Room.databaseBuilder(
             androidContext(),
             FilmDatabase::class.java, "Film.db"
-        ).fallbackToDestructiveMigration().build()
+        ).fallbackToDestructiveMigration()
+            .openHelperFactory(factory)
+            .build()
     }
 }
 
 val databaseModuleFavFilm = module {
     factory { get<FavoriteFilmDatabase>().favoriteFilmDao() }
     single {
+        val passphrase : ByteArray = SQLiteDatabase.getBytes("healvi".toCharArray())
+        val factory = SupportFactory(passphrase)
         Room.databaseBuilder(
             androidContext(),
             FavoriteFilmDatabase::class.java, "FavoriteFilm.db"
-        ).fallbackToDestructiveMigration().build()
+        ).fallbackToDestructiveMigration()
+            .openHelperFactory(factory)
+            .build()
     }
 }
 
